@@ -1,0 +1,27 @@
+{
+  "suite_kind": "upchieve_modernbert_seed_suite",
+  "suite_component": "seed_run",
+  "suite_root": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_002704_upchieve-modernbert-v2-seed-suite",
+  "run_root": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning",
+  "seed": 101,
+  "model": "answerdotai/ModernBERT-base",
+  "train_file": "/Users/chason/agi/projects/contextshift-deid/data/processed/action/train_mixed_upchieve_english_social_v2.jsonl",
+  "dev_file": "/Users/chason/agi/projects/contextshift-deid/data/processed/action/upchieve_english_social_dev.jsonl",
+  "test_file": "/Users/chason/agi/projects/contextshift-deid/data/processed/action/upchieve_english_social_test.jsonl",
+  "legacy_math_file": "/Users/chason/agi/projects/contextshift-deid/data/processed/action/test.jsonl",
+  "epochs": 3.0,
+  "learning_rate": 2e-05,
+  "batch_size": 4,
+  "max_length": 384,
+  "selection_metric": "redact_recall",
+  "warmup_ratio": 0.0,
+  "weight_decay": 0.0,
+  "target_review_rates": [
+    0.05,
+    0.1
+  ],
+  "fit_temperature": true,
+  "recompute_deferral_only": false,
+  "source_seed_run_root": null,
+  "training_dir": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_004745_upchieve-modernbert-v2-seed-suite-seed-101/training/model"
+}

@@ -1,0 +1,623 @@
+{
+  "suite_kind": "upchieve_modernbert_seed_suite",
+  "run_name": "upchieve-modernbert-v2-seed-suite",
+  "suite_root": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_002704_upchieve-modernbert-v2-seed-suite",
+  "run_root": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning",
+  "seed_run_paths": [
+    "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_002704_upchieve-modernbert-v2-seed-suite-seed-13",
+    "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_003740_upchieve-modernbert-v2-seed-suite-seed-42",
+    "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_004745_upchieve-modernbert-v2-seed-suite-seed-101"
+  ],
+  "model": "answerdotai/ModernBERT-base",
+  "model_display_name": "ModernBERT-base",
+  "train_file": "/Users/chason/agi/projects/contextshift-deid/data/processed/action/train_mixed_upchieve_english_social_v2.jsonl",
+  "dev_file": "/Users/chason/agi/projects/contextshift-deid/data/processed/action/upchieve_english_social_dev.jsonl",
+  "test_file": "/Users/chason/agi/projects/contextshift-deid/data/processed/action/upchieve_english_social_test.jsonl",
+  "legacy_math_file": "/Users/chason/agi/projects/contextshift-deid/data/processed/action/test.jsonl",
+  "seeds": [
+    13,
+    42,
+    101
+  ],
+  "selection_metric": "redact_recall",
+  "warmup_ratio": 0.0,
+  "weight_decay": 0.0,
+  "target_review_rates": [
+    0.05,
+    0.1
+  ],
+  "fit_temperature": true,
+  "recompute_deferral_only": false,
+  "source_suite_root": null,
+  "historical_anchor": {
+    "label": "ModernBERT-base v2 (historical, uncontrolled seed)",
+    "path": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/20260314_224940_upchieve-english-social-mixed-modernbert-v2-b4-l384/summary.json",
+    "note": "The historical ModernBERT v2 result came from a single earlier run before this seeded suite existed. It is kept as reference context only, because the original training path did not control all randomness before model initialization.",
+    "macro_f1": 0.5871775025799794,
+    "review_rate": 0.115
+  },
+  "seed_42_anchor_gap": 0.028639642807147703,
+  "base_rows": [
+    {
+      "seed": 13,
+      "variant": "no_rules",
+      "macro_f1": 0.4413503719244707,
+      "accuracy": 0.785,
+      "redact_recall": 0.5882352941176471
+    },
+    {
+      "seed": 13,
+      "variant": "direct_id",
+      "macro_f1": 0.45291666666666663,
+      "accuracy": 0.79,
+      "redact_recall": 0.6470588235294118
+    },
+    {
+      "seed": 42,
+      "variant": "no_rules",
+      "macro_f1": 0.4920894708128751,
+      "accuracy": 0.815,
+      "redact_recall": 0.7647058823529411
+    },
+    {
+      "seed": 42,
+      "variant": "direct_id",
+      "macro_f1": 0.4920894708128751,
+      "accuracy": 0.815,
+      "redact_recall": 0.7647058823529411
+    },
+    {
+      "seed": 101,
+      "variant": "no_rules",
+      "macro_f1": 0.5796378418329639,
+      "accuracy": 0.825,
+      "redact_recall": 0.4117647058823529
+    },
+    {
+      "seed": 101,
+      "variant": "direct_id",
+      "macro_f1": 0.6340140080891782,
+      "accuracy": 0.84,
+      "redact_recall": 0.5882352941176471
+    }
+  ],
+  "seed_rows": [
+    {
+      "seed": 13,
+      "variant": "no_rules",
+      "target_review_rate": 0.05,
+      "strategy": "review_probability",
+      "parameters": {
+        "min_review_probability": 0.31188481644711863
+      },
+      "temperature": 2.3457879026404234,
+      "dev_review_rate": 0.05,
+      "test_review_rate": 0.045,
+      "macro_f1": 0.4913706158989178,
+      "accuracy": 0.785,
+      "redact_recall": 0.5294117647058824,
+      "curricular_accuracy": 0.9354838709677419,
+      "gold_review_coverage": 0.10714285714285714,
+      "protected_redact_rate": 0.6470588235294118,
+      "redact_leak_rate": 0.3529411764705882,
+      "legacy_math_redact_recall": 1.0,
+      "seed_summary_path": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_002704_upchieve-modernbert-v2-seed-suite-seed-13/training/model"
+    },
+    {
+      "seed": 13,
+      "variant": "no_rules",
+      "target_review_rate": 0.1,
+      "strategy": "entropy",
+      "parameters": {
+        "min_entropy": 1.0122923149741567
+      },
+      "temperature": 2.3457879026404234,
+      "dev_review_rate": 0.1,
+      "test_review_rate": 0.11,
+      "macro_f1": 0.5632901860554593,
+      "accuracy": 0.8,
+      "redact_recall": 0.47058823529411764,
+      "curricular_accuracy": 0.9225806451612903,
+      "gold_review_coverage": 0.32142857142857145,
+      "protected_redact_rate": 0.7058823529411765,
+      "redact_leak_rate": 0.2941176470588235,
+      "legacy_math_redact_recall": 1.0,
+      "seed_summary_path": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_002704_upchieve-modernbert-v2-seed-suite-seed-13/training/model"
+    },
+    {
+      "seed": 13,
+      "variant": "direct_id",
+      "target_review_rate": 0.05,
+      "strategy": "review_probability",
+      "parameters": {
+        "min_review_probability": 0.31188481644711863
+      },
+      "temperature": 2.3457879026404234,
+      "dev_review_rate": 0.05,
+      "test_review_rate": 0.045,
+      "macro_f1": 0.5039237564268424,
+      "accuracy": 0.79,
+      "redact_recall": 0.5882352941176471,
+      "curricular_accuracy": 0.9354838709677419,
+      "gold_review_coverage": 0.10714285714285714,
+      "protected_redact_rate": 0.7058823529411765,
+      "redact_leak_rate": 0.2941176470588235,
+      "legacy_math_redact_recall": 1.0,
+      "seed_summary_path": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_002704_upchieve-modernbert-v2-seed-suite-seed-13/training/model"
+    },
+    {
+      "seed": 13,
+      "variant": "direct_id",
+      "target_review_rate": 0.1,
+      "strategy": "entropy",
+      "parameters": {
+        "min_entropy": 1.0122923149741567
+      },
+      "temperature": 2.3457879026404234,
+      "dev_review_rate": 0.1,
+      "test_review_rate": 0.095,
+      "macro_f1": 0.6088007983745823,
+      "accuracy": 0.815,
+      "redact_recall": 0.6470588235294118,
+      "curricular_accuracy": 0.9225806451612903,
+      "gold_review_coverage": 0.32142857142857145,
+      "protected_redact_rate": 0.7058823529411765,
+      "redact_leak_rate": 0.2941176470588235,
+      "legacy_math_redact_recall": 1.0,
+      "seed_summary_path": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_002704_upchieve-modernbert-v2-seed-suite-seed-13/training/model"
+    },
+    {
+      "seed": 42,
+      "variant": "no_rules",
+      "target_review_rate": 0.05,
+      "strategy": "review_probability",
+      "parameters": {
+        "min_review_probability": 0.26942987711020705
+      },
+      "temperature": 2.5785401613530756,
+      "dev_review_rate": 0.05,
+      "test_review_rate": 0.035,
+      "macro_f1": 0.5653814513627599,
+      "accuracy": 0.82,
+      "redact_recall": 0.7058823529411765,
+      "curricular_accuracy": 0.9548387096774194,
+      "gold_review_coverage": 0.14285714285714285,
+      "protected_redact_rate": 0.7647058823529411,
+      "redact_leak_rate": 0.23529411764705888,
+      "legacy_math_redact_recall": 1.0,
+      "seed_summary_path": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_003740_upchieve-modernbert-v2-seed-suite-seed-42/training/model"
+    },
+    {
+      "seed": 42,
+      "variant": "no_rules",
+      "target_review_rate": 0.1,
+      "strategy": "review_probability",
+      "parameters": {
+        "min_review_probability": 0.24494085855420053
+      },
+      "temperature": 2.5785401613530756,
+      "dev_review_rate": 0.075,
+      "test_review_rate": 0.085,
+      "macro_f1": 0.6158171453871271,
+      "accuracy": 0.825,
+      "redact_recall": 0.5882352941176471,
+      "curricular_accuracy": 0.9419354838709677,
+      "gold_review_coverage": 0.32142857142857145,
+      "protected_redact_rate": 0.7647058823529411,
+      "redact_leak_rate": 0.23529411764705888,
+      "legacy_math_redact_recall": 1.0,
+      "seed_summary_path": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_003740_upchieve-modernbert-v2-seed-suite-seed-42/training/model"
+    },
+    {
+      "seed": 42,
+      "variant": "direct_id",
+      "target_review_rate": 0.05,
+      "strategy": "review_probability",
+      "parameters": {
+        "min_review_probability": 0.2715912994142245
+      },
+      "temperature": 2.661147534707855,
+      "dev_review_rate": 0.05,
+      "test_review_rate": 0.035,
+      "macro_f1": 0.5653814513627599,
+      "accuracy": 0.82,
+      "redact_recall": 0.7058823529411765,
+      "curricular_accuracy": 0.9548387096774194,
+      "gold_review_coverage": 0.14285714285714285,
+      "protected_redact_rate": 0.7647058823529411,
+      "redact_leak_rate": 0.23529411764705888,
+      "legacy_math_redact_recall": 1.0,
+      "seed_summary_path": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_003740_upchieve-modernbert-v2-seed-suite-seed-42/training/model"
+    },
+    {
+      "seed": 42,
+      "variant": "direct_id",
+      "target_review_rate": 0.1,
+      "strategy": "review_probability",
+      "parameters": {
+        "min_review_probability": 0.24794279108427783
+      },
+      "temperature": 2.661147534707855,
+      "dev_review_rate": 0.075,
+      "test_review_rate": 0.08,
+      "macro_f1": 0.6314430399603902,
+      "accuracy": 0.83,
+      "redact_recall": 0.6470588235294118,
+      "curricular_accuracy": 0.9419354838709677,
+      "gold_review_coverage": 0.32142857142857145,
+      "protected_redact_rate": 0.7647058823529411,
+      "redact_leak_rate": 0.23529411764705888,
+      "legacy_math_redact_recall": 1.0,
+      "seed_summary_path": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_003740_upchieve-modernbert-v2-seed-suite-seed-42/training/model"
+    },
+    {
+      "seed": 101,
+      "variant": "no_rules",
+      "target_review_rate": 0.1,
+      "strategy": "none",
+      "parameters": {},
+      "temperature": 5.000000000000002,
+      "dev_review_rate": 0.095,
+      "test_review_rate": 0.08,
+      "macro_f1": 0.5796378418329639,
+      "accuracy": 0.825,
+      "redact_recall": 0.4117647058823529,
+      "curricular_accuracy": 0.9741935483870968,
+      "gold_review_coverage": 0.25,
+      "protected_redact_rate": 0.7058823529411765,
+      "redact_leak_rate": 0.2941176470588235,
+      "legacy_math_redact_recall": 0.9939759036144579,
+      "seed_summary_path": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_004745_upchieve-modernbert-v2-seed-suite-seed-101/training/model"
+    },
+    {
+      "seed": 101,
+      "variant": "direct_id",
+      "target_review_rate": 0.1,
+      "strategy": "none",
+      "parameters": {},
+      "temperature": 5.000000000000002,
+      "dev_review_rate": 0.095,
+      "test_review_rate": 0.07,
+      "macro_f1": 0.6340140080891782,
+      "accuracy": 0.84,
+      "redact_recall": 0.5882352941176471,
+      "curricular_accuracy": 0.9741935483870968,
+      "gold_review_coverage": 0.25,
+      "protected_redact_rate": 0.7647058823529411,
+      "redact_leak_rate": 0.23529411764705888,
+      "legacy_math_redact_recall": 0.9939759036144579,
+      "seed_summary_path": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_004745_upchieve-modernbert-v2-seed-suite-seed-101/training/model"
+    }
+  ],
+  "aggregate_rows": [
+    {
+      "variant": "no_rules",
+      "target_review_rate": 0.05,
+      "macro_f1_values": [
+        0.4913706158989178,
+        0.5653814513627599
+      ],
+      "accuracy_values": [
+        0.785,
+        0.82
+      ],
+      "redact_recall_values": [
+        0.5294117647058824,
+        0.7058823529411765
+      ],
+      "curricular_accuracy_values": [
+        0.9354838709677419,
+        0.9548387096774194
+      ],
+      "gold_review_coverage_values": [
+        0.10714285714285714,
+        0.14285714285714285
+      ],
+      "review_rate_values": [
+        0.045,
+        0.035
+      ],
+      "protected_redact_rate_values": [
+        0.6470588235294118,
+        0.7647058823529411
+      ],
+      "redact_leak_rate_values": [
+        0.3529411764705882,
+        0.23529411764705888
+      ],
+      "legacy_math_redact_recall_values": [
+        1.0,
+        1.0
+      ],
+      "macro_f1_text": "0.5284 \u00b1 0.0523",
+      "accuracy_text": "0.8025 \u00b1 0.0247",
+      "redact_recall_text": "0.6176 \u00b1 0.1248",
+      "curricular_accuracy_text": "0.9452 \u00b1 0.0137",
+      "gold_review_coverage_text": "0.1250 \u00b1 0.0253",
+      "review_rate_text": "0.0400 \u00b1 0.0071",
+      "protected_redact_rate_text": "0.7059 \u00b1 0.0832",
+      "redact_leak_rate_text": "0.2941 \u00b1 0.0832",
+      "legacy_math_redact_recall_text": "1.0000 \u00b1 0.0000"
+    },
+    {
+      "variant": "no_rules",
+      "target_review_rate": 0.1,
+      "macro_f1_values": [
+        0.5632901860554593,
+        0.6158171453871271,
+        0.5796378418329639
+      ],
+      "accuracy_values": [
+        0.8,
+        0.825,
+        0.825
+      ],
+      "redact_recall_values": [
+        0.47058823529411764,
+        0.5882352941176471,
+        0.4117647058823529
+      ],
+      "curricular_accuracy_values": [
+        0.9225806451612903,
+        0.9419354838709677,
+        0.9741935483870968
+      ],
+      "gold_review_coverage_values": [
+        0.32142857142857145,
+        0.32142857142857145,
+        0.25
+      ],
+      "review_rate_values": [
+        0.11,
+        0.085,
+        0.08
+      ],
+      "protected_redact_rate_values": [
+        0.7058823529411765,
+        0.7647058823529411,
+        0.7058823529411765
+      ],
+      "redact_leak_rate_values": [
+        0.2941176470588235,
+        0.23529411764705888,
+        0.2941176470588235
+      ],
+      "legacy_math_redact_recall_values": [
+        1.0,
+        1.0,
+        0.9939759036144579
+      ],
+      "macro_f1_text": "0.5862 \u00b1 0.0269",
+      "accuracy_text": "0.8167 \u00b1 0.0144",
+      "redact_recall_text": "0.4902 \u00b1 0.0899",
+      "curricular_accuracy_text": "0.9462 \u00b1 0.0261",
+      "gold_review_coverage_text": "0.2976 \u00b1 0.0412",
+      "review_rate_text": "0.0917 \u00b1 0.0161",
+      "protected_redact_rate_text": "0.7255 \u00b1 0.0340",
+      "redact_leak_rate_text": "0.2745 \u00b1 0.0340",
+      "legacy_math_redact_recall_text": "0.9980 \u00b1 0.0035"
+    },
+    {
+      "variant": "direct_id",
+      "target_review_rate": 0.05,
+      "macro_f1_values": [
+        0.5039237564268424,
+        0.5653814513627599
+      ],
+      "accuracy_values": [
+        0.79,
+        0.82
+      ],
+      "redact_recall_values": [
+        0.5882352941176471,
+        0.7058823529411765
+      ],
+      "curricular_accuracy_values": [
+        0.9354838709677419,
+        0.9548387096774194
+      ],
+      "gold_review_coverage_values": [
+        0.10714285714285714,
+        0.14285714285714285
+      ],
+      "review_rate_values": [
+        0.045,
+        0.035
+      ],
+      "protected_redact_rate_values": [
+        0.7058823529411765,
+        0.7647058823529411
+      ],
+      "redact_leak_rate_values": [
+        0.2941176470588235,
+        0.23529411764705888
+      ],
+      "legacy_math_redact_recall_values": [
+        1.0,
+        1.0
+      ],
+      "macro_f1_text": "0.5347 \u00b1 0.0435",
+      "accuracy_text": "0.8050 \u00b1 0.0212",
+      "redact_recall_text": "0.6471 \u00b1 0.0832",
+      "curricular_accuracy_text": "0.9452 \u00b1 0.0137",
+      "gold_review_coverage_text": "0.1250 \u00b1 0.0253",
+      "review_rate_text": "0.0400 \u00b1 0.0071",
+      "protected_redact_rate_text": "0.7353 \u00b1 0.0416",
+      "redact_leak_rate_text": "0.2647 \u00b1 0.0416",
+      "legacy_math_redact_recall_text": "1.0000 \u00b1 0.0000"
+    },
+    {
+      "variant": "direct_id",
+      "target_review_rate": 0.1,
+      "macro_f1_values": [
+        0.6088007983745823,
+        0.6314430399603902,
+        0.6340140080891782
+      ],
+      "accuracy_values": [
+        0.815,
+        0.83,
+        0.84
+      ],
+      "redact_recall_values": [
+        0.6470588235294118,
+        0.6470588235294118,
+        0.5882352941176471
+      ],
+      "curricular_accuracy_values": [
+        0.9225806451612903,
+        0.9419354838709677,
+        0.9741935483870968
+      ],
+      "gold_review_coverage_values": [
+        0.32142857142857145,
+        0.32142857142857145,
+        0.25
+      ],
+      "review_rate_values": [
+        0.095,
+        0.08,
+        0.07
+      ],
+      "protected_redact_rate_values": [
+        0.7058823529411765,
+        0.7647058823529411,
+        0.7647058823529411
+      ],
+      "redact_leak_rate_values": [
+        0.2941176470588235,
+        0.23529411764705888,
+        0.23529411764705888
+      ],
+      "legacy_math_redact_recall_values": [
+        1.0,
+        1.0,
+        0.9939759036144579
+      ],
+      "macro_f1_text": "0.6248 \u00b1 0.0139",
+      "accuracy_text": "0.8283 \u00b1 0.0126",
+      "redact_recall_text": "0.6275 \u00b1 0.0340",
+      "curricular_accuracy_text": "0.9462 \u00b1 0.0261",
+      "gold_review_coverage_text": "0.2976 \u00b1 0.0412",
+      "review_rate_text": "0.0817 \u00b1 0.0126",
+      "protected_redact_rate_text": "0.7451 \u00b1 0.0340",
+      "redact_leak_rate_text": "0.2549 \u00b1 0.0340",
+      "legacy_math_redact_recall_text": "0.9980 \u00b1 0.0035"
+    }
+  ],
+  "base_vs_selected_rows": [
+    {
+      "variant": "no_rules",
+      "target_review_rate": 0.05,
+      "base_macro_f1_text": "0.5044 \u00b1 0.0700",
+      "selected_macro_f1_text": "0.5284 \u00b1 0.0523",
+      "delta_macro_f1_text": "+0.0240",
+      "base_accuracy_text": "0.8083 \u00b1 0.0208",
+      "selected_accuracy_text": "0.8025 \u00b1 0.0247",
+      "delta_accuracy_text": "-0.0058",
+      "base_redact_recall_text": "0.5882 \u00b1 0.1765",
+      "selected_redact_recall_text": "0.6176 \u00b1 0.1248",
+      "delta_redact_recall_text": "+0.0294"
+    },
+    {
+      "variant": "no_rules",
+      "target_review_rate": 0.1,
+      "base_macro_f1_text": "0.5044 \u00b1 0.0700",
+      "selected_macro_f1_text": "0.5862 \u00b1 0.0269",
+      "delta_macro_f1_text": "+0.0819",
+      "base_accuracy_text": "0.8083 \u00b1 0.0208",
+      "selected_accuracy_text": "0.8167 \u00b1 0.0144",
+      "delta_accuracy_text": "+0.0083",
+      "base_redact_recall_text": "0.5882 \u00b1 0.1765",
+      "selected_redact_recall_text": "0.4902 \u00b1 0.0899",
+      "delta_redact_recall_text": "-0.0980"
+    },
+    {
+      "variant": "direct_id",
+      "target_review_rate": 0.05,
+      "base_macro_f1_text": "0.5263 \u00b1 0.0953",
+      "selected_macro_f1_text": "0.5347 \u00b1 0.0435",
+      "delta_macro_f1_text": "+0.0083",
+      "base_accuracy_text": "0.8150 \u00b1 0.0250",
+      "selected_accuracy_text": "0.8050 \u00b1 0.0212",
+      "delta_accuracy_text": "-0.0100",
+      "base_redact_recall_text": "0.6667 \u00b1 0.0899",
+      "selected_redact_recall_text": "0.6471 \u00b1 0.0832",
+      "delta_redact_recall_text": "-0.0196"
+    },
+    {
+      "variant": "direct_id",
+      "target_review_rate": 0.1,
+      "base_macro_f1_text": "0.5263 \u00b1 0.0953",
+      "selected_macro_f1_text": "0.6248 \u00b1 0.0139",
+      "delta_macro_f1_text": "+0.0984",
+      "base_accuracy_text": "0.8150 \u00b1 0.0250",
+      "selected_accuracy_text": "0.8283 \u00b1 0.0126",
+      "delta_accuracy_text": "+0.0133",
+      "base_redact_recall_text": "0.6667 \u00b1 0.0899",
+      "selected_redact_recall_text": "0.6275 \u00b1 0.0340",
+      "delta_redact_recall_text": "-0.0392"
+    }
+  ],
+  "selected_10_no_rules_stability": {
+    "variant": "no_rules",
+    "target_review_rate": 0.1,
+    "seed_count": 3,
+    "strategy_labels": [
+      "entropy",
+      "none",
+      "review_probability"
+    ],
+    "unique_strategy_count": 3,
+    "test_review_rate_mean": 0.09166666666666667,
+    "test_review_rate_stdev": 0.01607275126832159,
+    "macro_f1_mean": 0.5862483910918501,
+    "macro_f1_stdev": 0.02688019503809059,
+    "all_legacy_math_redact_recall_one": false
+  },
+  "source_suite_comparison": null,
+  "historical_backbone_rows": [
+    {
+      "label": "ModernBERT-base v2 (historical, uncontrolled seed)",
+      "summary_file": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/20260314_224940_upchieve-english-social-mixed-modernbert-v2-b4-l384/summary.json",
+      "macro_f1": 0.5871775025799794,
+      "review_rate": 0.115
+    },
+    {
+      "label": "roberta-base v2 (historical, uncontrolled seed)",
+      "summary_file": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/20260314_225018_upchieve-english-social-mixed-roberta-base-v2-b4-l384-fresh/summary.json",
+      "macro_f1": 0.40904606150890027,
+      "review_rate": 0.085
+    },
+    {
+      "label": "distilroberta-base v2 (historical, uncontrolled seed)",
+      "summary_file": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/20260314_225845_upchieve-english-social-mixed-distilroberta-v2-b4-l384-fresh/summary.json",
+      "macro_f1": 0.4708498023715415,
+      "review_rate": 0.09
+    },
+    {
+      "label": "roberta-base v1 from math",
+      "summary_file": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/20260314_193820_upchieve-english-social-mixed-roberta-base-v1-from-math-b4-l384/summary.json",
+      "macro_f1": 0.4882312534486448,
+      "review_rate": 0.085
+    },
+    {
+      "label": "roberta-base v1 fresh",
+      "summary_file": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/20260314_201224_upchieve-english-social-mixed-roberta-base-v1-b4-l384-fresh/summary.json",
+      "macro_f1": 0.5647243107769423,
+      "review_rate": 0.14
+    },
+    {
+      "label": "distilroberta-base v1 from math",
+      "summary_file": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/20260314_193849_upchieve-english-social-mixed-distilroberta-v1-from-math-b4-l384/summary.json",
+      "macro_f1": 0.5163962616045592,
+      "review_rate": 0.05
+    },
+    {
+      "label": "distilroberta-base v1 fresh",
+      "summary_file": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/20260314_201314_upchieve-english-social-mixed-distilroberta-v1-b4-l384-fresh/summary.json",
+      "macro_f1": 0.5119942713927675,
+      "review_rate": 0.145
+    }
+  ]
+}

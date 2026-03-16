@@ -1,0 +1,2750 @@
+{
+  "seed": 42,
+  "seed_artifact_root": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_003740_upchieve-modernbert-v2-seed-suite-seed-42",
+  "training_dir": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_003740_upchieve-modernbert-v2-seed-suite-seed-42/training/model",
+  "source_seed_run_root": null,
+  "recompute_deferral_only": false,
+  "recipe": {
+    "epochs": 3.0,
+    "learning_rate": 2e-05,
+    "batch_size": 4,
+    "max_length": 384,
+    "selection_metric": "redact_recall",
+    "warmup_ratio": 0.0,
+    "weight_decay": 0.0,
+    "fit_temperature": true
+  },
+  "training": {
+    "metrics": {
+      "seed": 42,
+      "selection_metric": "redact_recall",
+      "warmup_ratio": 0.0,
+      "weight_decay": 0.0,
+      "eval_loss": 0.9421669244766235,
+      "eval_accuracy": 0.795,
+      "eval_macro_f1": 0.5031628162816282,
+      "eval_redact_recall": 0.5555555555555556,
+      "eval_runtime": 3.269,
+      "eval_samples_per_second": 61.181,
+      "eval_steps_per_second": 15.295,
+      "epoch": 3.0
+    },
+    "metadata": {
+      "model": "answerdotai/ModernBERT-base",
+      "resolved_model": "answerdotai/ModernBERT-base",
+      "train_file": "/Users/chason/agi/projects/contextshift-deid/data/processed/action/train_mixed_upchieve_english_social_v2.jsonl",
+      "dev_file": "/Users/chason/agi/projects/contextshift-deid/data/processed/action/upchieve_english_social_dev.jsonl",
+      "output_dir": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_003740_upchieve-modernbert-v2-seed-suite-seed-42/training/model",
+      "epochs": 3.0,
+      "learning_rate": 2e-05,
+      "batch_size": 4,
+      "max_length": 384,
+      "selection_metric": "redact_recall",
+      "warmup_ratio": 0.0,
+      "weight_decay": 0.0,
+      "label_mode": "multiclass",
+      "binary_review_handling": "drop",
+      "prediction_file": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_003740_upchieve-modernbert-v2-seed-suite-seed-42/predictions/dev_base_predictions.jsonl",
+      "seed": 42,
+      "data_seed": null,
+      "metrics": {
+        "eval_loss": 0.9421669244766235,
+        "eval_accuracy": 0.795,
+        "eval_macro_f1": 0.5031628162816282,
+        "eval_redact_recall": 0.5555555555555556,
+        "eval_runtime": 3.269,
+        "eval_samples_per_second": 61.181,
+        "eval_steps_per_second": 15.295,
+        "epoch": 3.0
+      }
+    }
+  },
+  "files": {
+    "base_dev_predictions": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_003740_upchieve-modernbert-v2-seed-suite-seed-42/predictions/dev_base_predictions.jsonl",
+    "base_test_predictions": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_003740_upchieve-modernbert-v2-seed-suite-seed-42/predictions/test_base_predictions.jsonl",
+    "base_math_predictions": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_003740_upchieve-modernbert-v2-seed-suite-seed-42/predictions/legacy_math_base_predictions.jsonl",
+    "direct_id_dev_predictions": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_003740_upchieve-modernbert-v2-seed-suite-seed-42/predictions/dev_direct_id_predictions.jsonl",
+    "direct_id_test_predictions": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_003740_upchieve-modernbert-v2-seed-suite-seed-42/predictions/test_direct_id_predictions.jsonl",
+    "direct_id_math_predictions": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_003740_upchieve-modernbert-v2-seed-suite-seed-42/predictions/legacy_math_direct_id_predictions.jsonl"
+  },
+  "direct_id_overrides": {
+    "dev": {
+      "override_count": 2,
+      "overridden_ids": [
+        "13798-turn-19-tag-65-90",
+        "19605-turn-15-tag-0-25"
+      ],
+      "by_reason": {
+        "URL": 2
+      },
+      "by_source": {
+        "entity_type": 2
+      }
+    },
+    "test": {
+      "override_count": 5,
+      "overridden_ids": [
+        "1273-turn-149-tag-182-207",
+        "3517-turn-13-tag-0-20",
+        "4088-turn-51-tag-0-24",
+        "13766-turn-35-tag-29-54",
+        "13543-turn-180-tag-0-9"
+      ],
+      "by_reason": {
+        "URL": 2,
+        "US_BANK_NUMBER": 1,
+        "US_PASSPORT": 1,
+        "IP_ADDRESS": 1
+      },
+      "by_source": {
+        "entity_type": 5
+      }
+    },
+    "math": {
+      "override_count": 13,
+      "overridden_ids": [
+        "11162-turn-2-span-1",
+        "11480-turn-20-span-1",
+        "12153-turn-2-span-1",
+        "12435-turn-18-span-1",
+        "15013-turn-34-span-1",
+        "17181-turn-70-span-1",
+        "19032-turn-16-span-1",
+        "19810-turn-53-span-1",
+        "4418-turn-0-span-1",
+        "5081-turn-1-span-1",
+        "5081-turn-10-span-1",
+        "5081-turn-12-span-1",
+        "7073-turn-0-span-1"
+      ],
+      "by_reason": {
+        "URL": 13
+      },
+      "by_source": {
+        "entity_type": 13
+      }
+    }
+  },
+  "direct_id_test_spotcheck": [
+    {
+      "id": "1273-turn-149-tag-182-207",
+      "span_text": "https://example.com/page1",
+      "entity_type": "URL",
+      "gold_action": "REDACT",
+      "base_predicted_action": "REDACT",
+      "patched_predicted_action": "REDACT",
+      "reason": "URL",
+      "source": "entity_type"
+    },
+    {
+      "id": "3517-turn-13-tag-0-20",
+      "span_text": "[REDACTED-BANK-0001]",
+      "entity_type": "US_BANK_NUMBER",
+      "gold_action": "REDACT",
+      "base_predicted_action": "REDACT",
+      "patched_predicted_action": "REDACT",
+      "reason": "US_BANK_NUMBER",
+      "source": "entity_type"
+    },
+    {
+      "id": "4088-turn-51-tag-0-24",
+      "span_text": "[REDACTED-PASSPORT-0001]",
+      "entity_type": "US_PASSPORT",
+      "gold_action": "REDACT",
+      "base_predicted_action": "REDACT",
+      "patched_predicted_action": "REDACT",
+      "reason": "US_PASSPORT",
+      "source": "entity_type"
+    },
+    {
+      "id": "13766-turn-35-tag-29-54",
+      "span_text": "https://example.com/page1",
+      "entity_type": "URL",
+      "gold_action": "REDACT",
+      "base_predicted_action": "REDACT",
+      "patched_predicted_action": "REDACT",
+      "reason": "URL",
+      "source": "entity_type"
+    },
+    {
+      "id": "13543-turn-180-tag-0-9",
+      "span_text": "192.0.2.1",
+      "entity_type": "IP_ADDRESS",
+      "gold_action": "REDACT",
+      "base_predicted_action": "REDACT",
+      "patched_predicted_action": "REDACT",
+      "reason": "IP_ADDRESS",
+      "source": "entity_type"
+    }
+  ],
+  "variants": {
+    "no_rules": {
+      "summary_path": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_003740_upchieve-modernbert-v2-seed-suite-seed-42/deferral_no_rules/summary.json",
+      "report_path": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_003740_upchieve-modernbert-v2-seed-suite-seed-42/deferral_no_rules/report.md",
+      "summary": {
+        "model_name": "ModernBERT-base seed 42 no_rules",
+        "temperature": 2.5785401613530756,
+        "calibration_base_metrics": {
+          "count": 200,
+          "accuracy": 0.795,
+          "macro_f1": 0.5031628162816282,
+          "redact_recall": 0.5555555555555556,
+          "classification_report": {
+            "KEEP": {
+              "precision": 0.8121212121212121,
+              "recall": 0.9710144927536232,
+              "f1-score": 0.8844884488448845,
+              "support": 138.0
+            },
+            "REDACT": {
+              "precision": 0.7142857142857143,
+              "recall": 0.5555555555555556,
+              "f1-score": 0.625,
+              "support": 45.0
+            },
+            "REVIEW": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1-score": 0.0,
+              "support": 17.0
+            },
+            "accuracy": 0.795,
+            "macro avg": {
+              "precision": 0.5088023088023088,
+              "recall": 0.5088566827697263,
+              "f1-score": 0.5031628162816282,
+              "support": 200.0
+            },
+            "weighted avg": {
+              "precision": 0.7210779220779222,
+              "recall": 0.795,
+              "f1-score": 0.7509220297029703,
+              "support": 200.0
+            }
+          },
+          "by_context": {
+            "english": {
+              "count": 100,
+              "accuracy": 0.69,
+              "macro_f1": 0.4603838582677165,
+              "redact_recall": 0.5
+            },
+            "social_studies": {
+              "count": 100,
+              "accuracy": 0.9,
+              "macro_f1": 0.5681818181818182,
+              "redact_recall": 0.8571428571428571
+            }
+          },
+          "worst_context_redact_recall": 0.5,
+          "by_speaker_role": {
+            "student": {
+              "count": 137,
+              "accuracy": 0.8029197080291971,
+              "macro_f1": 0.47615908591518347,
+              "redact_recall": 0.44
+            },
+            "volunteer": {
+              "count": 63,
+              "accuracy": 0.7777777777777778,
+              "macro_f1": 0.5273820829376384,
+              "redact_recall": 0.7
+            }
+          },
+          "by_entity_type": {
+            "PERSON": {
+              "count": 85,
+              "accuracy": 0.6823529411764706,
+              "macro_f1": 0.45389252276516606,
+              "redact_recall": 0.5
+            },
+            "LOCATION": {
+              "count": 65,
+              "accuracy": 0.8615384615384616,
+              "macro_f1": 0.45849297573435505,
+              "redact_recall": 0.3333333333333333
+            },
+            "NRP": {
+              "count": 34,
+              "accuracy": 1.0,
+              "macro_f1": 1.0,
+              "redact_recall": 0.0
+            },
+            "URL": {
+              "count": 2,
+              "accuracy": 1.0,
+              "macro_f1": 1.0,
+              "redact_recall": 1.0
+            },
+            "SCHOOL": {
+              "count": 5,
+              "accuracy": 0.4,
+              "macro_f1": 0.19047619047619047,
+              "redact_recall": 0.6666666666666666
+            },
+            "COURSE": {
+              "count": 6,
+              "accuracy": 0.8333333333333334,
+              "macro_f1": 0.45454545454545453,
+              "redact_recall": 0.8333333333333334
+            },
+            "PHONE_NUMBER": {
+              "count": 2,
+              "accuracy": 1.0,
+              "macro_f1": 1.0,
+              "redact_recall": 1.0
+            },
+            "SOCIAL_HANDLE": {
+              "count": 1,
+              "accuracy": 0.0,
+              "macro_f1": 0.0,
+              "redact_recall": 0.0
+            }
+          },
+          "by_semantic_role": {
+            "AMBIGUOUS": {
+              "count": 17,
+              "accuracy": 0.0,
+              "macro_f1": 0.0,
+              "redact_recall": 0.0
+            },
+            "PRIVATE": {
+              "count": 45,
+              "accuracy": 0.5555555555555556,
+              "macro_f1": 0.35714285714285715,
+              "redact_recall": 0.5555555555555556
+            },
+            "CURRICULAR": {
+              "count": 138,
+              "accuracy": 0.9710144927536232,
+              "macro_f1": 0.49264705882352944,
+              "redact_recall": 0.0
+            }
+          },
+          "by_eval_slice": {
+            "challenge": {
+              "count": 100,
+              "accuracy": 0.84,
+              "macro_f1": 0.43636363636363634,
+              "redact_recall": 0.26666666666666666
+            },
+            "natural": {
+              "count": 100,
+              "accuracy": 0.75,
+              "macro_f1": 0.5167979002624672,
+              "redact_recall": 0.7
+            }
+          },
+          "cerr": 0.9710144927536232,
+          "orr": 0.028985507246376812,
+          "review_rate": 0.0,
+          "prediction_label_distribution": {
+            "KEEP": 165,
+            "REDACT": 35
+          },
+          "gold_label_distribution": {
+            "REVIEW": 17,
+            "REDACT": 45,
+            "KEEP": 138
+          }
+        },
+        "eval_base_metrics": {
+          "count": 200,
+          "accuracy": 0.815,
+          "macro_f1": 0.4920894708128751,
+          "redact_recall": 0.7647058823529411,
+          "classification_report": {
+            "KEEP": {
+              "precision": 0.8823529411764706,
+              "recall": 0.967741935483871,
+              "f1-score": 0.9230769230769231,
+              "support": 155.0
+            },
+            "REDACT": {
+              "precision": 0.43333333333333335,
+              "recall": 0.7647058823529411,
+              "f1-score": 0.5531914893617021,
+              "support": 17.0
+            },
+            "REVIEW": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1-score": 0.0,
+              "support": 28.0
+            },
+            "accuracy": 0.815,
+            "macro avg": {
+              "precision": 0.43856209150326797,
+              "recall": 0.5774826059456041,
+              "f1-score": 0.4920894708128751,
+              "support": 200.0
+            },
+            "weighted avg": {
+              "precision": 0.720656862745098,
+              "recall": 0.815,
+              "f1-score": 0.7624058919803602,
+              "support": 200.0
+            }
+          },
+          "by_context": {
+            "english": {
+              "count": 100,
+              "accuracy": 0.74,
+              "macro_f1": 0.4533333333333333,
+              "redact_recall": 0.7
+            },
+            "social_studies": {
+              "count": 100,
+              "accuracy": 0.89,
+              "macro_f1": 0.551484593837535,
+              "redact_recall": 0.8571428571428571
+            }
+          },
+          "worst_context_redact_recall": 0.7,
+          "by_speaker_role": {
+            "student": {
+              "count": 143,
+              "accuracy": 0.8531468531468531,
+              "macro_f1": 0.4537638918012162,
+              "redact_recall": 0.6666666666666666
+            },
+            "volunteer": {
+              "count": 57,
+              "accuracy": 0.7192982456140351,
+              "macro_f1": 0.5025740025740025,
+              "redact_recall": 0.8181818181818182
+            }
+          },
+          "by_entity_type": {
+            "PERSON": {
+              "count": 69,
+              "accuracy": 0.7681159420289855,
+              "macro_f1": 0.46913580246913583,
+              "redact_recall": 1.0
+            },
+            "LOCATION": {
+              "count": 78,
+              "accuracy": 0.8589743589743589,
+              "macro_f1": 0.3101851851851852,
+              "redact_recall": 0.0
+            },
+            "NRP": {
+              "count": 36,
+              "accuracy": 0.9166666666666666,
+              "macro_f1": 0.3235294117647059,
+              "redact_recall": 0.0
+            },
+            "SCHOOL": {
+              "count": 4,
+              "accuracy": 0.25,
+              "macro_f1": 0.3333333333333333,
+              "redact_recall": 0.0
+            },
+            "URL": {
+              "count": 2,
+              "accuracy": 1.0,
+              "macro_f1": 1.0,
+              "redact_recall": 1.0
+            },
+            "COURSE": {
+              "count": 5,
+              "accuracy": 0.8,
+              "macro_f1": 0.4444444444444444,
+              "redact_recall": 0.8
+            },
+            "SOCIAL_HANDLE": {
+              "count": 1,
+              "accuracy": 0.0,
+              "macro_f1": 0.0,
+              "redact_recall": 0.0
+            },
+            "US_BANK_NUMBER": {
+              "count": 1,
+              "accuracy": 1.0,
+              "macro_f1": 1.0,
+              "redact_recall": 1.0
+            },
+            "PHONE_NUMBER": {
+              "count": 2,
+              "accuracy": 0.0,
+              "macro_f1": 0.0,
+              "redact_recall": 0.0
+            },
+            "US_PASSPORT": {
+              "count": 1,
+              "accuracy": 1.0,
+              "macro_f1": 1.0,
+              "redact_recall": 1.0
+            },
+            "IP_ADDRESS": {
+              "count": 1,
+              "accuracy": 1.0,
+              "macro_f1": 1.0,
+              "redact_recall": 1.0
+            }
+          },
+          "by_semantic_role": {
+            "CURRICULAR": {
+              "count": 155,
+              "accuracy": 0.967741935483871,
+              "macro_f1": 0.4918032786885246,
+              "redact_recall": 0.0
+            },
+            "PRIVATE": {
+              "count": 17,
+              "accuracy": 0.7647058823529411,
+              "macro_f1": 0.43333333333333335,
+              "redact_recall": 0.7647058823529411
+            },
+            "AMBIGUOUS": {
+              "count": 28,
+              "accuracy": 0.0,
+              "macro_f1": 0.0,
+              "redact_recall": 0.0
+            }
+          },
+          "by_eval_slice": {
+            "challenge": {
+              "count": 100,
+              "accuracy": 0.92,
+              "macro_f1": 0.3194444444444445,
+              "redact_recall": 0.0
+            },
+            "natural": {
+              "count": 100,
+              "accuracy": 0.71,
+              "macro_f1": 0.4833194096351991,
+              "redact_recall": 0.8125
+            }
+          },
+          "cerr": 0.967741935483871,
+          "orr": 0.03225806451612903,
+          "review_rate": 0.0,
+          "prediction_label_distribution": {
+            "KEEP": 170,
+            "REDACT": 30
+          },
+          "gold_label_distribution": {
+            "KEEP": 155,
+            "REDACT": 17,
+            "REVIEW": 28
+          }
+        },
+        "selected_targets": [
+          {
+            "target_review_rate": 0.05,
+            "calibration": {
+              "strategy": "review_probability",
+              "parameters": {
+                "min_review_probability": 0.26942987711020705
+              },
+              "temperature": 2.5785401613530756,
+              "metrics": {
+                "count": 200,
+                "accuracy": 0.79,
+                "macro_f1": 0.5723514211886305,
+                "redact_recall": 0.4888888888888889,
+                "classification_report": {
+                  "KEEP": {
+                    "precision": 0.8159509202453987,
+                    "recall": 0.9637681159420289,
+                    "f1-score": 0.8837209302325582,
+                    "support": 138.0
+                  },
+                  "REDACT": {
+                    "precision": 0.8148148148148148,
+                    "recall": 0.4888888888888889,
+                    "f1-score": 0.6111111111111112,
+                    "support": 45.0
+                  },
+                  "REVIEW": {
+                    "precision": 0.3,
+                    "recall": 0.17647058823529413,
+                    "f1-score": 0.2222222222222222,
+                    "support": 17.0
+                  },
+                  "accuracy": 0.79,
+                  "macro avg": {
+                    "precision": 0.6435885783534044,
+                    "recall": 0.5430425310220707,
+                    "f1-score": 0.5723514211886305,
+                    "support": 200.0
+                  },
+                  "weighted avg": {
+                    "precision": 0.7718394683026584,
+                    "recall": 0.79,
+                    "f1-score": 0.7661563307493541,
+                    "support": 200.0
+                  }
+                },
+                "by_context": {
+                  "english": {
+                    "count": 100,
+                    "accuracy": 0.68,
+                    "macro_f1": 0.5057777777777778,
+                    "redact_recall": 0.47368421052631576
+                  },
+                  "social_studies": {
+                    "count": 100,
+                    "accuracy": 0.9,
+                    "macro_f1": 0.6515151515151515,
+                    "redact_recall": 0.5714285714285714
+                  }
+                },
+                "worst_context_redact_recall": 0.47368421052631576,
+                "by_speaker_role": {
+                  "student": {
+                    "count": 137,
+                    "accuracy": 0.7956204379562044,
+                    "macro_f1": 0.516365563424387,
+                    "redact_recall": 0.4
+                  },
+                  "volunteer": {
+                    "count": 63,
+                    "accuracy": 0.7777777777777778,
+                    "macro_f1": 0.649970605526161,
+                    "redact_recall": 0.6
+                  }
+                },
+                "by_entity_type": {
+                  "PERSON": {
+                    "count": 85,
+                    "accuracy": 0.6941176470588235,
+                    "macro_f1": 0.5414104666256746,
+                    "redact_recall": 0.46153846153846156
+                  },
+                  "LOCATION": {
+                    "count": 65,
+                    "accuracy": 0.8461538461538461,
+                    "macro_f1": 0.4858178053830227,
+                    "redact_recall": 0.16666666666666666
+                  },
+                  "NRP": {
+                    "count": 34,
+                    "accuracy": 1.0,
+                    "macro_f1": 1.0,
+                    "redact_recall": 0.0
+                  },
+                  "URL": {
+                    "count": 2,
+                    "accuracy": 1.0,
+                    "macro_f1": 1.0,
+                    "redact_recall": 1.0
+                  },
+                  "SCHOOL": {
+                    "count": 5,
+                    "accuracy": 0.4,
+                    "macro_f1": 0.19047619047619047,
+                    "redact_recall": 0.6666666666666666
+                  },
+                  "COURSE": {
+                    "count": 6,
+                    "accuracy": 0.6666666666666666,
+                    "macro_f1": 0.26666666666666666,
+                    "redact_recall": 0.6666666666666666
+                  },
+                  "PHONE_NUMBER": {
+                    "count": 2,
+                    "accuracy": 1.0,
+                    "macro_f1": 1.0,
+                    "redact_recall": 1.0
+                  },
+                  "SOCIAL_HANDLE": {
+                    "count": 1,
+                    "accuracy": 0.0,
+                    "macro_f1": 0.0,
+                    "redact_recall": 0.0
+                  }
+                },
+                "by_semantic_role": {
+                  "AMBIGUOUS": {
+                    "count": 17,
+                    "accuracy": 0.17647058823529413,
+                    "macro_f1": 0.09999999999999999,
+                    "redact_recall": 0.0
+                  },
+                  "PRIVATE": {
+                    "count": 45,
+                    "accuracy": 0.4888888888888889,
+                    "macro_f1": 0.21890547263681592,
+                    "redact_recall": 0.4888888888888889
+                  },
+                  "CURRICULAR": {
+                    "count": 138,
+                    "accuracy": 0.9637681159420289,
+                    "macro_f1": 0.32718327183271834,
+                    "redact_recall": 0.0
+                  }
+                },
+                "by_eval_slice": {
+                  "challenge": {
+                    "count": 100,
+                    "accuracy": 0.83,
+                    "macro_f1": 0.44303286953014726,
+                    "redact_recall": 0.26666666666666666
+                  },
+                  "natural": {
+                    "count": 100,
+                    "accuracy": 0.75,
+                    "macro_f1": 0.6098796612687566,
+                    "redact_recall": 0.6
+                  }
+                },
+                "cerr": 0.9637681159420289,
+                "orr": 0.014492753623188406,
+                "review_rate": 0.05,
+                "prediction_label_distribution": {
+                  "KEEP": 163,
+                  "REDACT": 27,
+                  "REVIEW": 10
+                },
+                "gold_label_distribution": {
+                  "REVIEW": 17,
+                  "REDACT": 45,
+                  "KEEP": 138
+                },
+                "automation_rate": 0.95,
+                "deferred_count": 10,
+                "base_prediction_label_distribution": {
+                  "KEEP": 165,
+                  "REDACT": 35
+                },
+                "protected_redact_rate": 0.5777777777777777,
+                "redact_leak_rate": 0.4222222222222223,
+                "gold_redact_defer_rate": 0.08888888888888889,
+                "gold_review_coverage": 0.17647058823529413,
+                "review_precision": 0.3,
+                "base_error_rate": 0.205,
+                "deferred_error_coverage": 0.14634146341463414,
+                "deferred_correct_rate": 0.025157232704402517
+              }
+            },
+            "evaluation": {
+              "strategy": "review_probability",
+              "parameters": {
+                "min_review_probability": 0.26942987711020705
+              },
+              "temperature": 2.5785401613530756,
+              "metrics": {
+                "count": 200,
+                "accuracy": 0.82,
+                "macro_f1": 0.5653814513627599,
+                "redact_recall": 0.7058823529411765,
+                "classification_report": {
+                  "KEEP": {
+                    "precision": 0.891566265060241,
+                    "recall": 0.9548387096774194,
+                    "f1-score": 0.9221183800623053,
+                    "support": 155.0
+                  },
+                  "REDACT": {
+                    "precision": 0.4444444444444444,
+                    "recall": 0.7058823529411765,
+                    "f1-score": 0.5454545454545454,
+                    "support": 17.0
+                  },
+                  "REVIEW": {
+                    "precision": 0.5714285714285714,
+                    "recall": 0.14285714285714285,
+                    "f1-score": 0.22857142857142856,
+                    "support": 28.0
+                  },
+                  "accuracy": 0.82,
+                  "macro avg": {
+                    "precision": 0.635813093644419,
+                    "recall": 0.6011927351585795,
+                    "f1-score": 0.5653814513627599,
+                    "support": 200.0
+                  },
+                  "weighted avg": {
+                    "precision": 0.8087416331994645,
+                    "recall": 0.82,
+                    "f1-score": 0.7930053809119231,
+                    "support": 200.0
+                  }
+                },
+                "by_context": {
+                  "english": {
+                    "count": 100,
+                    "accuracy": 0.76,
+                    "macro_f1": 0.5500319786034071,
+                    "redact_recall": 0.6
+                  },
+                  "social_studies": {
+                    "count": 100,
+                    "accuracy": 0.88,
+                    "macro_f1": 0.5494703628577868,
+                    "redact_recall": 0.8571428571428571
+                  }
+                },
+                "worst_context_redact_recall": 0.6,
+                "by_speaker_role": {
+                  "student": {
+                    "count": 143,
+                    "accuracy": 0.8531468531468531,
+                    "macro_f1": 0.5216465680861966,
+                    "redact_recall": 0.5
+                  },
+                  "volunteer": {
+                    "count": 57,
+                    "accuracy": 0.7368421052631579,
+                    "macro_f1": 0.5617925617925618,
+                    "redact_recall": 0.8181818181818182
+                  }
+                },
+                "by_entity_type": {
+                  "PERSON": {
+                    "count": 69,
+                    "accuracy": 0.8260869565217391,
+                    "macro_f1": 0.6468004392532695,
+                    "redact_recall": 1.0
+                  },
+                  "LOCATION": {
+                    "count": 78,
+                    "accuracy": 0.8333333333333334,
+                    "macro_f1": 0.3051643192488263,
+                    "redact_recall": 0.0
+                  },
+                  "NRP": {
+                    "count": 36,
+                    "accuracy": 0.9166666666666666,
+                    "macro_f1": 0.3235294117647059,
+                    "redact_recall": 0.0
+                  },
+                  "SCHOOL": {
+                    "count": 4,
+                    "accuracy": 0.25,
+                    "macro_f1": 0.3333333333333333,
+                    "redact_recall": 0.0
+                  },
+                  "URL": {
+                    "count": 2,
+                    "accuracy": 1.0,
+                    "macro_f1": 1.0,
+                    "redact_recall": 1.0
+                  },
+                  "COURSE": {
+                    "count": 5,
+                    "accuracy": 0.6,
+                    "macro_f1": 0.25,
+                    "redact_recall": 0.6
+                  },
+                  "SOCIAL_HANDLE": {
+                    "count": 1,
+                    "accuracy": 0.0,
+                    "macro_f1": 0.0,
+                    "redact_recall": 0.0
+                  },
+                  "US_BANK_NUMBER": {
+                    "count": 1,
+                    "accuracy": 1.0,
+                    "macro_f1": 1.0,
+                    "redact_recall": 1.0
+                  },
+                  "PHONE_NUMBER": {
+                    "count": 2,
+                    "accuracy": 0.0,
+                    "macro_f1": 0.0,
+                    "redact_recall": 0.0
+                  },
+                  "US_PASSPORT": {
+                    "count": 1,
+                    "accuracy": 1.0,
+                    "macro_f1": 1.0,
+                    "redact_recall": 1.0
+                  },
+                  "IP_ADDRESS": {
+                    "count": 1,
+                    "accuracy": 1.0,
+                    "macro_f1": 1.0,
+                    "redact_recall": 1.0
+                  }
+                },
+                "by_semantic_role": {
+                  "CURRICULAR": {
+                    "count": 155,
+                    "accuracy": 0.9548387096774194,
+                    "macro_f1": 0.32563256325632567,
+                    "redact_recall": 0.0
+                  },
+                  "PRIVATE": {
+                    "count": 17,
+                    "accuracy": 0.7058823529411765,
+                    "macro_f1": 0.27586206896551724,
+                    "redact_recall": 0.7058823529411765
+                  },
+                  "AMBIGUOUS": {
+                    "count": 28,
+                    "accuracy": 0.14285714285714285,
+                    "macro_f1": 0.08333333333333333,
+                    "redact_recall": 0.0
+                  }
+                },
+                "by_eval_slice": {
+                  "challenge": {
+                    "count": 100,
+                    "accuracy": 0.91,
+                    "macro_f1": 0.31762652705061084,
+                    "redact_recall": 0.0
+                  },
+                  "natural": {
+                    "count": 100,
+                    "accuracy": 0.73,
+                    "macro_f1": 0.5780219780219781,
+                    "redact_recall": 0.75
+                  }
+                },
+                "cerr": 0.9548387096774194,
+                "orr": 0.03225806451612903,
+                "review_rate": 0.035,
+                "prediction_label_distribution": {
+                  "KEEP": 166,
+                  "REVIEW": 7,
+                  "REDACT": 27
+                },
+                "gold_label_distribution": {
+                  "KEEP": 155,
+                  "REDACT": 17,
+                  "REVIEW": 28
+                },
+                "automation_rate": 0.965,
+                "deferred_count": 7,
+                "base_prediction_label_distribution": {
+                  "KEEP": 170,
+                  "REDACT": 30
+                },
+                "protected_redact_rate": 0.7647058823529411,
+                "redact_leak_rate": 0.23529411764705888,
+                "gold_redact_defer_rate": 0.058823529411764705,
+                "gold_review_coverage": 0.14285714285714285,
+                "review_precision": 0.5714285714285714,
+                "base_error_rate": 0.185,
+                "deferred_error_coverage": 0.10810810810810811,
+                "deferred_correct_rate": 0.018404907975460124
+              }
+            },
+            "output_name": "eval_target_050_predictions.jsonl",
+            "output_file": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_003740_upchieve-modernbert-v2-seed-suite-seed-42/deferral_no_rules/predictions/eval_target_050_predictions.jsonl"
+          },
+          {
+            "target_review_rate": 0.1,
+            "calibration": {
+              "strategy": "review_probability",
+              "parameters": {
+                "min_review_probability": 0.24494085855420053
+              },
+              "temperature": 2.5785401613530756,
+              "metrics": {
+                "count": 200,
+                "accuracy": 0.775,
+                "macro_f1": 0.5570114543561263,
+                "redact_recall": 0.4,
+                "classification_report": {
+                  "KEEP": {
+                    "precision": 0.8159509202453987,
+                    "recall": 0.9637681159420289,
+                    "f1-score": 0.8837209302325582,
+                    "support": 138.0
+                  },
+                  "REDACT": {
+                    "precision": 0.8181818181818182,
+                    "recall": 0.4,
+                    "f1-score": 0.5373134328358209,
+                    "support": 45.0
+                  },
+                  "REVIEW": {
+                    "precision": 0.26666666666666666,
+                    "recall": 0.23529411764705882,
+                    "f1-score": 0.25,
+                    "support": 17.0
+                  },
+                  "accuracy": 0.775,
+                  "macro avg": {
+                    "precision": 0.6335998016979612,
+                    "recall": 0.533020744529696,
+                    "f1-score": 0.5570114543561263,
+                    "support": 200.0
+                  },
+                  "weighted avg": {
+                    "precision": 0.7697637107269009,
+                    "recall": 0.775,
+                    "f1-score": 0.7519129642485248,
+                    "support": 200.0
+                  }
+                },
+                "by_context": {
+                  "english": {
+                    "count": 100,
+                    "accuracy": 0.65,
+                    "macro_f1": 0.4976969696969697,
+                    "redact_recall": 0.3684210526315789
+                  },
+                  "social_studies": {
+                    "count": 100,
+                    "accuracy": 0.9,
+                    "macro_f1": 0.6515151515151515,
+                    "redact_recall": 0.5714285714285714
+                  }
+                },
+                "worst_context_redact_recall": 0.3684210526315789,
+                "by_speaker_role": {
+                  "student": {
+                    "count": 137,
+                    "accuracy": 0.781021897810219,
+                    "macro_f1": 0.4844383686488949,
+                    "redact_recall": 0.32
+                  },
+                  "volunteer": {
+                    "count": 63,
+                    "accuracy": 0.7619047619047619,
+                    "macro_f1": 0.6502453308008863,
+                    "redact_recall": 0.5
+                  }
+                },
+                "by_entity_type": {
+                  "PERSON": {
+                    "count": 85,
+                    "accuracy": 0.6705882352941176,
+                    "macro_f1": 0.5252574002574003,
+                    "redact_recall": 0.34615384615384615
+                  },
+                  "LOCATION": {
+                    "count": 65,
+                    "accuracy": 0.8461538461538461,
+                    "macro_f1": 0.4858178053830227,
+                    "redact_recall": 0.16666666666666666
+                  },
+                  "NRP": {
+                    "count": 34,
+                    "accuracy": 1.0,
+                    "macro_f1": 1.0,
+                    "redact_recall": 0.0
+                  },
+                  "URL": {
+                    "count": 2,
+                    "accuracy": 1.0,
+                    "macro_f1": 1.0,
+                    "redact_recall": 1.0
+                  },
+                  "SCHOOL": {
+                    "count": 5,
+                    "accuracy": 0.4,
+                    "macro_f1": 0.19047619047619047,
+                    "redact_recall": 0.6666666666666666
+                  },
+                  "COURSE": {
+                    "count": 6,
+                    "accuracy": 0.6666666666666666,
+                    "macro_f1": 0.26666666666666666,
+                    "redact_recall": 0.6666666666666666
+                  },
+                  "PHONE_NUMBER": {
+                    "count": 2,
+                    "accuracy": 0.5,
+                    "macro_f1": 0.3333333333333333,
+                    "redact_recall": 0.0
+                  },
+                  "SOCIAL_HANDLE": {
+                    "count": 1,
+                    "accuracy": 0.0,
+                    "macro_f1": 0.0,
+                    "redact_recall": 0.0
+                  }
+                },
+                "by_semantic_role": {
+                  "AMBIGUOUS": {
+                    "count": 17,
+                    "accuracy": 0.23529411764705882,
+                    "macro_f1": 0.12698412698412698,
+                    "redact_recall": 0.0
+                  },
+                  "PRIVATE": {
+                    "count": 45,
+                    "accuracy": 0.4,
+                    "macro_f1": 0.19047619047619047,
+                    "redact_recall": 0.4
+                  },
+                  "CURRICULAR": {
+                    "count": 138,
+                    "accuracy": 0.9637681159420289,
+                    "macro_f1": 0.32718327183271834,
+                    "redact_recall": 0.0
+                  }
+                },
+                "by_eval_slice": {
+                  "challenge": {
+                    "count": 100,
+                    "accuracy": 0.82,
+                    "macro_f1": 0.41379310344827586,
+                    "redact_recall": 0.2
+                  },
+                  "natural": {
+                    "count": 100,
+                    "accuracy": 0.73,
+                    "macro_f1": 0.5986573106933062,
+                    "redact_recall": 0.5
+                  }
+                },
+                "cerr": 0.9637681159420289,
+                "orr": 0.014492753623188406,
+                "review_rate": 0.075,
+                "prediction_label_distribution": {
+                  "KEEP": 163,
+                  "REDACT": 22,
+                  "REVIEW": 15
+                },
+                "gold_label_distribution": {
+                  "REVIEW": 17,
+                  "REDACT": 45,
+                  "KEEP": 138
+                },
+                "automation_rate": 0.925,
+                "deferred_count": 15,
+                "base_prediction_label_distribution": {
+                  "KEEP": 165,
+                  "REDACT": 35
+                },
+                "protected_redact_rate": 0.5777777777777777,
+                "redact_leak_rate": 0.4222222222222223,
+                "gold_redact_defer_rate": 0.17777777777777778,
+                "gold_review_coverage": 0.23529411764705882,
+                "review_precision": 0.26666666666666666,
+                "base_error_rate": 0.205,
+                "deferred_error_coverage": 0.17073170731707318,
+                "deferred_correct_rate": 0.050314465408805034
+              }
+            },
+            "evaluation": {
+              "strategy": "review_probability",
+              "parameters": {
+                "min_review_probability": 0.24494085855420053
+              },
+              "temperature": 2.5785401613530756,
+              "metrics": {
+                "count": 200,
+                "accuracy": 0.825,
+                "macro_f1": 0.6158171453871271,
+                "redact_recall": 0.5882352941176471,
+                "classification_report": {
+                  "KEEP": {
+                    "precision": 0.9012345679012346,
+                    "recall": 0.9419354838709677,
+                    "f1-score": 0.9211356466876972,
+                    "support": 155.0
+                  },
+                  "REDACT": {
+                    "precision": 0.47619047619047616,
+                    "recall": 0.5882352941176471,
+                    "f1-score": 0.5263157894736842,
+                    "support": 17.0
+                  },
+                  "REVIEW": {
+                    "precision": 0.5294117647058824,
+                    "recall": 0.32142857142857145,
+                    "f1-score": 0.4,
+                    "support": 28.0
+                  },
+                  "accuracy": 0.825,
+                  "macro avg": {
+                    "precision": 0.6356122695991977,
+                    "recall": 0.6171997831390621,
+                    "f1-score": 0.6158171453871271,
+                    "support": 200.0
+                  },
+                  "weighted avg": {
+                    "precision": 0.8130506276584708,
+                    "recall": 0.825,
+                    "f1-score": 0.8146169682882284,
+                    "support": 200.0
+                  }
+                },
+                "by_context": {
+                  "english": {
+                    "count": 100,
+                    "accuracy": 0.78,
+                    "macro_f1": 0.6296296296296297,
+                    "redact_recall": 0.6
+                  },
+                  "social_studies": {
+                    "count": 100,
+                    "accuracy": 0.87,
+                    "macro_f1": 0.5577505346291473,
+                    "redact_recall": 0.5714285714285714
+                  }
+                },
+                "worst_context_redact_recall": 0.5714285714285714,
+                "by_speaker_role": {
+                  "student": {
+                    "count": 143,
+                    "accuracy": 0.8671328671328671,
+                    "macro_f1": 0.5776912930672117,
+                    "redact_recall": 0.3333333333333333
+                  },
+                  "volunteer": {
+                    "count": 57,
+                    "accuracy": 0.7192982456140351,
+                    "macro_f1": 0.5797716894977168,
+                    "redact_recall": 0.7272727272727273
+                  }
+                },
+                "by_entity_type": {
+                  "PERSON": {
+                    "count": 69,
+                    "accuracy": 0.855072463768116,
+                    "macro_f1": 0.7842071197411004,
+                    "redact_recall": 1.0
+                  },
+                  "LOCATION": {
+                    "count": 78,
+                    "accuracy": 0.8461538461538461,
+                    "macro_f1": 0.36793466580700623,
+                    "redact_recall": 0.0
+                  },
+                  "NRP": {
+                    "count": 36,
+                    "accuracy": 0.9166666666666666,
+                    "macro_f1": 0.3235294117647059,
+                    "redact_recall": 0.0
+                  },
+                  "SCHOOL": {
+                    "count": 4,
+                    "accuracy": 0.25,
+                    "macro_f1": 0.3333333333333333,
+                    "redact_recall": 0.0
+                  },
+                  "URL": {
+                    "count": 2,
+                    "accuracy": 1.0,
+                    "macro_f1": 1.0,
+                    "redact_recall": 1.0
+                  },
+                  "COURSE": {
+                    "count": 5,
+                    "accuracy": 0.4,
+                    "macro_f1": 0.19047619047619047,
+                    "redact_recall": 0.4
+                  },
+                  "SOCIAL_HANDLE": {
+                    "count": 1,
+                    "accuracy": 0.0,
+                    "macro_f1": 0.0,
+                    "redact_recall": 0.0
+                  },
+                  "US_BANK_NUMBER": {
+                    "count": 1,
+                    "accuracy": 1.0,
+                    "macro_f1": 1.0,
+                    "redact_recall": 1.0
+                  },
+                  "PHONE_NUMBER": {
+                    "count": 2,
+                    "accuracy": 0.0,
+                    "macro_f1": 0.0,
+                    "redact_recall": 0.0
+                  },
+                  "US_PASSPORT": {
+                    "count": 1,
+                    "accuracy": 1.0,
+                    "macro_f1": 1.0,
+                    "redact_recall": 1.0
+                  },
+                  "IP_ADDRESS": {
+                    "count": 1,
+                    "accuracy": 0.0,
+                    "macro_f1": 0.0,
+                    "redact_recall": 0.0
+                  }
+                },
+                "by_semantic_role": {
+                  "CURRICULAR": {
+                    "count": 155,
+                    "accuracy": 0.9419354838709677,
+                    "macro_f1": 0.3233665559246955,
+                    "redact_recall": 0.0
+                  },
+                  "PRIVATE": {
+                    "count": 17,
+                    "accuracy": 0.5882352941176471,
+                    "macro_f1": 0.24691358024691357,
+                    "redact_recall": 0.5882352941176471
+                  },
+                  "AMBIGUOUS": {
+                    "count": 28,
+                    "accuracy": 0.32142857142857145,
+                    "macro_f1": 0.16216216216216217,
+                    "redact_recall": 0.0
+                  }
+                },
+                "by_eval_slice": {
+                  "challenge": {
+                    "count": 100,
+                    "accuracy": 0.92,
+                    "macro_f1": 0.45248226950354614,
+                    "redact_recall": 0.0
+                  },
+                  "natural": {
+                    "count": 100,
+                    "accuracy": 0.73,
+                    "macro_f1": 0.6079242032730404,
+                    "redact_recall": 0.625
+                  }
+                },
+                "cerr": 0.9419354838709677,
+                "orr": 0.025806451612903226,
+                "review_rate": 0.085,
+                "prediction_label_distribution": {
+                  "KEEP": 162,
+                  "REVIEW": 17,
+                  "REDACT": 21
+                },
+                "gold_label_distribution": {
+                  "KEEP": 155,
+                  "REDACT": 17,
+                  "REVIEW": 28
+                },
+                "automation_rate": 0.915,
+                "deferred_count": 17,
+                "base_prediction_label_distribution": {
+                  "KEEP": 170,
+                  "REDACT": 30
+                },
+                "protected_redact_rate": 0.7647058823529411,
+                "redact_leak_rate": 0.23529411764705888,
+                "gold_redact_defer_rate": 0.17647058823529413,
+                "gold_review_coverage": 0.32142857142857145,
+                "review_precision": 0.5294117647058824,
+                "base_error_rate": 0.185,
+                "deferred_error_coverage": 0.2702702702702703,
+                "deferred_correct_rate": 0.04294478527607362
+              }
+            },
+            "output_name": "eval_target_100_predictions.jsonl",
+            "output_file": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_003740_upchieve-modernbert-v2-seed-suite-seed-42/deferral_no_rules/predictions/eval_target_100_predictions.jsonl"
+          }
+        ],
+        "selected_prediction_files": [
+          "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_003740_upchieve-modernbert-v2-seed-suite-seed-42/deferral_no_rules/predictions/eval_target_050_predictions.jsonl",
+          "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_003740_upchieve-modernbert-v2-seed-suite-seed-42/deferral_no_rules/predictions/eval_target_100_predictions.jsonl"
+        ],
+        "sweep_result_count": 81
+      }
+    },
+    "direct_id": {
+      "summary_path": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_003740_upchieve-modernbert-v2-seed-suite-seed-42/deferral_direct_id/summary.json",
+      "report_path": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_003740_upchieve-modernbert-v2-seed-suite-seed-42/deferral_direct_id/report.md",
+      "summary": {
+        "model_name": "ModernBERT-base seed 42 direct_id",
+        "temperature": 2.661147534707855,
+        "calibration_base_metrics": {
+          "count": 200,
+          "accuracy": 0.795,
+          "macro_f1": 0.5031628162816282,
+          "redact_recall": 0.5555555555555556,
+          "classification_report": {
+            "KEEP": {
+              "precision": 0.8121212121212121,
+              "recall": 0.9710144927536232,
+              "f1-score": 0.8844884488448845,
+              "support": 138.0
+            },
+            "REDACT": {
+              "precision": 0.7142857142857143,
+              "recall": 0.5555555555555556,
+              "f1-score": 0.625,
+              "support": 45.0
+            },
+            "REVIEW": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1-score": 0.0,
+              "support": 17.0
+            },
+            "accuracy": 0.795,
+            "macro avg": {
+              "precision": 0.5088023088023088,
+              "recall": 0.5088566827697263,
+              "f1-score": 0.5031628162816282,
+              "support": 200.0
+            },
+            "weighted avg": {
+              "precision": 0.7210779220779222,
+              "recall": 0.795,
+              "f1-score": 0.7509220297029703,
+              "support": 200.0
+            }
+          },
+          "by_context": {
+            "english": {
+              "count": 100,
+              "accuracy": 0.69,
+              "macro_f1": 0.4603838582677165,
+              "redact_recall": 0.5
+            },
+            "social_studies": {
+              "count": 100,
+              "accuracy": 0.9,
+              "macro_f1": 0.5681818181818182,
+              "redact_recall": 0.8571428571428571
+            }
+          },
+          "worst_context_redact_recall": 0.5,
+          "by_speaker_role": {
+            "student": {
+              "count": 137,
+              "accuracy": 0.8029197080291971,
+              "macro_f1": 0.47615908591518347,
+              "redact_recall": 0.44
+            },
+            "volunteer": {
+              "count": 63,
+              "accuracy": 0.7777777777777778,
+              "macro_f1": 0.5273820829376384,
+              "redact_recall": 0.7
+            }
+          },
+          "by_entity_type": {
+            "PERSON": {
+              "count": 85,
+              "accuracy": 0.6823529411764706,
+              "macro_f1": 0.45389252276516606,
+              "redact_recall": 0.5
+            },
+            "LOCATION": {
+              "count": 65,
+              "accuracy": 0.8615384615384616,
+              "macro_f1": 0.45849297573435505,
+              "redact_recall": 0.3333333333333333
+            },
+            "NRP": {
+              "count": 34,
+              "accuracy": 1.0,
+              "macro_f1": 1.0,
+              "redact_recall": 0.0
+            },
+            "URL": {
+              "count": 2,
+              "accuracy": 1.0,
+              "macro_f1": 1.0,
+              "redact_recall": 1.0
+            },
+            "SCHOOL": {
+              "count": 5,
+              "accuracy": 0.4,
+              "macro_f1": 0.19047619047619047,
+              "redact_recall": 0.6666666666666666
+            },
+            "COURSE": {
+              "count": 6,
+              "accuracy": 0.8333333333333334,
+              "macro_f1": 0.45454545454545453,
+              "redact_recall": 0.8333333333333334
+            },
+            "PHONE_NUMBER": {
+              "count": 2,
+              "accuracy": 1.0,
+              "macro_f1": 1.0,
+              "redact_recall": 1.0
+            },
+            "SOCIAL_HANDLE": {
+              "count": 1,
+              "accuracy": 0.0,
+              "macro_f1": 0.0,
+              "redact_recall": 0.0
+            }
+          },
+          "by_semantic_role": {
+            "AMBIGUOUS": {
+              "count": 17,
+              "accuracy": 0.0,
+              "macro_f1": 0.0,
+              "redact_recall": 0.0
+            },
+            "PRIVATE": {
+              "count": 45,
+              "accuracy": 0.5555555555555556,
+              "macro_f1": 0.35714285714285715,
+              "redact_recall": 0.5555555555555556
+            },
+            "CURRICULAR": {
+              "count": 138,
+              "accuracy": 0.9710144927536232,
+              "macro_f1": 0.49264705882352944,
+              "redact_recall": 0.0
+            }
+          },
+          "by_eval_slice": {
+            "challenge": {
+              "count": 100,
+              "accuracy": 0.84,
+              "macro_f1": 0.43636363636363634,
+              "redact_recall": 0.26666666666666666
+            },
+            "natural": {
+              "count": 100,
+              "accuracy": 0.75,
+              "macro_f1": 0.5167979002624672,
+              "redact_recall": 0.7
+            }
+          },
+          "cerr": 0.9710144927536232,
+          "orr": 0.028985507246376812,
+          "review_rate": 0.0,
+          "prediction_label_distribution": {
+            "KEEP": 165,
+            "REDACT": 35
+          },
+          "gold_label_distribution": {
+            "REVIEW": 17,
+            "REDACT": 45,
+            "KEEP": 138
+          }
+        },
+        "eval_base_metrics": {
+          "count": 200,
+          "accuracy": 0.815,
+          "macro_f1": 0.4920894708128751,
+          "redact_recall": 0.7647058823529411,
+          "classification_report": {
+            "KEEP": {
+              "precision": 0.8823529411764706,
+              "recall": 0.967741935483871,
+              "f1-score": 0.9230769230769231,
+              "support": 155.0
+            },
+            "REDACT": {
+              "precision": 0.43333333333333335,
+              "recall": 0.7647058823529411,
+              "f1-score": 0.5531914893617021,
+              "support": 17.0
+            },
+            "REVIEW": {
+              "precision": 0.0,
+              "recall": 0.0,
+              "f1-score": 0.0,
+              "support": 28.0
+            },
+            "accuracy": 0.815,
+            "macro avg": {
+              "precision": 0.43856209150326797,
+              "recall": 0.5774826059456041,
+              "f1-score": 0.4920894708128751,
+              "support": 200.0
+            },
+            "weighted avg": {
+              "precision": 0.720656862745098,
+              "recall": 0.815,
+              "f1-score": 0.7624058919803602,
+              "support": 200.0
+            }
+          },
+          "by_context": {
+            "english": {
+              "count": 100,
+              "accuracy": 0.74,
+              "macro_f1": 0.4533333333333333,
+              "redact_recall": 0.7
+            },
+            "social_studies": {
+              "count": 100,
+              "accuracy": 0.89,
+              "macro_f1": 0.551484593837535,
+              "redact_recall": 0.8571428571428571
+            }
+          },
+          "worst_context_redact_recall": 0.7,
+          "by_speaker_role": {
+            "student": {
+              "count": 143,
+              "accuracy": 0.8531468531468531,
+              "macro_f1": 0.4537638918012162,
+              "redact_recall": 0.6666666666666666
+            },
+            "volunteer": {
+              "count": 57,
+              "accuracy": 0.7192982456140351,
+              "macro_f1": 0.5025740025740025,
+              "redact_recall": 0.8181818181818182
+            }
+          },
+          "by_entity_type": {
+            "PERSON": {
+              "count": 69,
+              "accuracy": 0.7681159420289855,
+              "macro_f1": 0.46913580246913583,
+              "redact_recall": 1.0
+            },
+            "LOCATION": {
+              "count": 78,
+              "accuracy": 0.8589743589743589,
+              "macro_f1": 0.3101851851851852,
+              "redact_recall": 0.0
+            },
+            "NRP": {
+              "count": 36,
+              "accuracy": 0.9166666666666666,
+              "macro_f1": 0.3235294117647059,
+              "redact_recall": 0.0
+            },
+            "SCHOOL": {
+              "count": 4,
+              "accuracy": 0.25,
+              "macro_f1": 0.3333333333333333,
+              "redact_recall": 0.0
+            },
+            "URL": {
+              "count": 2,
+              "accuracy": 1.0,
+              "macro_f1": 1.0,
+              "redact_recall": 1.0
+            },
+            "COURSE": {
+              "count": 5,
+              "accuracy": 0.8,
+              "macro_f1": 0.4444444444444444,
+              "redact_recall": 0.8
+            },
+            "SOCIAL_HANDLE": {
+              "count": 1,
+              "accuracy": 0.0,
+              "macro_f1": 0.0,
+              "redact_recall": 0.0
+            },
+            "US_BANK_NUMBER": {
+              "count": 1,
+              "accuracy": 1.0,
+              "macro_f1": 1.0,
+              "redact_recall": 1.0
+            },
+            "PHONE_NUMBER": {
+              "count": 2,
+              "accuracy": 0.0,
+              "macro_f1": 0.0,
+              "redact_recall": 0.0
+            },
+            "US_PASSPORT": {
+              "count": 1,
+              "accuracy": 1.0,
+              "macro_f1": 1.0,
+              "redact_recall": 1.0
+            },
+            "IP_ADDRESS": {
+              "count": 1,
+              "accuracy": 1.0,
+              "macro_f1": 1.0,
+              "redact_recall": 1.0
+            }
+          },
+          "by_semantic_role": {
+            "CURRICULAR": {
+              "count": 155,
+              "accuracy": 0.967741935483871,
+              "macro_f1": 0.4918032786885246,
+              "redact_recall": 0.0
+            },
+            "PRIVATE": {
+              "count": 17,
+              "accuracy": 0.7647058823529411,
+              "macro_f1": 0.43333333333333335,
+              "redact_recall": 0.7647058823529411
+            },
+            "AMBIGUOUS": {
+              "count": 28,
+              "accuracy": 0.0,
+              "macro_f1": 0.0,
+              "redact_recall": 0.0
+            }
+          },
+          "by_eval_slice": {
+            "challenge": {
+              "count": 100,
+              "accuracy": 0.92,
+              "macro_f1": 0.3194444444444445,
+              "redact_recall": 0.0
+            },
+            "natural": {
+              "count": 100,
+              "accuracy": 0.71,
+              "macro_f1": 0.4833194096351991,
+              "redact_recall": 0.8125
+            }
+          },
+          "cerr": 0.967741935483871,
+          "orr": 0.03225806451612903,
+          "review_rate": 0.0,
+          "prediction_label_distribution": {
+            "KEEP": 170,
+            "REDACT": 30
+          },
+          "gold_label_distribution": {
+            "KEEP": 155,
+            "REDACT": 17,
+            "REVIEW": 28
+          }
+        },
+        "selected_targets": [
+          {
+            "target_review_rate": 0.05,
+            "calibration": {
+              "strategy": "review_probability",
+              "parameters": {
+                "min_review_probability": 0.2715912994142245
+              },
+              "temperature": 2.661147534707855,
+              "metrics": {
+                "count": 200,
+                "accuracy": 0.79,
+                "macro_f1": 0.5723514211886305,
+                "redact_recall": 0.4888888888888889,
+                "classification_report": {
+                  "KEEP": {
+                    "precision": 0.8159509202453987,
+                    "recall": 0.9637681159420289,
+                    "f1-score": 0.8837209302325582,
+                    "support": 138.0
+                  },
+                  "REDACT": {
+                    "precision": 0.8148148148148148,
+                    "recall": 0.4888888888888889,
+                    "f1-score": 0.6111111111111112,
+                    "support": 45.0
+                  },
+                  "REVIEW": {
+                    "precision": 0.3,
+                    "recall": 0.17647058823529413,
+                    "f1-score": 0.2222222222222222,
+                    "support": 17.0
+                  },
+                  "accuracy": 0.79,
+                  "macro avg": {
+                    "precision": 0.6435885783534044,
+                    "recall": 0.5430425310220707,
+                    "f1-score": 0.5723514211886305,
+                    "support": 200.0
+                  },
+                  "weighted avg": {
+                    "precision": 0.7718394683026584,
+                    "recall": 0.79,
+                    "f1-score": 0.7661563307493541,
+                    "support": 200.0
+                  }
+                },
+                "by_context": {
+                  "english": {
+                    "count": 100,
+                    "accuracy": 0.68,
+                    "macro_f1": 0.5057777777777778,
+                    "redact_recall": 0.47368421052631576
+                  },
+                  "social_studies": {
+                    "count": 100,
+                    "accuracy": 0.9,
+                    "macro_f1": 0.6515151515151515,
+                    "redact_recall": 0.5714285714285714
+                  }
+                },
+                "worst_context_redact_recall": 0.47368421052631576,
+                "by_speaker_role": {
+                  "student": {
+                    "count": 137,
+                    "accuracy": 0.7956204379562044,
+                    "macro_f1": 0.516365563424387,
+                    "redact_recall": 0.4
+                  },
+                  "volunteer": {
+                    "count": 63,
+                    "accuracy": 0.7777777777777778,
+                    "macro_f1": 0.649970605526161,
+                    "redact_recall": 0.6
+                  }
+                },
+                "by_entity_type": {
+                  "PERSON": {
+                    "count": 85,
+                    "accuracy": 0.6941176470588235,
+                    "macro_f1": 0.5414104666256746,
+                    "redact_recall": 0.46153846153846156
+                  },
+                  "LOCATION": {
+                    "count": 65,
+                    "accuracy": 0.8461538461538461,
+                    "macro_f1": 0.4858178053830227,
+                    "redact_recall": 0.16666666666666666
+                  },
+                  "NRP": {
+                    "count": 34,
+                    "accuracy": 1.0,
+                    "macro_f1": 1.0,
+                    "redact_recall": 0.0
+                  },
+                  "URL": {
+                    "count": 2,
+                    "accuracy": 1.0,
+                    "macro_f1": 1.0,
+                    "redact_recall": 1.0
+                  },
+                  "SCHOOL": {
+                    "count": 5,
+                    "accuracy": 0.4,
+                    "macro_f1": 0.19047619047619047,
+                    "redact_recall": 0.6666666666666666
+                  },
+                  "COURSE": {
+                    "count": 6,
+                    "accuracy": 0.6666666666666666,
+                    "macro_f1": 0.26666666666666666,
+                    "redact_recall": 0.6666666666666666
+                  },
+                  "PHONE_NUMBER": {
+                    "count": 2,
+                    "accuracy": 1.0,
+                    "macro_f1": 1.0,
+                    "redact_recall": 1.0
+                  },
+                  "SOCIAL_HANDLE": {
+                    "count": 1,
+                    "accuracy": 0.0,
+                    "macro_f1": 0.0,
+                    "redact_recall": 0.0
+                  }
+                },
+                "by_semantic_role": {
+                  "AMBIGUOUS": {
+                    "count": 17,
+                    "accuracy": 0.17647058823529413,
+                    "macro_f1": 0.09999999999999999,
+                    "redact_recall": 0.0
+                  },
+                  "PRIVATE": {
+                    "count": 45,
+                    "accuracy": 0.4888888888888889,
+                    "macro_f1": 0.21890547263681592,
+                    "redact_recall": 0.4888888888888889
+                  },
+                  "CURRICULAR": {
+                    "count": 138,
+                    "accuracy": 0.9637681159420289,
+                    "macro_f1": 0.32718327183271834,
+                    "redact_recall": 0.0
+                  }
+                },
+                "by_eval_slice": {
+                  "challenge": {
+                    "count": 100,
+                    "accuracy": 0.83,
+                    "macro_f1": 0.44303286953014726,
+                    "redact_recall": 0.26666666666666666
+                  },
+                  "natural": {
+                    "count": 100,
+                    "accuracy": 0.75,
+                    "macro_f1": 0.6098796612687566,
+                    "redact_recall": 0.6
+                  }
+                },
+                "cerr": 0.9637681159420289,
+                "orr": 0.014492753623188406,
+                "review_rate": 0.05,
+                "prediction_label_distribution": {
+                  "KEEP": 163,
+                  "REDACT": 27,
+                  "REVIEW": 10
+                },
+                "gold_label_distribution": {
+                  "REVIEW": 17,
+                  "REDACT": 45,
+                  "KEEP": 138
+                },
+                "automation_rate": 0.95,
+                "deferred_count": 10,
+                "base_prediction_label_distribution": {
+                  "KEEP": 165,
+                  "REDACT": 35
+                },
+                "protected_redact_rate": 0.5777777777777777,
+                "redact_leak_rate": 0.4222222222222223,
+                "gold_redact_defer_rate": 0.08888888888888889,
+                "gold_review_coverage": 0.17647058823529413,
+                "review_precision": 0.3,
+                "base_error_rate": 0.205,
+                "deferred_error_coverage": 0.14634146341463414,
+                "deferred_correct_rate": 0.025157232704402517
+              }
+            },
+            "evaluation": {
+              "strategy": "review_probability",
+              "parameters": {
+                "min_review_probability": 0.2715912994142245
+              },
+              "temperature": 2.661147534707855,
+              "metrics": {
+                "count": 200,
+                "accuracy": 0.82,
+                "macro_f1": 0.5653814513627599,
+                "redact_recall": 0.7058823529411765,
+                "classification_report": {
+                  "KEEP": {
+                    "precision": 0.891566265060241,
+                    "recall": 0.9548387096774194,
+                    "f1-score": 0.9221183800623053,
+                    "support": 155.0
+                  },
+                  "REDACT": {
+                    "precision": 0.4444444444444444,
+                    "recall": 0.7058823529411765,
+                    "f1-score": 0.5454545454545454,
+                    "support": 17.0
+                  },
+                  "REVIEW": {
+                    "precision": 0.5714285714285714,
+                    "recall": 0.14285714285714285,
+                    "f1-score": 0.22857142857142856,
+                    "support": 28.0
+                  },
+                  "accuracy": 0.82,
+                  "macro avg": {
+                    "precision": 0.635813093644419,
+                    "recall": 0.6011927351585795,
+                    "f1-score": 0.5653814513627599,
+                    "support": 200.0
+                  },
+                  "weighted avg": {
+                    "precision": 0.8087416331994645,
+                    "recall": 0.82,
+                    "f1-score": 0.7930053809119231,
+                    "support": 200.0
+                  }
+                },
+                "by_context": {
+                  "english": {
+                    "count": 100,
+                    "accuracy": 0.76,
+                    "macro_f1": 0.5500319786034071,
+                    "redact_recall": 0.6
+                  },
+                  "social_studies": {
+                    "count": 100,
+                    "accuracy": 0.88,
+                    "macro_f1": 0.5494703628577868,
+                    "redact_recall": 0.8571428571428571
+                  }
+                },
+                "worst_context_redact_recall": 0.6,
+                "by_speaker_role": {
+                  "student": {
+                    "count": 143,
+                    "accuracy": 0.8531468531468531,
+                    "macro_f1": 0.5216465680861966,
+                    "redact_recall": 0.5
+                  },
+                  "volunteer": {
+                    "count": 57,
+                    "accuracy": 0.7368421052631579,
+                    "macro_f1": 0.5617925617925618,
+                    "redact_recall": 0.8181818181818182
+                  }
+                },
+                "by_entity_type": {
+                  "PERSON": {
+                    "count": 69,
+                    "accuracy": 0.8260869565217391,
+                    "macro_f1": 0.6468004392532695,
+                    "redact_recall": 1.0
+                  },
+                  "LOCATION": {
+                    "count": 78,
+                    "accuracy": 0.8333333333333334,
+                    "macro_f1": 0.3051643192488263,
+                    "redact_recall": 0.0
+                  },
+                  "NRP": {
+                    "count": 36,
+                    "accuracy": 0.9166666666666666,
+                    "macro_f1": 0.3235294117647059,
+                    "redact_recall": 0.0
+                  },
+                  "SCHOOL": {
+                    "count": 4,
+                    "accuracy": 0.25,
+                    "macro_f1": 0.3333333333333333,
+                    "redact_recall": 0.0
+                  },
+                  "URL": {
+                    "count": 2,
+                    "accuracy": 1.0,
+                    "macro_f1": 1.0,
+                    "redact_recall": 1.0
+                  },
+                  "COURSE": {
+                    "count": 5,
+                    "accuracy": 0.6,
+                    "macro_f1": 0.25,
+                    "redact_recall": 0.6
+                  },
+                  "SOCIAL_HANDLE": {
+                    "count": 1,
+                    "accuracy": 0.0,
+                    "macro_f1": 0.0,
+                    "redact_recall": 0.0
+                  },
+                  "US_BANK_NUMBER": {
+                    "count": 1,
+                    "accuracy": 1.0,
+                    "macro_f1": 1.0,
+                    "redact_recall": 1.0
+                  },
+                  "PHONE_NUMBER": {
+                    "count": 2,
+                    "accuracy": 0.0,
+                    "macro_f1": 0.0,
+                    "redact_recall": 0.0
+                  },
+                  "US_PASSPORT": {
+                    "count": 1,
+                    "accuracy": 1.0,
+                    "macro_f1": 1.0,
+                    "redact_recall": 1.0
+                  },
+                  "IP_ADDRESS": {
+                    "count": 1,
+                    "accuracy": 1.0,
+                    "macro_f1": 1.0,
+                    "redact_recall": 1.0
+                  }
+                },
+                "by_semantic_role": {
+                  "CURRICULAR": {
+                    "count": 155,
+                    "accuracy": 0.9548387096774194,
+                    "macro_f1": 0.32563256325632567,
+                    "redact_recall": 0.0
+                  },
+                  "PRIVATE": {
+                    "count": 17,
+                    "accuracy": 0.7058823529411765,
+                    "macro_f1": 0.27586206896551724,
+                    "redact_recall": 0.7058823529411765
+                  },
+                  "AMBIGUOUS": {
+                    "count": 28,
+                    "accuracy": 0.14285714285714285,
+                    "macro_f1": 0.08333333333333333,
+                    "redact_recall": 0.0
+                  }
+                },
+                "by_eval_slice": {
+                  "challenge": {
+                    "count": 100,
+                    "accuracy": 0.91,
+                    "macro_f1": 0.31762652705061084,
+                    "redact_recall": 0.0
+                  },
+                  "natural": {
+                    "count": 100,
+                    "accuracy": 0.73,
+                    "macro_f1": 0.5780219780219781,
+                    "redact_recall": 0.75
+                  }
+                },
+                "cerr": 0.9548387096774194,
+                "orr": 0.03225806451612903,
+                "review_rate": 0.035,
+                "prediction_label_distribution": {
+                  "KEEP": 166,
+                  "REVIEW": 7,
+                  "REDACT": 27
+                },
+                "gold_label_distribution": {
+                  "KEEP": 155,
+                  "REDACT": 17,
+                  "REVIEW": 28
+                },
+                "automation_rate": 0.965,
+                "deferred_count": 7,
+                "base_prediction_label_distribution": {
+                  "KEEP": 170,
+                  "REDACT": 30
+                },
+                "protected_redact_rate": 0.7647058823529411,
+                "redact_leak_rate": 0.23529411764705888,
+                "gold_redact_defer_rate": 0.058823529411764705,
+                "gold_review_coverage": 0.14285714285714285,
+                "review_precision": 0.5714285714285714,
+                "base_error_rate": 0.185,
+                "deferred_error_coverage": 0.10810810810810811,
+                "deferred_correct_rate": 0.018404907975460124
+              }
+            },
+            "output_name": "eval_target_050_predictions.jsonl",
+            "output_file": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_003740_upchieve-modernbert-v2-seed-suite-seed-42/deferral_direct_id/predictions/eval_target_050_predictions.jsonl"
+          },
+          {
+            "target_review_rate": 0.1,
+            "calibration": {
+              "strategy": "review_probability",
+              "parameters": {
+                "min_review_probability": 0.24794279108427783
+              },
+              "temperature": 2.661147534707855,
+              "metrics": {
+                "count": 200,
+                "accuracy": 0.775,
+                "macro_f1": 0.5570114543561263,
+                "redact_recall": 0.4,
+                "classification_report": {
+                  "KEEP": {
+                    "precision": 0.8159509202453987,
+                    "recall": 0.9637681159420289,
+                    "f1-score": 0.8837209302325582,
+                    "support": 138.0
+                  },
+                  "REDACT": {
+                    "precision": 0.8181818181818182,
+                    "recall": 0.4,
+                    "f1-score": 0.5373134328358209,
+                    "support": 45.0
+                  },
+                  "REVIEW": {
+                    "precision": 0.26666666666666666,
+                    "recall": 0.23529411764705882,
+                    "f1-score": 0.25,
+                    "support": 17.0
+                  },
+                  "accuracy": 0.775,
+                  "macro avg": {
+                    "precision": 0.6335998016979612,
+                    "recall": 0.533020744529696,
+                    "f1-score": 0.5570114543561263,
+                    "support": 200.0
+                  },
+                  "weighted avg": {
+                    "precision": 0.7697637107269009,
+                    "recall": 0.775,
+                    "f1-score": 0.7519129642485248,
+                    "support": 200.0
+                  }
+                },
+                "by_context": {
+                  "english": {
+                    "count": 100,
+                    "accuracy": 0.65,
+                    "macro_f1": 0.4976969696969697,
+                    "redact_recall": 0.3684210526315789
+                  },
+                  "social_studies": {
+                    "count": 100,
+                    "accuracy": 0.9,
+                    "macro_f1": 0.6515151515151515,
+                    "redact_recall": 0.5714285714285714
+                  }
+                },
+                "worst_context_redact_recall": 0.3684210526315789,
+                "by_speaker_role": {
+                  "student": {
+                    "count": 137,
+                    "accuracy": 0.781021897810219,
+                    "macro_f1": 0.4844383686488949,
+                    "redact_recall": 0.32
+                  },
+                  "volunteer": {
+                    "count": 63,
+                    "accuracy": 0.7619047619047619,
+                    "macro_f1": 0.6502453308008863,
+                    "redact_recall": 0.5
+                  }
+                },
+                "by_entity_type": {
+                  "PERSON": {
+                    "count": 85,
+                    "accuracy": 0.6705882352941176,
+                    "macro_f1": 0.5252574002574003,
+                    "redact_recall": 0.34615384615384615
+                  },
+                  "LOCATION": {
+                    "count": 65,
+                    "accuracy": 0.8461538461538461,
+                    "macro_f1": 0.4858178053830227,
+                    "redact_recall": 0.16666666666666666
+                  },
+                  "NRP": {
+                    "count": 34,
+                    "accuracy": 1.0,
+                    "macro_f1": 1.0,
+                    "redact_recall": 0.0
+                  },
+                  "URL": {
+                    "count": 2,
+                    "accuracy": 1.0,
+                    "macro_f1": 1.0,
+                    "redact_recall": 1.0
+                  },
+                  "SCHOOL": {
+                    "count": 5,
+                    "accuracy": 0.4,
+                    "macro_f1": 0.19047619047619047,
+                    "redact_recall": 0.6666666666666666
+                  },
+                  "COURSE": {
+                    "count": 6,
+                    "accuracy": 0.6666666666666666,
+                    "macro_f1": 0.26666666666666666,
+                    "redact_recall": 0.6666666666666666
+                  },
+                  "PHONE_NUMBER": {
+                    "count": 2,
+                    "accuracy": 0.5,
+                    "macro_f1": 0.3333333333333333,
+                    "redact_recall": 0.0
+                  },
+                  "SOCIAL_HANDLE": {
+                    "count": 1,
+                    "accuracy": 0.0,
+                    "macro_f1": 0.0,
+                    "redact_recall": 0.0
+                  }
+                },
+                "by_semantic_role": {
+                  "AMBIGUOUS": {
+                    "count": 17,
+                    "accuracy": 0.23529411764705882,
+                    "macro_f1": 0.12698412698412698,
+                    "redact_recall": 0.0
+                  },
+                  "PRIVATE": {
+                    "count": 45,
+                    "accuracy": 0.4,
+                    "macro_f1": 0.19047619047619047,
+                    "redact_recall": 0.4
+                  },
+                  "CURRICULAR": {
+                    "count": 138,
+                    "accuracy": 0.9637681159420289,
+                    "macro_f1": 0.32718327183271834,
+                    "redact_recall": 0.0
+                  }
+                },
+                "by_eval_slice": {
+                  "challenge": {
+                    "count": 100,
+                    "accuracy": 0.82,
+                    "macro_f1": 0.41379310344827586,
+                    "redact_recall": 0.2
+                  },
+                  "natural": {
+                    "count": 100,
+                    "accuracy": 0.73,
+                    "macro_f1": 0.5986573106933062,
+                    "redact_recall": 0.5
+                  }
+                },
+                "cerr": 0.9637681159420289,
+                "orr": 0.014492753623188406,
+                "review_rate": 0.075,
+                "prediction_label_distribution": {
+                  "KEEP": 163,
+                  "REDACT": 22,
+                  "REVIEW": 15
+                },
+                "gold_label_distribution": {
+                  "REVIEW": 17,
+                  "REDACT": 45,
+                  "KEEP": 138
+                },
+                "automation_rate": 0.925,
+                "deferred_count": 15,
+                "base_prediction_label_distribution": {
+                  "KEEP": 165,
+                  "REDACT": 35
+                },
+                "protected_redact_rate": 0.5777777777777777,
+                "redact_leak_rate": 0.4222222222222223,
+                "gold_redact_defer_rate": 0.17777777777777778,
+                "gold_review_coverage": 0.23529411764705882,
+                "review_precision": 0.26666666666666666,
+                "base_error_rate": 0.205,
+                "deferred_error_coverage": 0.17073170731707318,
+                "deferred_correct_rate": 0.050314465408805034
+              }
+            },
+            "evaluation": {
+              "strategy": "review_probability",
+              "parameters": {
+                "min_review_probability": 0.24794279108427783
+              },
+              "temperature": 2.661147534707855,
+              "metrics": {
+                "count": 200,
+                "accuracy": 0.83,
+                "macro_f1": 0.6314430399603902,
+                "redact_recall": 0.6470588235294118,
+                "classification_report": {
+                  "KEEP": {
+                    "precision": 0.9012345679012346,
+                    "recall": 0.9419354838709677,
+                    "f1-score": 0.9211356466876972,
+                    "support": 155.0
+                  },
+                  "REDACT": {
+                    "precision": 0.5,
+                    "recall": 0.6470588235294118,
+                    "f1-score": 0.5641025641025641,
+                    "support": 17.0
+                  },
+                  "REVIEW": {
+                    "precision": 0.5625,
+                    "recall": 0.32142857142857145,
+                    "f1-score": 0.4090909090909091,
+                    "support": 28.0
+                  },
+                  "accuracy": 0.83,
+                  "macro avg": {
+                    "precision": 0.6545781893004116,
+                    "recall": 0.6368076262763169,
+                    "f1-score": 0.6314430399603902,
+                    "support": 200.0
+                  },
+                  "weighted avg": {
+                    "precision": 0.8197067901234568,
+                    "recall": 0.83,
+                    "f1-score": 0.8191015714044105,
+                    "support": 200.0
+                  }
+                },
+                "by_context": {
+                  "english": {
+                    "count": 100,
+                    "accuracy": 0.78,
+                    "macro_f1": 0.6296296296296297,
+                    "redact_recall": 0.6
+                  },
+                  "social_studies": {
+                    "count": 100,
+                    "accuracy": 0.88,
+                    "macro_f1": 0.5937700706486834,
+                    "redact_recall": 0.7142857142857143
+                  }
+                },
+                "worst_context_redact_recall": 0.6,
+                "by_speaker_role": {
+                  "student": {
+                    "count": 143,
+                    "accuracy": 0.8741258741258742,
+                    "macro_f1": 0.6237314597970336,
+                    "redact_recall": 0.5
+                  },
+                  "volunteer": {
+                    "count": 57,
+                    "accuracy": 0.7192982456140351,
+                    "macro_f1": 0.5797716894977168,
+                    "redact_recall": 0.7272727272727273
+                  }
+                },
+                "by_entity_type": {
+                  "PERSON": {
+                    "count": 69,
+                    "accuracy": 0.855072463768116,
+                    "macro_f1": 0.7842071197411004,
+                    "redact_recall": 1.0
+                  },
+                  "LOCATION": {
+                    "count": 78,
+                    "accuracy": 0.8461538461538461,
+                    "macro_f1": 0.36793466580700623,
+                    "redact_recall": 0.0
+                  },
+                  "NRP": {
+                    "count": 36,
+                    "accuracy": 0.9166666666666666,
+                    "macro_f1": 0.3235294117647059,
+                    "redact_recall": 0.0
+                  },
+                  "SCHOOL": {
+                    "count": 4,
+                    "accuracy": 0.25,
+                    "macro_f1": 0.3333333333333333,
+                    "redact_recall": 0.0
+                  },
+                  "URL": {
+                    "count": 2,
+                    "accuracy": 1.0,
+                    "macro_f1": 1.0,
+                    "redact_recall": 1.0
+                  },
+                  "COURSE": {
+                    "count": 5,
+                    "accuracy": 0.4,
+                    "macro_f1": 0.19047619047619047,
+                    "redact_recall": 0.4
+                  },
+                  "SOCIAL_HANDLE": {
+                    "count": 1,
+                    "accuracy": 0.0,
+                    "macro_f1": 0.0,
+                    "redact_recall": 0.0
+                  },
+                  "US_BANK_NUMBER": {
+                    "count": 1,
+                    "accuracy": 1.0,
+                    "macro_f1": 1.0,
+                    "redact_recall": 1.0
+                  },
+                  "PHONE_NUMBER": {
+                    "count": 2,
+                    "accuracy": 0.0,
+                    "macro_f1": 0.0,
+                    "redact_recall": 0.0
+                  },
+                  "US_PASSPORT": {
+                    "count": 1,
+                    "accuracy": 1.0,
+                    "macro_f1": 1.0,
+                    "redact_recall": 1.0
+                  },
+                  "IP_ADDRESS": {
+                    "count": 1,
+                    "accuracy": 1.0,
+                    "macro_f1": 1.0,
+                    "redact_recall": 1.0
+                  }
+                },
+                "by_semantic_role": {
+                  "CURRICULAR": {
+                    "count": 155,
+                    "accuracy": 0.9419354838709677,
+                    "macro_f1": 0.3233665559246955,
+                    "redact_recall": 0.0
+                  },
+                  "PRIVATE": {
+                    "count": 17,
+                    "accuracy": 0.6470588235294118,
+                    "macro_f1": 0.2619047619047619,
+                    "redact_recall": 0.6470588235294118
+                  },
+                  "AMBIGUOUS": {
+                    "count": 28,
+                    "accuracy": 0.32142857142857145,
+                    "macro_f1": 0.16216216216216217,
+                    "redact_recall": 0.0
+                  }
+                },
+                "by_eval_slice": {
+                  "challenge": {
+                    "count": 100,
+                    "accuracy": 0.92,
+                    "macro_f1": 0.45248226950354614,
+                    "redact_recall": 0.0
+                  },
+                  "natural": {
+                    "count": 100,
+                    "accuracy": 0.74,
+                    "macro_f1": 0.6248587849135044,
+                    "redact_recall": 0.6875
+                  }
+                },
+                "cerr": 0.9419354838709677,
+                "orr": 0.025806451612903226,
+                "review_rate": 0.08,
+                "prediction_label_distribution": {
+                  "KEEP": 162,
+                  "REVIEW": 16,
+                  "REDACT": 22
+                },
+                "gold_label_distribution": {
+                  "KEEP": 155,
+                  "REDACT": 17,
+                  "REVIEW": 28
+                },
+                "automation_rate": 0.92,
+                "deferred_count": 16,
+                "base_prediction_label_distribution": {
+                  "KEEP": 170,
+                  "REDACT": 30
+                },
+                "protected_redact_rate": 0.7647058823529411,
+                "redact_leak_rate": 0.23529411764705888,
+                "gold_redact_defer_rate": 0.11764705882352941,
+                "gold_review_coverage": 0.32142857142857145,
+                "review_precision": 0.5625,
+                "base_error_rate": 0.185,
+                "deferred_error_coverage": 0.2702702702702703,
+                "deferred_correct_rate": 0.03680981595092025
+              }
+            },
+            "output_name": "eval_target_100_predictions.jsonl",
+            "output_file": "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_003740_upchieve-modernbert-v2-seed-suite-seed-42/deferral_direct_id/predictions/eval_target_100_predictions.jsonl"
+          }
+        ],
+        "selected_prediction_files": [
+          "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_003740_upchieve-modernbert-v2-seed-suite-seed-42/deferral_direct_id/predictions/eval_target_050_predictions.jsonl",
+          "/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_003740_upchieve-modernbert-v2-seed-suite-seed-42/deferral_direct_id/predictions/eval_target_100_predictions.jsonl"
+        ],
+        "sweep_result_count": 81
+      }
+    }
+  },
+  "legacy_math_metrics": {
+    "no_rules": {
+      "count": 779,
+      "accuracy": 0.9088575096277278,
+      "macro_f1": 0.6502473810375718,
+      "redact_recall": 1.0,
+      "classification_report": {
+        "KEEP": {
+          "precision": 0.9676258992805755,
+          "recall": 0.9871559633027523,
+          "f1-score": 0.9772933696639419,
+          "support": 545.0
+        },
+        "REDACT": {
+          "precision": 0.7579908675799086,
+          "recall": 1.0,
+          "f1-score": 0.8623376623376623,
+          "support": 166.0
+        },
+        "REVIEW": {
+          "precision": 1.0,
+          "recall": 0.058823529411764705,
+          "f1-score": 0.1111111111111111,
+          "support": 68.0
+        },
+        "accuracy": 0.9088575096277278,
+        "macro avg": {
+          "precision": 0.908538922286828,
+          "recall": 0.6819931642381722,
+          "f1-score": 0.6502473810375718,
+          "support": 779.0
+        },
+        "weighted avg": {
+          "precision": 0.925779973204337,
+          "recall": 0.9088575096277278,
+          "f1-score": 0.8771867701803028,
+          "support": 779.0
+        }
+      },
+      "by_context": {
+        "math": {
+          "count": 779,
+          "accuracy": 0.9088575096277278,
+          "macro_f1": 0.6502473810375718,
+          "redact_recall": 1.0
+        }
+      },
+      "worst_context_redact_recall": 1.0,
+      "by_speaker_role": {
+        "student": {
+          "count": 292,
+          "accuracy": 0.8561643835616438,
+          "macro_f1": 0.6270940897192131,
+          "redact_recall": 1.0
+        },
+        "volunteer": {
+          "count": 487,
+          "accuracy": 0.9404517453798767,
+          "macro_f1": 0.6687495958340306,
+          "redact_recall": 1.0
+        }
+      },
+      "by_entity_type": {
+        "PERSON": {
+          "count": 408,
+          "accuracy": 0.928921568627451,
+          "macro_f1": 0.6334601832276251,
+          "redact_recall": 1.0
+        },
+        "LOCATION": {
+          "count": 29,
+          "accuracy": 0.3448275862068966,
+          "macro_f1": 0.34169653524492233,
+          "redact_recall": 1.0
+        },
+        "SCHOOL": {
+          "count": 9,
+          "accuracy": 0.8888888888888888,
+          "macro_f1": 0.47058823529411764,
+          "redact_recall": 1.0
+        },
+        "URL": {
+          "count": 13,
+          "accuracy": 1.0,
+          "macro_f1": 1.0,
+          "redact_recall": 1.0
+        },
+        "AGE": {
+          "count": 4,
+          "accuracy": 0.75,
+          "macro_f1": 0.7333333333333334,
+          "redact_recall": 1.0
+        },
+        "COURSE": {
+          "count": 6,
+          "accuracy": 0.3333333333333333,
+          "macro_f1": 0.16666666666666666,
+          "redact_recall": 1.0
+        },
+        "GRADE_LEVEL": {
+          "count": 13,
+          "accuracy": 0.6153846153846154,
+          "macro_f1": 0.38095238095238093,
+          "redact_recall": 1.0
+        },
+        "NRP": {
+          "count": 1,
+          "accuracy": 1.0,
+          "macro_f1": 1.0,
+          "redact_recall": 1.0
+        }
+      },
+      "cerr": 0.9871559633027523,
+      "orr": 0.012844036697247707,
+      "review_rate": 0.005134788189987163,
+      "prediction_label_distribution": {
+        "KEEP": 556,
+        "REDACT": 219,
+        "REVIEW": 4
+      },
+      "gold_label_distribution": {
+        "KEEP": 545,
+        "REDACT": 166,
+        "REVIEW": 68
+      }
+    },
+    "direct_id": {
+      "count": 779,
+      "accuracy": 0.9088575096277278,
+      "macro_f1": 0.6502473810375718,
+      "redact_recall": 1.0,
+      "classification_report": {
+        "KEEP": {
+          "precision": 0.9676258992805755,
+          "recall": 0.9871559633027523,
+          "f1-score": 0.9772933696639419,
+          "support": 545.0
+        },
+        "REDACT": {
+          "precision": 0.7579908675799086,
+          "recall": 1.0,
+          "f1-score": 0.8623376623376623,
+          "support": 166.0
+        },
+        "REVIEW": {
+          "precision": 1.0,
+          "recall": 0.058823529411764705,
+          "f1-score": 0.1111111111111111,
+          "support": 68.0
+        },
+        "accuracy": 0.9088575096277278,
+        "macro avg": {
+          "precision": 0.908538922286828,
+          "recall": 0.6819931642381722,
+          "f1-score": 0.6502473810375718,
+          "support": 779.0
+        },
+        "weighted avg": {
+          "precision": 0.925779973204337,
+          "recall": 0.9088575096277278,
+          "f1-score": 0.8771867701803028,
+          "support": 779.0
+        }
+      },
+      "by_context": {
+        "math": {
+          "count": 779,
+          "accuracy": 0.9088575096277278,
+          "macro_f1": 0.6502473810375718,
+          "redact_recall": 1.0
+        }
+      },
+      "worst_context_redact_recall": 1.0,
+      "by_speaker_role": {
+        "student": {
+          "count": 292,
+          "accuracy": 0.8561643835616438,
+          "macro_f1": 0.6270940897192131,
+          "redact_recall": 1.0
+        },
+        "volunteer": {
+          "count": 487,
+          "accuracy": 0.9404517453798767,
+          "macro_f1": 0.6687495958340306,
+          "redact_recall": 1.0
+        }
+      },
+      "by_entity_type": {
+        "PERSON": {
+          "count": 408,
+          "accuracy": 0.928921568627451,
+          "macro_f1": 0.6334601832276251,
+          "redact_recall": 1.0
+        },
+        "LOCATION": {
+          "count": 29,
+          "accuracy": 0.3448275862068966,
+          "macro_f1": 0.34169653524492233,
+          "redact_recall": 1.0
+        },
+        "SCHOOL": {
+          "count": 9,
+          "accuracy": 0.8888888888888888,
+          "macro_f1": 0.47058823529411764,
+          "redact_recall": 1.0
+        },
+        "URL": {
+          "count": 13,
+          "accuracy": 1.0,
+          "macro_f1": 1.0,
+          "redact_recall": 1.0
+        },
+        "AGE": {
+          "count": 4,
+          "accuracy": 0.75,
+          "macro_f1": 0.7333333333333334,
+          "redact_recall": 1.0
+        },
+        "COURSE": {
+          "count": 6,
+          "accuracy": 0.3333333333333333,
+          "macro_f1": 0.16666666666666666,
+          "redact_recall": 1.0
+        },
+        "GRADE_LEVEL": {
+          "count": 13,
+          "accuracy": 0.6153846153846154,
+          "macro_f1": 0.38095238095238093,
+          "redact_recall": 1.0
+        },
+        "NRP": {
+          "count": 1,
+          "accuracy": 1.0,
+          "macro_f1": 1.0,
+          "redact_recall": 1.0
+        }
+      },
+      "cerr": 0.9871559633027523,
+      "orr": 0.012844036697247707,
+      "review_rate": 0.005134788189987163,
+      "prediction_label_distribution": {
+        "KEEP": 556,
+        "REDACT": 219,
+        "REVIEW": 4
+      },
+      "gold_label_distribution": {
+        "KEEP": 545,
+        "REDACT": 166,
+        "REVIEW": 68
+      }
+    }
+  },
+  "base_test_macro_f1": {
+    "no_rules": 0.4920894708128751,
+    "direct_id": 0.4920894708128751
+  },
+  "base_test_accuracy": {
+    "no_rules": 0.815,
+    "direct_id": 0.815
+  },
+  "base_test_redact_recall": {
+    "no_rules": 0.7647058823529411,
+    "direct_id": 0.7647058823529411
+  },
+  "selected_10_no_rules_macro_f1": 0.6158171453871271,
+  "selected_10_direct_id_macro_f1": 0.6314430399603902
+}
