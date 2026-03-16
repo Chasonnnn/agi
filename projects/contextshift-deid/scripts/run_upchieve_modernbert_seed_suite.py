@@ -22,6 +22,7 @@ if str(SCRIPT_DIR) not in sys.path:
 
 import evaluate_deferral as deferral_eval
 
+from contextshift_deid.action_features import ACTION_INPUT_FORMAT_CHOICES, DEFAULT_ACTION_INPUT_FORMAT
 from contextshift_deid.constants import RESULTS_HEADER
 from contextshift_deid.data import load_jsonl
 from contextshift_deid.direct_id_rules import apply_direct_id_overrides
@@ -35,6 +36,9 @@ DEFAULT_RUN_NAME = "upchieve-modernbert-v2-seed-suite"
 DEFAULT_RUN_ROOT = EXPERIMENTS_DIR / "modernbert_recipe_tuning"
 DEFAULT_SEEDS = (13, 42, 101)
 DEFAULT_TARGET_REVIEW_RATES = (0.05, 0.10)
+POLICY_SELECTION_METRIC = "selected_policy_10pct_direct_id"
+SEMANTIC_ROLE_HEAD_MODE_CHOICES = ("none", "multitask")
+SAMPLER_MODE_CHOICES = ("none", "subject_action_balanced")
 DEFAULT_TRAIN_FILE = ROOT / "data/processed/action/train_mixed_upchieve_english_social_v2.jsonl"
 DEFAULT_DEV_FILE = ROOT / "data/processed/action/upchieve_english_social_dev.jsonl"
 DEFAULT_TEST_FILE = ROOT / "data/processed/action/upchieve_english_social_test.jsonl"
@@ -149,13 +153,21 @@ def _write_jsonl(path: Path, rows: list[dict[str, Any]]) -> None:
 
 def _run(command: list[str], *, capture_json: bool = False) -> dict[str, Any] | None:
     print("+", " ".join(command))
-    completed = subprocess.run(
-        command,
-        cwd=ROOT,
-        check=True,
-        capture_output=capture_json,
-        text=capture_json,
-    )
+    try:
+        completed = subprocess.run(
+            command,
+            cwd=ROOT,
+            check=True,
+            capture_output=capture_json,
+            text=capture_json,
+        )
+    except subprocess.CalledProcessError as exc:
+        if capture_json:
+            if exc.stdout:
+                print(exc.stdout)
+            if exc.stderr:
+                print(exc.stderr, file=sys.stderr)
+        raise
     if not capture_json:
         return None
     stdout = completed.stdout.strip()
@@ -733,6 +745,12 @@ def _build_suite_report(
     run_root: Path,
     seeds: tuple[int, ...],
     target_review_rates: tuple[float, ...],
+    action_input_format: str,
+    semantic_role_head_mode: str,
+    semantic_role_loss_weight: float,
+    sampler_mode: str,
+    gradient_accumulation_steps: int,
+    gradient_checkpointing: bool,
     selection_metric: str,
     warmup_ratio: float,
     weight_decay: float,
@@ -755,6 +773,12 @@ def _build_suite_report(
         f"- Run root: `{run_root}`",
         f"- Seeds: `{', '.join(str(seed) for seed in seeds)}`",
         f"- Target review rates: `{', '.join(f'{rate:.2f}' for rate in target_review_rates)}`",
+        f"- Action input format: `{action_input_format}`",
+        f"- Semantic-role head mode: `{semantic_role_head_mode}`",
+        f"- Semantic-role loss weight: `{semantic_role_loss_weight}`",
+        f"- Sampler mode: `{sampler_mode}`",
+        f"- Gradient accumulation steps: `{gradient_accumulation_steps}`",
+        f"- Gradient checkpointing: `{gradient_checkpointing}`",
         f"- Checkpoint selection metric: `{selection_metric}`",
         f"- Warmup ratio: `{warmup_ratio}`",
         f"- Weight decay: `{weight_decay}`",
@@ -1012,6 +1036,12 @@ def _results_logged_signature(
     *,
     seeds: tuple[int, ...],
     target_review_rates: tuple[float, ...],
+    action_input_format: str,
+    semantic_role_head_mode: str,
+    semantic_role_loss_weight: float,
+    sampler_mode: str,
+    gradient_accumulation_steps: int,
+    gradient_checkpointing: bool,
     fit_temperature: bool,
     selection_metric: str,
     warmup_ratio: float,
@@ -1021,6 +1051,12 @@ def _results_logged_signature(
     return {
         "seeds": list(seeds),
         "target_review_rates": list(target_review_rates),
+        "action_input_format": action_input_format,
+        "semantic_role_head_mode": semantic_role_head_mode,
+        "semantic_role_loss_weight": semantic_role_loss_weight,
+        "sampler_mode": sampler_mode,
+        "gradient_accumulation_steps": gradient_accumulation_steps,
+        "gradient_checkpointing": gradient_checkpointing,
         "fit_temperature": fit_temperature,
         "selection_metric": selection_metric,
         "warmup_ratio": warmup_ratio,
@@ -1076,7 +1112,13 @@ def _run_seed(
     epochs: float,
     learning_rate: float,
     batch_size: int,
+    gradient_accumulation_steps: int,
+    gradient_checkpointing: bool,
     max_length: int,
+    action_input_format: str,
+    semantic_role_head_mode: str,
+    semantic_role_loss_weight: float,
+    sampler_mode: str,
     selection_metric: str,
     warmup_ratio: float,
     weight_decay: float,
@@ -1105,7 +1147,13 @@ def _run_seed(
             "epochs": epochs,
             "learning_rate": learning_rate,
             "batch_size": batch_size,
+            "gradient_accumulation_steps": gradient_accumulation_steps,
+            "gradient_checkpointing": gradient_checkpointing,
             "max_length": max_length,
+            "action_input_format": action_input_format,
+            "semantic_role_head_mode": semantic_role_head_mode,
+            "semantic_role_loss_weight": semantic_role_loss_weight,
+            "sampler_mode": sampler_mode,
             "selection_metric": selection_metric,
             "warmup_ratio": warmup_ratio,
             "weight_decay": weight_decay,
@@ -1187,8 +1235,23 @@ def _run_seed(
                     str(learning_rate),
                     "--batch-size",
                     str(batch_size),
+                    "--gradient-accumulation-steps",
+                    str(gradient_accumulation_steps),
+                    *(
+                        ["--gradient-checkpointing"]
+                        if gradient_checkpointing
+                        else []
+                    ),
                     "--max-length",
                     str(max_length),
+                    "--action-input-format",
+                    action_input_format,
+                    "--semantic-role-head-mode",
+                    semantic_role_head_mode,
+                    "--semantic-role-loss-weight",
+                    str(semantic_role_loss_weight),
+                    "--sampler-mode",
+                    sampler_mode,
                     "--selection-metric",
                     selection_metric,
                     "--warmup-ratio",
@@ -1224,6 +1287,8 @@ def _run_seed(
                     str(batch_size),
                     "--max-length",
                     str(max_length),
+                    "--action-input-format",
+                    action_input_format,
                 ],
                 capture_json=True,
             )
@@ -1318,7 +1383,13 @@ def _run_seed(
             "epochs": epochs,
             "learning_rate": learning_rate,
             "batch_size": batch_size,
+            "gradient_accumulation_steps": gradient_accumulation_steps,
+            "gradient_checkpointing": gradient_checkpointing,
             "max_length": max_length,
+            "action_input_format": action_input_format,
+            "semantic_role_head_mode": semantic_role_head_mode,
+            "semantic_role_loss_weight": semantic_role_loss_weight,
+            "sampler_mode": sampler_mode,
             "selection_metric": selection_metric,
             "warmup_ratio": warmup_ratio,
             "weight_decay": weight_decay,
@@ -1393,10 +1464,28 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--epochs", type=float, default=3.0)
     parser.add_argument("--lr", type=float, default=2e-5)
     parser.add_argument("--batch-size", type=int, default=4)
+    parser.add_argument("--gradient-accumulation-steps", type=int, default=1)
+    parser.add_argument("--gradient-checkpointing", action="store_true")
     parser.add_argument("--max-length", type=int, default=384)
     parser.add_argument(
+        "--action-input-format",
+        choices=ACTION_INPUT_FORMAT_CHOICES,
+        default=DEFAULT_ACTION_INPUT_FORMAT,
+    )
+    parser.add_argument(
+        "--semantic-role-head-mode",
+        choices=SEMANTIC_ROLE_HEAD_MODE_CHOICES,
+        default="none",
+    )
+    parser.add_argument("--semantic-role-loss-weight", type=float, default=0.3)
+    parser.add_argument(
+        "--sampler-mode",
+        choices=SAMPLER_MODE_CHOICES,
+        default="none",
+    )
+    parser.add_argument(
         "--selection-metric",
-        choices=["redact_recall", "macro_f1", "accuracy"],
+        choices=["redact_recall", "macro_f1", "accuracy", POLICY_SELECTION_METRIC],
         default="redact_recall",
     )
     parser.add_argument("--warmup-ratio", type=float, default=0.0)
@@ -1409,6 +1498,8 @@ def main(argv: list[str] | None = None) -> None:
     args = parser.parse_args(argv)
 
     run_root = args.run_root
+    if args.selection_metric == POLICY_SELECTION_METRIC and not args.fit_temperature:
+        args.fit_temperature = True
     seeds = tuple(int(chunk.strip()) for chunk in args.seeds.split(",") if chunk.strip())
     if not seeds:
         raise SystemExit("At least one seed is required.")
@@ -1442,7 +1533,13 @@ def main(argv: list[str] | None = None) -> None:
             "epochs": args.epochs,
             "learning_rate": args.lr,
             "batch_size": args.batch_size,
+            "gradient_accumulation_steps": args.gradient_accumulation_steps,
+            "gradient_checkpointing": args.gradient_checkpointing,
             "max_length": args.max_length,
+            "action_input_format": args.action_input_format,
+            "semantic_role_head_mode": args.semantic_role_head_mode,
+            "semantic_role_loss_weight": args.semantic_role_loss_weight,
+            "sampler_mode": args.sampler_mode,
             "selection_metric": args.selection_metric,
             "warmup_ratio": args.warmup_ratio,
             "weight_decay": args.weight_decay,
@@ -1478,7 +1575,13 @@ def main(argv: list[str] | None = None) -> None:
             epochs=args.epochs,
             learning_rate=args.lr,
             batch_size=args.batch_size,
+            gradient_accumulation_steps=args.gradient_accumulation_steps,
+            gradient_checkpointing=args.gradient_checkpointing,
             max_length=args.max_length,
+            action_input_format=args.action_input_format,
+            semantic_role_head_mode=args.semantic_role_head_mode,
+            semantic_role_loss_weight=args.semantic_role_loss_weight,
+            sampler_mode=args.sampler_mode,
             selection_metric=args.selection_metric,
             warmup_ratio=args.warmup_ratio,
             weight_decay=args.weight_decay,
@@ -1669,6 +1772,12 @@ def main(argv: list[str] | None = None) -> None:
         "test_file": str(args.test_file),
         "legacy_math_file": str(args.legacy_math_file),
         "seeds": list(seeds),
+        "gradient_accumulation_steps": args.gradient_accumulation_steps,
+        "gradient_checkpointing": args.gradient_checkpointing,
+        "action_input_format": args.action_input_format,
+        "semantic_role_head_mode": args.semantic_role_head_mode,
+        "semantic_role_loss_weight": args.semantic_role_loss_weight,
+        "sampler_mode": args.sampler_mode,
         "selection_metric": args.selection_metric,
         "warmup_ratio": args.warmup_ratio,
         "weight_decay": args.weight_decay,
@@ -1694,6 +1803,12 @@ def main(argv: list[str] | None = None) -> None:
             run_root=run_root,
             seeds=seeds,
             target_review_rates=target_review_rates,
+            action_input_format=args.action_input_format,
+            semantic_role_head_mode=args.semantic_role_head_mode,
+            semantic_role_loss_weight=args.semantic_role_loss_weight,
+            sampler_mode=args.sampler_mode,
+            gradient_accumulation_steps=args.gradient_accumulation_steps,
+            gradient_checkpointing=args.gradient_checkpointing,
             selection_metric=args.selection_metric,
             warmup_ratio=args.warmup_ratio,
             weight_decay=args.weight_decay,
@@ -1721,6 +1836,12 @@ def main(argv: list[str] | None = None) -> None:
     results_signature = _results_logged_signature(
         seeds=seeds,
         target_review_rates=target_review_rates,
+        action_input_format=args.action_input_format,
+        semantic_role_head_mode=args.semantic_role_head_mode,
+        semantic_role_loss_weight=args.semantic_role_loss_weight,
+        sampler_mode=args.sampler_mode,
+        gradient_accumulation_steps=args.gradient_accumulation_steps,
+        gradient_checkpointing=args.gradient_checkpointing,
         fit_temperature=args.fit_temperature,
         selection_metric=args.selection_metric,
         warmup_ratio=args.warmup_ratio,

@@ -163,6 +163,13 @@ uv run train_action.py \
 `train_action.py` also supports recipe-tuning knobs for seeded ModernBERT experiments. Use
 `--selection-metric macro_f1` to select checkpoints by dev macro F1 instead of redact recall, and
 use `--warmup-ratio` / `--weight-decay` to sweep a bounded training recipe without editing code.
+For the privacy-first action sprint, `train_action.py` now also supports:
+
+- `--action-input-format marked_turn_v1` to wrap the exact target span as `[TGT]...[/TGT]` inside the source turn
+- `--semantic-role-head-mode multitask` plus `--semantic-role-loss-weight 0.3` to add the auxiliary `PRIVATE / CURRICULAR / AMBIGUOUS` head
+- `--sampler-mode subject_action_balanced` to rebalance by subject and action label
+- `--selection-metric selected_policy_10pct_direct_id` to pick the best epoch by direct-ID-plus-deferral behavior instead of raw classifier recall
+- `--gradient-checkpointing` when the marked-turn recipe is too memory-heavy on local MPS runs
 
 When offline, the training and prediction scripts automatically resolve common backbone names like `roberta-base`, `distilroberta-base`, and `ModernBERT-base` to repo-local copies under `models/` when those directories exist.
 
@@ -191,7 +198,7 @@ uv run eval.py \
   --predictions artifacts/predictions/action_test_predictions.jsonl
 ```
 
-`scripts/predict_action.py` writes the predicted label, max-confidence score, and the full per-class probability vector for `REDACT`, `KEEP`, and `REVIEW`.
+`scripts/predict_action.py` writes the predicted action label, max-confidence score, the full per-class probability vector for `REDACT`, `KEEP`, and `REVIEW`, and, when the checkpoint includes the auxiliary head, `predicted_semantic_role` plus `semantic_role_probabilities`.
 
 Evaluate `REVIEW` as a dev-tuned deferral policy instead of a directly learned class:
 
@@ -243,6 +250,14 @@ uv run scripts/run_upchieve_modernbert_seed_suite.py \
 ```
 
 The suite reruns the requested mixed-context recipe for the requested backbone, exports dev/test/math predictions, applies the optional direct-ID override profile, calibrates deferral on dev only, and writes one seed artifact per run plus one aggregate comparison artifact. By default, recipe-tuning suites now live under `artifacts/experiments/modernbert_recipe_tuning/` so they do not mix with older experiment folders. Re-running the same command resumes the latest incomplete suite for that run name inside the selected `--run-root`; pass `--force` to recompute completed seed steps.
+
+The same suite runner can now express the privacy-first branches without code edits:
+
+- Branch A: `--action-input-format marked_turn_v1 --semantic-role-head-mode none --sampler-mode none`
+- Branch B: `--action-input-format marked_turn_v1 --semantic-role-head-mode multitask --sampler-mode subject_action_balanced`
+- Branch C: Branch B plus `--selection-metric selected_policy_10pct_direct_id`; the suite automatically enables `--fit-temperature` for this checkpoint-selection mode
+
+A tracked outcome summary for the March 16, 2026 privacy-first sprint lives in `docs/privacy_first_action_sprint_20260316.md`. Full prediction exports and per-checkpoint probes remain under `artifacts/experiments/modernbert_recipe_tuning/` and are intentionally gitignored.
 
 For temperature-only reevaluation, reuse an existing suite's checkpoints and probability exports without retraining:
 
