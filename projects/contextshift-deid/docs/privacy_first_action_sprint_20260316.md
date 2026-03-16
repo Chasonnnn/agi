@@ -33,6 +33,7 @@ Rejected probes:
 
 - Branch B, marked-turn + multitask + balanced sampler: direct-ID 10% `macro_f1 0.6181`, `redact_recall 0.6471`, but `legacy_math_redact_recall 0.9639`. Report: `/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_020927_upchieve-modernbert-v2-branch-b-multitask-gc/report.md`
 - Branch D, marked-turn + balanced sampler only: direct-ID 10% `macro_f1 0.7329`, `redact_recall 0.5882`, but `legacy_math_redact_recall 0.9699`. Report: `/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_031733_upchieve-modernbert-v2-branch-d-sampler-only-gc/report.md`
+- Branch E scout, marked-turn + best flat-prompt recipe on seed 42: direct-ID 10% `macro_f1 0.7125`, `review_rate 0.1000`, `legacy_math_redact_recall 0.9880`. This preserved the relaxed seed-42 math gate but missed the `> 0.73` promotion threshold and underperformed the current marked-turn seed-42 result (`0.7178`), so it was not promoted to 3 seeds. Report: `/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/modernbert_recipe_tuning/20260316_133741_upchieve-modernbert-v2-branch-e-marked-turn-best-recipe/report.md`
 - Policy-selector probe on Branch A later checkpoints recovered recall on two seeds but reduced held-out macro F1 versus the kept Branch A aggregate. Probe summaries were written under the relevant `checkpoint_selection/checkpoint-2295/policy_probe/` directories.
 
 ## Interpretation
@@ -40,4 +41,5 @@ Rejected probes:
 - Marking the exact target turn helps enough to keep.
 - The auxiliary semantic-role head is not helping in its current form.
 - The balanced sampler is probably increasing privacy sensitivity, but it breaks the legacy-math guard badly enough to reject for now.
+- The combined marked-turn plus best-flat-recipe scout did not show clear additivity. Because it used `macro_f1` checkpoint selection and a recipe copied from the flat prompt setting, the right interpretation is inconclusive / likely overlap, not a hard negative on stacking gains.
 - The next useful step is not another broad backbone sweep. It is targeted error analysis on the kept Branch A predictions to recover some REDACT recall without giving back the stability and utility gains.
