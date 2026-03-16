@@ -18,5 +18,6 @@ DOCS_DIR = REPO_ROOT / "docs"
 EXPECTED_SPLITS = ("train", "dev", "test")
 DEFAULT_CANDIDATE_LABELS = ("O", "B-SUSPECT", "I-SUSPECT")
 DEFAULT_ACTION_LABELS = ("REDACT", "KEEP", "REVIEW")
+DEFAULT_SEMANTIC_ROLE_LABELS = ("PRIVATE", "CURRICULAR", "AMBIGUOUS")
 
 RESULTS_HEADER = "commit\tstage\tprimary_metric\tstatus\tdescription\n"
