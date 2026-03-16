@@ -1,0 +1,29 @@
+{
+  "math_train_file": "/Users/chason/contextshift-deid/data/processed/action/train.jsonl",
+  "upchieve_train_file": "data/processed/action/upchieve_english_social_train.jsonl",
+  "output_file": "/Users/chason/contextshift-deid/data/processed/action/train_mixed_upchieve_english_social_v1.jsonl",
+  "row_count": 2660,
+  "counts_by_source": {
+    "math": 2060,
+    "upchieve": 600
+  },
+  "counts_by_source_subject": {
+    "math": {
+      "math": 2060
+    },
+    "upchieve": {
+      "english": 300,
+      "social_studies": 300
+    }
+  },
+  "counts_by_subject": {
+    "math": 2060,
+    "english": 300,
+    "social_studies": 300
+  },
+  "counts_by_label": {
+    "REDACT": 1517,
+    "KEEP": 1039,
+    "REVIEW": 104
+  }
+}
