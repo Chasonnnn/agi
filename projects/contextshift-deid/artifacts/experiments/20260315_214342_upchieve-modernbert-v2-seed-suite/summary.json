@@ -1,0 +1,669 @@
+{
+  "suite_kind": "upchieve_modernbert_seed_suite",
+  "run_name": "upchieve-modernbert-v2-seed-suite",
+  "suite_root": "/Users/chason/contextshift-deid/artifacts/experiments/20260315_214342_upchieve-modernbert-v2-seed-suite",
+  "seed_run_paths": [
+    "/Users/chason/contextshift-deid/artifacts/experiments/20260315_230719_upchieve-modernbert-v2-seed-suite-seed-13",
+    "/Users/chason/contextshift-deid/artifacts/experiments/20260315_214342_upchieve-modernbert-v2-seed-suite-seed-42",
+    "/Users/chason/contextshift-deid/artifacts/experiments/20260315_231508_upchieve-modernbert-v2-seed-suite-seed-101"
+  ],
+  "model": "ModernBERT-base",
+  "train_file": "/Users/chason/contextshift-deid/data/processed/action/train_mixed_upchieve_english_social_v2.jsonl",
+  "dev_file": "/Users/chason/contextshift-deid/data/processed/action/upchieve_english_social_dev.jsonl",
+  "test_file": "/Users/chason/contextshift-deid/data/processed/action/upchieve_english_social_test.jsonl",
+  "legacy_math_file": "/Users/chason/contextshift-deid/data/processed/action/test.jsonl",
+  "seeds": [
+    13,
+    42,
+    101
+  ],
+  "target_review_rates": [
+    0.05,
+    0.1
+  ],
+  "fit_temperature": false,
+  "historical_anchor_summary": "/Users/chason/contextshift-deid/artifacts/experiments/20260314_224940_upchieve-english-social-mixed-modernbert-v2-b4-l384/summary.json",
+  "historical_anchor_macro_f1": 0.587178,
+  "historical_anchor_note": "The historical ModernBERT v2 result came from a single earlier run before this seeded suite existed. It is kept as reference context only, because the original training path did not control all randomness before model initialization.",
+  "seed_42_anchor_gap": -0.06960645117845121,
+  "base_rows": [
+    {
+      "seed": 13,
+      "variant": "no_rules",
+      "macro_f1": 0.44139508290451684,
+      "accuracy": 0.78,
+      "redact_recall": 0.6470588235294118
+    },
+    {
+      "seed": 13,
+      "variant": "direct_id",
+      "macro_f1": 0.44139508290451684,
+      "accuracy": 0.78,
+      "redact_recall": 0.6470588235294118
+    },
+    {
+      "seed": 42,
+      "variant": "no_rules",
+      "macro_f1": 0.5075280978299286,
+      "accuracy": 0.82,
+      "redact_recall": 0.7647058823529411
+    },
+    {
+      "seed": 42,
+      "variant": "direct_id",
+      "macro_f1": 0.5075280978299286,
+      "accuracy": 0.82,
+      "redact_recall": 0.7647058823529411
+    },
+    {
+      "seed": 101,
+      "variant": "no_rules",
+      "macro_f1": 0.4750733137829912,
+      "accuracy": 0.815,
+      "redact_recall": 0.47058823529411764
+    },
+    {
+      "seed": 101,
+      "variant": "direct_id",
+      "macro_f1": 0.5214061956143404,
+      "accuracy": 0.83,
+      "redact_recall": 0.6470588235294118
+    }
+  ],
+  "seed_rows": [
+    {
+      "seed": 13,
+      "variant": "no_rules",
+      "target_review_rate": 0.05,
+      "strategy": "asymmetric_confidence",
+      "parameters": {
+        "redact_max_confidence": 0.47617938972588714,
+        "keep_max_confidence": 0.6202674004475385
+      },
+      "temperature": 1.0,
+      "dev_review_rate": 0.05,
+      "test_review_rate": 0.045,
+      "macro_f1": 0.5192817251640781,
+      "accuracy": 0.785,
+      "redact_recall": 0.6470588235294118,
+      "curricular_accuracy": 0.9161290322580645,
+      "gold_review_coverage": 0.14285714285714285,
+      "protected_redact_rate": 0.7058823529411765,
+      "redact_leak_rate": 0.2941176470588235,
+      "legacy_math_redact_recall": 1.0,
+      "seed_summary_path": "/Users/chason/contextshift-deid/artifacts/experiments/20260315_230719_upchieve-modernbert-v2-seed-suite-seed-13/training/model"
+    },
+    {
+      "seed": 13,
+      "variant": "no_rules",
+      "target_review_rate": 0.1,
+      "strategy": "asymmetric_confidence",
+      "parameters": {
+        "redact_max_confidence": 0.4841496492668882,
+        "keep_max_confidence": 0.8802208724873031
+      },
+      "temperature": 1.0,
+      "dev_review_rate": 0.095,
+      "test_review_rate": 0.155,
+      "macro_f1": 0.5303038421962063,
+      "accuracy": 0.735,
+      "redact_recall": 0.6470588235294118,
+      "curricular_accuracy": 0.8258064516129032,
+      "gold_review_coverage": 0.2857142857142857,
+      "protected_redact_rate": 0.8823529411764706,
+      "redact_leak_rate": 0.11764705882352944,
+      "legacy_math_redact_recall": 1.0,
+      "seed_summary_path": "/Users/chason/contextshift-deid/artifacts/experiments/20260315_230719_upchieve-modernbert-v2-seed-suite-seed-13/training/model"
+    },
+    {
+      "seed": 13,
+      "variant": "direct_id",
+      "target_review_rate": 0.05,
+      "strategy": "asymmetric_confidence",
+      "parameters": {
+        "redact_max_confidence": 0.47617938972588714,
+        "keep_max_confidence": 0.6202674004475385
+      },
+      "temperature": 1.0,
+      "dev_review_rate": 0.05,
+      "test_review_rate": 0.045,
+      "macro_f1": 0.5192817251640781,
+      "accuracy": 0.785,
+      "redact_recall": 0.6470588235294118,
+      "curricular_accuracy": 0.9161290322580645,
+      "gold_review_coverage": 0.14285714285714285,
+      "protected_redact_rate": 0.7058823529411765,
+      "redact_leak_rate": 0.2941176470588235,
+      "legacy_math_redact_recall": 1.0,
+      "seed_summary_path": "/Users/chason/contextshift-deid/artifacts/experiments/20260315_230719_upchieve-modernbert-v2-seed-suite-seed-13/training/model"
+    },
+    {
+      "seed": 13,
+      "variant": "direct_id",
+      "target_review_rate": 0.1,
+      "strategy": "asymmetric_confidence",
+      "parameters": {
+        "redact_max_confidence": 0.4841496492668882,
+        "keep_max_confidence": 0.8802208724873031
+      },
+      "temperature": 1.0,
+      "dev_review_rate": 0.095,
+      "test_review_rate": 0.155,
+      "macro_f1": 0.5303038421962063,
+      "accuracy": 0.735,
+      "redact_recall": 0.6470588235294118,
+      "curricular_accuracy": 0.8258064516129032,
+      "gold_review_coverage": 0.2857142857142857,
+      "protected_redact_rate": 0.8823529411764706,
+      "redact_leak_rate": 0.11764705882352944,
+      "legacy_math_redact_recall": 1.0,
+      "seed_summary_path": "/Users/chason/contextshift-deid/artifacts/experiments/20260315_230719_upchieve-modernbert-v2-seed-suite-seed-13/training/model"
+    },
+    {
+      "seed": 42,
+      "variant": "no_rules",
+      "target_review_rate": 0.05,
+      "strategy": "asymmetric_margin",
+      "parameters": {
+        "redact_max_redact_keep_margin": 0.3415769458484752,
+        "keep_max_redact_keep_margin": 0.6174182744311405
+      },
+      "temperature": 1.0,
+      "dev_review_rate": 0.045,
+      "test_review_rate": 0.055,
+      "macro_f1": 0.49800216982879525,
+      "accuracy": 0.795,
+      "redact_recall": 0.5882352941176471,
+      "curricular_accuracy": 0.9548387096774194,
+      "gold_review_coverage": 0.03571428571428571,
+      "protected_redact_rate": 0.8823529411764706,
+      "redact_leak_rate": 0.11764705882352944,
+      "legacy_math_redact_recall": 1.0,
+      "seed_summary_path": "/Users/chason/contextshift-deid/artifacts/experiments/20260315_214342_upchieve-modernbert-v2-seed-suite-seed-42/training/model"
+    },
+    {
+      "seed": 42,
+      "variant": "no_rules",
+      "target_review_rate": 0.1,
+      "strategy": "margin",
+      "parameters": {
+        "max_redact_keep_margin": 0.6981004804089738
+      },
+      "temperature": 1.0,
+      "dev_review_rate": 0.075,
+      "test_review_rate": 0.08,
+      "macro_f1": 0.5175715488215488,
+      "accuracy": 0.785,
+      "redact_recall": 0.5882352941176471,
+      "curricular_accuracy": 0.9354838709677419,
+      "gold_review_coverage": 0.07142857142857142,
+      "protected_redact_rate": 0.8823529411764706,
+      "redact_leak_rate": 0.11764705882352944,
+      "legacy_math_redact_recall": 1.0,
+      "seed_summary_path": "/Users/chason/contextshift-deid/artifacts/experiments/20260315_214342_upchieve-modernbert-v2-seed-suite-seed-42/training/model"
+    },
+    {
+      "seed": 42,
+      "variant": "direct_id",
+      "target_review_rate": 0.05,
+      "strategy": "asymmetric_margin",
+      "parameters": {
+        "redact_max_redact_keep_margin": 0.3415769458484752,
+        "keep_max_redact_keep_margin": 0.6174182744311405
+      },
+      "temperature": 1.0,
+      "dev_review_rate": 0.045,
+      "test_review_rate": 0.05,
+      "macro_f1": 0.5110476039268609,
+      "accuracy": 0.8,
+      "redact_recall": 0.6470588235294118,
+      "curricular_accuracy": 0.9548387096774194,
+      "gold_review_coverage": 0.03571428571428571,
+      "protected_redact_rate": 0.8823529411764706,
+      "redact_leak_rate": 0.11764705882352944,
+      "legacy_math_redact_recall": 1.0,
+      "seed_summary_path": "/Users/chason/contextshift-deid/artifacts/experiments/20260315_214342_upchieve-modernbert-v2-seed-suite-seed-42/training/model"
+    },
+    {
+      "seed": 42,
+      "variant": "direct_id",
+      "target_review_rate": 0.1,
+      "strategy": "margin",
+      "parameters": {
+        "max_redact_keep_margin": 0.6981004804089738
+      },
+      "temperature": 1.0,
+      "dev_review_rate": 0.075,
+      "test_review_rate": 0.075,
+      "macro_f1": 0.5312892834695161,
+      "accuracy": 0.79,
+      "redact_recall": 0.6470588235294118,
+      "curricular_accuracy": 0.9354838709677419,
+      "gold_review_coverage": 0.07142857142857142,
+      "protected_redact_rate": 0.8823529411764706,
+      "redact_leak_rate": 0.11764705882352944,
+      "legacy_math_redact_recall": 1.0,
+      "seed_summary_path": "/Users/chason/contextshift-deid/artifacts/experiments/20260315_214342_upchieve-modernbert-v2-seed-suite-seed-42/training/model"
+    },
+    {
+      "seed": 101,
+      "variant": "no_rules",
+      "target_review_rate": 0.05,
+      "strategy": "asymmetric_confidence",
+      "parameters": {
+        "redact_max_confidence": 0.5019325913150663,
+        "keep_max_confidence": 0.9086927248041381
+      },
+      "temperature": 1.0,
+      "dev_review_rate": 0.04,
+      "test_review_rate": 0.055,
+      "macro_f1": 0.5905130787306014,
+      "accuracy": 0.84,
+      "redact_recall": 0.47058823529411764,
+      "curricular_accuracy": 0.9935483870967742,
+      "gold_review_coverage": 0.21428571428571427,
+      "protected_redact_rate": 0.7058823529411765,
+      "redact_leak_rate": 0.2941176470588235,
+      "legacy_math_redact_recall": 0.9879518072289156,
+      "seed_summary_path": "/Users/chason/contextshift-deid/artifacts/experiments/20260315_231508_upchieve-modernbert-v2-seed-suite-seed-101/training/model"
+    },
+    {
+      "seed": 101,
+      "variant": "no_rules",
+      "target_review_rate": 0.1,
+      "strategy": "asymmetric_confidence",
+      "parameters": {
+        "redact_max_confidence": 0.5019325913150663,
+        "keep_max_confidence": 0.9808227609396654
+      },
+      "temperature": 1.0,
+      "dev_review_rate": 0.1,
+      "test_review_rate": 0.085,
+      "macro_f1": 0.5723076923076923,
+      "accuracy": 0.815,
+      "redact_recall": 0.47058823529411764,
+      "curricular_accuracy": 0.9612903225806452,
+      "gold_review_coverage": 0.21428571428571427,
+      "protected_redact_rate": 0.7647058823529411,
+      "redact_leak_rate": 0.23529411764705888,
+      "legacy_math_redact_recall": 0.9879518072289156,
+      "seed_summary_path": "/Users/chason/contextshift-deid/artifacts/experiments/20260315_231508_upchieve-modernbert-v2-seed-suite-seed-101/training/model"
+    },
+    {
+      "seed": 101,
+      "variant": "direct_id",
+      "target_review_rate": 0.05,
+      "strategy": "asymmetric_confidence",
+      "parameters": {
+        "redact_max_confidence": 0.5019325913150663,
+        "keep_max_confidence": 0.9086927248041381
+      },
+      "temperature": 1.0,
+      "dev_review_rate": 0.04,
+      "test_review_rate": 0.05,
+      "macro_f1": 0.6395421177056115,
+      "accuracy": 0.855,
+      "redact_recall": 0.6470588235294118,
+      "curricular_accuracy": 0.9935483870967742,
+      "gold_review_coverage": 0.21428571428571427,
+      "protected_redact_rate": 0.8235294117647058,
+      "redact_leak_rate": 0.17647058823529416,
+      "legacy_math_redact_recall": 0.9879518072289156,
+      "seed_summary_path": "/Users/chason/contextshift-deid/artifacts/experiments/20260315_231508_upchieve-modernbert-v2-seed-suite-seed-101/training/model"
+    },
+    {
+      "seed": 101,
+      "variant": "direct_id",
+      "target_review_rate": 0.1,
+      "strategy": "asymmetric_confidence",
+      "parameters": {
+        "redact_max_confidence": 0.5019325913150663,
+        "keep_max_confidence": 0.9808227609396654
+      },
+      "temperature": 1.0,
+      "dev_review_rate": 0.1,
+      "test_review_rate": 0.075,
+      "macro_f1": 0.6218298401760934,
+      "accuracy": 0.83,
+      "redact_recall": 0.6470588235294118,
+      "curricular_accuracy": 0.9612903225806452,
+      "gold_review_coverage": 0.21428571428571427,
+      "protected_redact_rate": 0.8235294117647058,
+      "redact_leak_rate": 0.17647058823529416,
+      "legacy_math_redact_recall": 0.9879518072289156,
+      "seed_summary_path": "/Users/chason/contextshift-deid/artifacts/experiments/20260315_231508_upchieve-modernbert-v2-seed-suite-seed-101/training/model"
+    }
+  ],
+  "aggregate_rows": [
+    {
+      "variant": "no_rules",
+      "target_review_rate": 0.05,
+      "macro_f1_values": [
+        0.5192817251640781,
+        0.49800216982879525,
+        0.5905130787306014
+      ],
+      "accuracy_values": [
+        0.785,
+        0.795,
+        0.84
+      ],
+      "redact_recall_values": [
+        0.6470588235294118,
+        0.5882352941176471,
+        0.47058823529411764
+      ],
+      "curricular_accuracy_values": [
+        0.9161290322580645,
+        0.9548387096774194,
+        0.9935483870967742
+      ],
+      "gold_review_coverage_values": [
+        0.14285714285714285,
+        0.03571428571428571,
+        0.21428571428571427
+      ],
+      "review_rate_values": [
+        0.045,
+        0.055,
+        0.055
+      ],
+      "protected_redact_rate_values": [
+        0.7058823529411765,
+        0.8823529411764706,
+        0.7058823529411765
+      ],
+      "redact_leak_rate_values": [
+        0.2941176470588235,
+        0.11764705882352944,
+        0.2941176470588235
+      ],
+      "legacy_math_redact_recall_values": [
+        1.0,
+        1.0,
+        0.9879518072289156
+      ],
+      "macro_f1_text": "0.5359 \u00b1 0.0485",
+      "accuracy_text": "0.8067 \u00b1 0.0293",
+      "redact_recall_text": "0.5686 \u00b1 0.0899",
+      "curricular_accuracy_text": "0.9548 \u00b1 0.0387",
+      "gold_review_coverage_text": "0.1310 \u00b1 0.0899",
+      "review_rate_text": "0.0517 \u00b1 0.0058",
+      "protected_redact_rate_text": "0.7647 \u00b1 0.1019",
+      "redact_leak_rate_text": "0.2353 \u00b1 0.1019",
+      "legacy_math_redact_recall_text": "0.9960 \u00b1 0.0070"
+    },
+    {
+      "variant": "no_rules",
+      "target_review_rate": 0.1,
+      "macro_f1_values": [
+        0.5303038421962063,
+        0.5175715488215488,
+        0.5723076923076923
+      ],
+      "accuracy_values": [
+        0.735,
+        0.785,
+        0.815
+      ],
+      "redact_recall_values": [
+        0.6470588235294118,
+        0.5882352941176471,
+        0.47058823529411764
+      ],
+      "curricular_accuracy_values": [
+        0.8258064516129032,
+        0.9354838709677419,
+        0.9612903225806452
+      ],
+      "gold_review_coverage_values": [
+        0.2857142857142857,
+        0.07142857142857142,
+        0.21428571428571427
+      ],
+      "review_rate_values": [
+        0.155,
+        0.08,
+        0.085
+      ],
+      "protected_redact_rate_values": [
+        0.8823529411764706,
+        0.8823529411764706,
+        0.7647058823529411
+      ],
+      "redact_leak_rate_values": [
+        0.11764705882352944,
+        0.11764705882352944,
+        0.23529411764705888
+      ],
+      "legacy_math_redact_recall_values": [
+        1.0,
+        1.0,
+        0.9879518072289156
+      ],
+      "macro_f1_text": "0.5401 \u00b1 0.0286",
+      "accuracy_text": "0.7783 \u00b1 0.0404",
+      "redact_recall_text": "0.5686 \u00b1 0.0899",
+      "curricular_accuracy_text": "0.9075 \u00b1 0.0719",
+      "gold_review_coverage_text": "0.1905 \u00b1 0.1091",
+      "review_rate_text": "0.1067 \u00b1 0.0419",
+      "protected_redact_rate_text": "0.8431 \u00b1 0.0679",
+      "redact_leak_rate_text": "0.1569 \u00b1 0.0679",
+      "legacy_math_redact_recall_text": "0.9960 \u00b1 0.0070"
+    },
+    {
+      "variant": "direct_id",
+      "target_review_rate": 0.05,
+      "macro_f1_values": [
+        0.5192817251640781,
+        0.5110476039268609,
+        0.6395421177056115
+      ],
+      "accuracy_values": [
+        0.785,
+        0.8,
+        0.855
+      ],
+      "redact_recall_values": [
+        0.6470588235294118,
+        0.6470588235294118,
+        0.6470588235294118
+      ],
+      "curricular_accuracy_values": [
+        0.9161290322580645,
+        0.9548387096774194,
+        0.9935483870967742
+      ],
+      "gold_review_coverage_values": [
+        0.14285714285714285,
+        0.03571428571428571,
+        0.21428571428571427
+      ],
+      "review_rate_values": [
+        0.045,
+        0.05,
+        0.05
+      ],
+      "protected_redact_rate_values": [
+        0.7058823529411765,
+        0.8823529411764706,
+        0.8235294117647058
+      ],
+      "redact_leak_rate_values": [
+        0.2941176470588235,
+        0.11764705882352944,
+        0.17647058823529416
+      ],
+      "legacy_math_redact_recall_values": [
+        1.0,
+        1.0,
+        0.9879518072289156
+      ],
+      "macro_f1_text": "0.5566 \u00b1 0.0719",
+      "accuracy_text": "0.8133 \u00b1 0.0369",
+      "redact_recall_text": "0.6471 \u00b1 0.0000",
+      "curricular_accuracy_text": "0.9548 \u00b1 0.0387",
+      "gold_review_coverage_text": "0.1310 \u00b1 0.0899",
+      "review_rate_text": "0.0483 \u00b1 0.0029",
+      "protected_redact_rate_text": "0.8039 \u00b1 0.0899",
+      "redact_leak_rate_text": "0.1961 \u00b1 0.0899",
+      "legacy_math_redact_recall_text": "0.9960 \u00b1 0.0070"
+    },
+    {
+      "variant": "direct_id",
+      "target_review_rate": 0.1,
+      "macro_f1_values": [
+        0.5303038421962063,
+        0.5312892834695161,
+        0.6218298401760934
+      ],
+      "accuracy_values": [
+        0.735,
+        0.79,
+        0.83
+      ],
+      "redact_recall_values": [
+        0.6470588235294118,
+        0.6470588235294118,
+        0.6470588235294118
+      ],
+      "curricular_accuracy_values": [
+        0.8258064516129032,
+        0.9354838709677419,
+        0.9612903225806452
+      ],
+      "gold_review_coverage_values": [
+        0.2857142857142857,
+        0.07142857142857142,
+        0.21428571428571427
+      ],
+      "review_rate_values": [
+        0.155,
+        0.075,
+        0.075
+      ],
+      "protected_redact_rate_values": [
+        0.8823529411764706,
+        0.8823529411764706,
+        0.8235294117647058
+      ],
+      "redact_leak_rate_values": [
+        0.11764705882352944,
+        0.11764705882352944,
+        0.17647058823529416
+      ],
+      "legacy_math_redact_recall_values": [
+        1.0,
+        1.0,
+        0.9879518072289156
+      ],
+      "macro_f1_text": "0.5611 \u00b1 0.0526",
+      "accuracy_text": "0.7850 \u00b1 0.0477",
+      "redact_recall_text": "0.6471 \u00b1 0.0000",
+      "curricular_accuracy_text": "0.9075 \u00b1 0.0719",
+      "gold_review_coverage_text": "0.1905 \u00b1 0.1091",
+      "review_rate_text": "0.1017 \u00b1 0.0462",
+      "protected_redact_rate_text": "0.8627 \u00b1 0.0340",
+      "redact_leak_rate_text": "0.1373 \u00b1 0.0340",
+      "legacy_math_redact_recall_text": "0.9960 \u00b1 0.0070"
+    }
+  ],
+  "base_vs_selected_rows": [
+    {
+      "variant": "no_rules",
+      "target_review_rate": 0.05,
+      "base_macro_f1_text": "0.4747 \u00b1 0.0331",
+      "selected_macro_f1_text": "0.5359 \u00b1 0.0485",
+      "delta_macro_f1_text": "+0.0613",
+      "base_accuracy_text": "0.8050 \u00b1 0.0218",
+      "selected_accuracy_text": "0.8067 \u00b1 0.0293",
+      "delta_accuracy_text": "+0.0017",
+      "base_redact_recall_text": "0.6275 \u00b1 0.1480",
+      "selected_redact_recall_text": "0.5686 \u00b1 0.0899",
+      "delta_redact_recall_text": "-0.0588"
+    },
+    {
+      "variant": "no_rules",
+      "target_review_rate": 0.1,
+      "base_macro_f1_text": "0.4747 \u00b1 0.0331",
+      "selected_macro_f1_text": "0.5401 \u00b1 0.0286",
+      "delta_macro_f1_text": "+0.0654",
+      "base_accuracy_text": "0.8050 \u00b1 0.0218",
+      "selected_accuracy_text": "0.7783 \u00b1 0.0404",
+      "delta_accuracy_text": "-0.0267",
+      "base_redact_recall_text": "0.6275 \u00b1 0.1480",
+      "selected_redact_recall_text": "0.5686 \u00b1 0.0899",
+      "delta_redact_recall_text": "-0.0588"
+    },
+    {
+      "variant": "direct_id",
+      "target_review_rate": 0.05,
+      "base_macro_f1_text": "0.4901 \u00b1 0.0428",
+      "selected_macro_f1_text": "0.5566 \u00b1 0.0719",
+      "delta_macro_f1_text": "+0.0665",
+      "base_accuracy_text": "0.8100 \u00b1 0.0265",
+      "selected_accuracy_text": "0.8133 \u00b1 0.0369",
+      "delta_accuracy_text": "+0.0033",
+      "base_redact_recall_text": "0.6863 \u00b1 0.0679",
+      "selected_redact_recall_text": "0.6471 \u00b1 0.0000",
+      "delta_redact_recall_text": "-0.0392"
+    },
+    {
+      "variant": "direct_id",
+      "target_review_rate": 0.1,
+      "base_macro_f1_text": "0.4901 \u00b1 0.0428",
+      "selected_macro_f1_text": "0.5611 \u00b1 0.0526",
+      "delta_macro_f1_text": "+0.0710",
+      "base_accuracy_text": "0.8100 \u00b1 0.0265",
+      "selected_accuracy_text": "0.7850 \u00b1 0.0477",
+      "delta_accuracy_text": "-0.0250",
+      "base_redact_recall_text": "0.6863 \u00b1 0.0679",
+      "selected_redact_recall_text": "0.6471 \u00b1 0.0000",
+      "delta_redact_recall_text": "-0.0392"
+    }
+  ],
+  "historical_backbone_rows": [
+    {
+      "label": "ModernBERT-base v2 (historical, uncontrolled seed)",
+      "summary_file": "/Users/chason/contextshift-deid/artifacts/experiments/20260314_224940_upchieve-english-social-mixed-modernbert-v2-b4-l384/summary.json",
+      "macro_f1": 0.5871775025799794,
+      "review_rate": 0.115
+    },
+    {
+      "label": "roberta-base v1 from math",
+      "summary_file": "/Users/chason/contextshift-deid/artifacts/experiments/20260314_193820_upchieve-english-social-mixed-roberta-base-v1-from-math-b4-l384/summary.json",
+      "macro_f1": 0.4882312534486448,
+      "review_rate": 0.085
+    },
+    {
+      "label": "roberta-base v1 fresh",
+      "summary_file": "/Users/chason/contextshift-deid/artifacts/experiments/20260314_201224_upchieve-english-social-mixed-roberta-base-v1-b4-l384-fresh/summary.json",
+      "macro_f1": 0.5647243107769423,
+      "review_rate": 0.14
+    },
+    {
+      "label": "roberta-base v2",
+      "summary_file": "/Users/chason/contextshift-deid/artifacts/experiments/20260314_225018_upchieve-english-social-mixed-roberta-base-v2-b4-l384-fresh/summary.json",
+      "macro_f1": 0.40904606150890027,
+      "review_rate": 0.085
+    },
+    {
+      "label": "distilroberta-base v1 from math",
+      "summary_file": "/Users/chason/contextshift-deid/artifacts/experiments/20260314_193849_upchieve-english-social-mixed-distilroberta-v1-from-math-b4-l384/summary.json",
+      "macro_f1": 0.5163962616045592,
+      "review_rate": 0.05
+    },
+    {
+      "label": "distilroberta-base v1 fresh",
+      "summary_file": "/Users/chason/contextshift-deid/artifacts/experiments/20260314_201314_upchieve-english-social-mixed-distilroberta-v1-b4-l384-fresh/summary.json",
+      "macro_f1": 0.5119942713927675,
+      "review_rate": 0.145
+    },
+    {
+      "label": "distilroberta-base v2",
+      "summary_file": "/Users/chason/contextshift-deid/artifacts/experiments/20260314_225845_upchieve-english-social-mixed-distilroberta-v2-b4-l384-fresh/summary.json",
+      "macro_f1": 0.4708498023715415,
+      "review_rate": 0.09
+    }
+  ]
+}

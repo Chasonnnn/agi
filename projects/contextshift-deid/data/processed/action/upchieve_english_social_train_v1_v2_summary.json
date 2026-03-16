@@ -1,0 +1,31 @@
+{
+  "input_files": [
+    "data/processed/action/upchieve_english_social_train.jsonl",
+    "data/processed/action/upchieve_english_social_train_v2.jsonl"
+  ],
+  "output_file": "data/processed/action/upchieve_english_social_train_v1_v2.jsonl",
+  "row_count": 1000,
+  "counts_by_input": {
+    "data/processed/action/upchieve_english_social_train.jsonl": 600,
+    "data/processed/action/upchieve_english_social_train_v2.jsonl": 400
+  },
+  "counts_by_input_subject": {
+    "data/processed/action/upchieve_english_social_train.jsonl": {
+      "english": 300,
+      "social_studies": 300
+    },
+    "data/processed/action/upchieve_english_social_train_v2.jsonl": {
+      "english": 200,
+      "social_studies": 200
+    }
+  },
+  "counts_by_subject": {
+    "english": 500,
+    "social_studies": 500
+  },
+  "counts_by_label": {
+    "KEEP": 669,
+    "REVIEW": 102,
+    "REDACT": 229
+  }
+}
