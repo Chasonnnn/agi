@@ -224,6 +224,26 @@ def main(argv: list[str] | None = None) -> None:
     trainer.save_model(str(args.output_dir))
     tokenizer.save_pretrained(str(args.output_dir))
     (args.output_dir / "metrics.json").write_text(json.dumps(metrics, indent=2), encoding="utf-8")
+    (args.output_dir / "metadata.json").write_text(
+        json.dumps(
+            {
+                "model": str(args.model),
+                "resolved_model": str(resolved_model),
+                "train_file": str(args.train_file),
+                "dev_file": str(args.dev_file),
+                "output_dir": str(args.output_dir),
+                "epochs": args.epochs,
+                "lr": args.lr,
+                "batch_size": args.batch_size,
+                "max_length": args.max_length,
+                "context_mode": args.context_mode,
+                "selection_metric": args.selection_metric,
+                "prediction_file": str(args.prediction_file),
+            },
+            indent=2,
+        ),
+        encoding="utf-8",
+    )
     args.prediction_file.parent.mkdir(parents=True, exist_ok=True)
     predicted_token_ids = prediction_output.predictions.argmax(axis=-1)
     with args.prediction_file.open("w", encoding="utf-8") as handle:
