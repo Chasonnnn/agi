@@ -19,7 +19,6 @@ from contextshift_deid.candidate_audit import compute_candidate_audit_metrics, m
 from contextshift_deid.constants import CANDIDATE_DIR, RESULTS_HEADER
 from contextshift_deid.data import load_jsonl
 from contextshift_deid.experiment_runs import EXPERIMENTS_DIR, create_experiment_run, slugify, write_run_metadata
-from contextshift_deid.ground_truth_candidate import UPCHIEVE_RARE_TYPES
 from contextshift_deid.tokenization import tokenize_with_offsets
 
 RESULTS_PATH = ROOT / "results.tsv"
