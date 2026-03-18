@@ -24,7 +24,7 @@ Winner guardrails:
 
 - highest `min(UpChieve test recall, Saga recall)`
 - UpChieve dev `candidate_volume_multiplier <= 3.0`
-- legacy imported-math recall drop `<= 0.01` versus the incumbent
+- legacy math recall drop `<= 0.01` versus the incumbent
 
 ## Results
 
@@ -35,7 +35,7 @@ Winner guardrails:
 | ModernBERT 1-epoch math | `0.9033` | `1.1561` | `0.9211` | `0.8458` | `0.8878` | `no` |
 | DeBERTa-v3-small math | `0.0000` | `0.0000` | `0.0000` | `0.0000` | `0.0000` | `no` |
 
-Raw held-out minimum recall was highest for the locked RoBERTa checkpoint at `0.8568`, but it failed the imported-math recall guard with a `0.0146` absolute drop versus the incumbent. Under the preregistered rule, the incumbent DistilBERT checkpoint remains the winner.
+Raw held-out minimum recall was highest for the locked RoBERTa checkpoint at `0.8568`, but it failed the legacy math recall guard with a `0.0146` absolute drop versus the incumbent. Under the preregistered rule, the incumbent DistilBERT checkpoint remains the winner.
 
 ## Decision
 
@@ -44,7 +44,7 @@ Keep `runs/candidate_math_distilbert_rebuilt` as the candidate backbone for the 
 Reason:
 
 - it is the best fully eligible model under the gold benchmark
-- it preserves imported-math recall
+- it preserves legacy math recall
 - it stays well below the proposal-volume cap
 - its UpChieve rare-type recall is stronger than the other eligible options because the other candidates are not actually eligible
 
