@@ -4,6 +4,7 @@ import argparse
 import json
 import os
 from pathlib import Path
+import shutil
 import statistics
 import subprocess
 import sys
@@ -18,7 +19,13 @@ from contextshift_deid.candidate_adaptation import char_span_to_token_span, labe
 from contextshift_deid.candidate_audit import compute_candidate_audit_metrics, merge_candidate_predictions
 from contextshift_deid.constants import CANDIDATE_DIR, RESULTS_HEADER
 from contextshift_deid.data import load_jsonl
-from contextshift_deid.experiment_runs import EXPERIMENTS_DIR, create_experiment_run, slugify, write_run_metadata
+from contextshift_deid.experiment_runs import (
+    EXPERIMENTS_DIR,
+    ExperimentRunPaths,
+    create_experiment_run,
+    slugify,
+    write_run_metadata,
+)
 from contextshift_deid.tokenization import tokenize_with_offsets
 
 RESULTS_PATH = ROOT / "results.tsv"
@@ -64,6 +71,25 @@ def _write_jsonl(path: Path, rows: Sequence[Mapping[str, Any]]) -> None:
     with path.open("w", encoding="utf-8") as handle:
         for row in rows:
             handle.write(json.dumps(dict(row), ensure_ascii=False) + "\n")
+
+
+def _read_json(path: Path) -> dict[str, Any]:
+    return json.loads(path.read_text(encoding="utf-8"))
+
+
+def _existing_experiment_run(root: Path) -> ExperimentRunPaths:
+    resolved = root.resolve()
+    if not resolved.exists() or not resolved.is_dir():
+        raise FileNotFoundError(f"Resume run dir does not exist: {resolved}")
+    predictions_dir = resolved / "predictions"
+    predictions_dir.mkdir(parents=True, exist_ok=True)
+    return ExperimentRunPaths(
+        root=resolved,
+        predictions_dir=predictions_dir,
+        metadata_path=resolved / "metadata.json",
+        summary_path=resolved / "summary.json",
+        report_path=resolved / "report.md",
+    )
 
 
 def _fmt(value: float | None) -> str:
@@ -159,7 +185,14 @@ def _train_candidate(
     batch_size: int,
     max_length: int,
     context_mode: str,
+    allow_resume: bool = False,
 ) -> None:
+    metrics_path = output_dir / "metrics.json"
+    model_path = output_dir / "model.safetensors"
+    if allow_resume and metrics_path.exists() and model_path.exists():
+        return
+    if allow_resume and output_dir.exists():
+        shutil.rmtree(output_dir)
     _run(
         [
             sys.executable,
@@ -198,6 +231,14 @@ def _evaluate_prediction_run(
     summary_path: Path,
     report_path: Path,
 ) -> dict[str, Any]:
+    if summary_path.exists():
+        metrics = _read_json(summary_path)
+        if not report_path.exists():
+            report_path.write_text(
+                _render_audit_report(label, metrics, gold_file=gold_file, prediction_file=prediction_file),
+                encoding="utf-8",
+            )
+        return metrics
     metrics = _evaluate_audit(gold_file, prediction_file)
     _write_json(summary_path, metrics)
     report_path.write_text(
@@ -297,7 +338,18 @@ def _run_build_benchmark(
     saga_raw_dir: Path,
     output_dir: Path,
     seed: int,
+    allow_resume: bool = False,
 ) -> dict[str, Any]:
+    summary_path = output_dir / "ground_truth_candidate_benchmark_summary.json"
+    if allow_resume and summary_path.exists():
+        required = [
+            output_dir / "upchieve_math_ground_truth_train.jsonl",
+            output_dir / "upchieve_math_ground_truth_dev.jsonl",
+            output_dir / "upchieve_math_ground_truth_test.jsonl",
+            output_dir / "saga27_math_ground_truth_test.jsonl",
+        ]
+        if all(path.exists() for path in required):
+            return _read_json(summary_path)
     _run(
         [
             sys.executable,
@@ -312,8 +364,7 @@ def _run_build_benchmark(
             str(seed),
         ]
     )
-    summary_path = output_dir / "ground_truth_candidate_benchmark_summary.json"
-    return json.loads(summary_path.read_text(encoding="utf-8"))
+    return _read_json(summary_path)
 
 
 def _evaluate_hf_model(
@@ -329,20 +380,23 @@ def _evaluate_hf_model(
     evaluations: dict[str, Any] = {}
     for split_name, gold_file in datasets.items():
         prediction_file = predictions_dir / f"{slugify(label)}_{split_name}_predictions.jsonl"
-        _predict_candidate(
-            model_path=model_path,
-            input_file=gold_file,
-            output_file=prediction_file,
-            batch_size=batch_size,
-            max_length=max_length,
-            context_mode=context_mode,
-        )
+        summary_path = prediction_file.with_suffix(".summary.json")
+        report_path = prediction_file.with_suffix(".report.md")
+        if not (prediction_file.exists() and summary_path.exists()):
+            _predict_candidate(
+                model_path=model_path,
+                input_file=gold_file,
+                output_file=prediction_file,
+                batch_size=batch_size,
+                max_length=max_length,
+                context_mode=context_mode,
+            )
         evaluations[split_name] = _evaluate_prediction_run(
             label=f"{label} {split_name}",
             gold_file=gold_file,
             prediction_file=prediction_file,
-            summary_path=prediction_file.with_suffix(".summary.json"),
-            report_path=prediction_file.with_suffix(".report.md"),
+            summary_path=summary_path,
+            report_path=report_path,
         )
     return evaluations
 
@@ -600,6 +654,7 @@ def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description="Run candidate backbone selection on ground-truth math corpora.")
     parser.add_argument("--run-root", type=Path, default=DEFAULT_RUN_ROOT)
     parser.add_argument("--run-name", default="candidate-model-selection")
+    parser.add_argument("--resume-run-dir", type=Path)
     parser.add_argument(
         "--upchieve-raw-file",
         type=Path,
@@ -618,12 +673,17 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--skip-external-models", action="store_true")
     args = parser.parse_args(argv)
 
-    experiment = create_experiment_run(args.run_name, root_dir=args.run_root)
+    experiment = (
+        _existing_experiment_run(args.resume_run_dir)
+        if args.resume_run_dir is not None
+        else create_experiment_run(args.run_name, root_dir=args.run_root)
+    )
     benchmark_summary = _run_build_benchmark(
         upchieve_raw_file=args.upchieve_raw_file,
         saga_raw_dir=args.saga_raw_dir,
         output_dir=args.candidate_output_dir,
         seed=args.seed,
+        allow_resume=args.resume_run_dir is not None,
     )
     upchieve_files = _upchieve_files(args.candidate_output_dir)
     saga_file = args.candidate_output_dir / "saga27_math_ground_truth_test.jsonl"
@@ -686,6 +746,7 @@ def main(argv: list[str] | None = None) -> None:
             batch_size=config["batch_size"],
             max_length=config["max_length"],
             context_mode=config["context_mode"],
+            allow_resume=args.resume_run_dir is not None,
         )
         evaluations = _evaluate_hf_model(
             label=spec["label"],
@@ -732,6 +793,7 @@ def main(argv: list[str] | None = None) -> None:
                         batch_size=batch_size,
                         max_length=max_length,
                         context_mode=context_mode,
+                        allow_resume=args.resume_run_dir is not None,
                     )
                     evaluations = _evaluate_hf_model(
                         label=f"{model_label}-lr-{lr}-len-{max_length}-ctx-{context_mode}",
