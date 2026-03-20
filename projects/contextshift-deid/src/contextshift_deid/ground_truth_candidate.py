@@ -119,11 +119,12 @@ def build_upchieve_turn_candidate_rows(path: Path) -> tuple[list[dict[str, Any]]
             if gold_spans:
                 positive_turn_count += 1
 
+            neighbor_context = _upchieve_neighbor_turns(transcript, turn_index)
             labels = labels_from_token_spans(
                 len(tokens),
                 [(int(span["token_start"]), int(span["token_end"])) for span in gold_spans],
             )
-            context_text = _upchieve_neighbor_context(transcript, turn_index)
+            context_text = _render_upchieve_neighbor_context(neighbor_context)
             pii_types = sorted({str(span["label"]) for span in gold_spans})
             row_id = f"{dialogue_id}-turn-{_safe_int(turn.get('sequence_id'), default=turn_index)}"
             rows.append(
@@ -144,6 +145,11 @@ def build_upchieve_turn_candidate_rows(path: Path) -> tuple[list[dict[str, Any]]
                         "turn_sequence_id": _safe_int(turn.get("sequence_id"), default=turn_index),
                         "turn_id": turn.get("_id"),
                         "raw_text": turn_text,
+                        "current_raw_text": turn_text,
+                        "prev_turn_text": neighbor_context["previous"]["text"],
+                        "next_turn_text": neighbor_context["next"]["text"],
+                        "prev_speaker_role": neighbor_context["previous"]["role"],
+                        "next_speaker_role": neighbor_context["next"]["role"],
                         "gold_spans": gold_spans,
                         "pii_types": pii_types,
                         "has_positive_label": any(label != "O" for label in labels),
@@ -356,26 +362,59 @@ def _format_turn(role: str | None, text: str) -> str:
     return f"{normalized_role}: {text}"
 
 
-def _upchieve_neighbor_context(transcript: Sequence[Mapping[str, Any]], turn_index: int) -> str:
-    snippets: list[str] = []
+def _upchieve_neighbor_turns(
+    transcript: Sequence[Mapping[str, Any]],
+    turn_index: int,
+) -> dict[str, dict[str, str | None]]:
+    previous = {"text": None, "role": None}
     previous_index = turn_index - 1
     while previous_index >= 0:
         previous_text = str(transcript[previous_index].get("content") or "")
         if previous_text.strip():
-            snippets.append(_format_turn(transcript[previous_index].get("role"), previous_text))
+            previous = {
+                "text": previous_text,
+                "role": str(transcript[previous_index].get("role") or "unknown"),
+            }
             break
         previous_index -= 1
 
     current_text = str(transcript[turn_index].get("content") or "")
-    snippets.append(_format_turn(transcript[turn_index].get("role"), current_text))
+    current = {
+        "text": current_text,
+        "role": str(transcript[turn_index].get("role") or "unknown"),
+    }
 
+    next_turn = {"text": None, "role": None}
     next_index = turn_index + 1
     while next_index < len(transcript):
         next_text = str(transcript[next_index].get("content") or "")
         if next_text.strip():
-            snippets.append(_format_turn(transcript[next_index].get("role"), next_text))
+            next_turn = {
+                "text": next_text,
+                "role": str(transcript[next_index].get("role") or "unknown"),
+            }
             break
         next_index += 1
+
+    return {
+        "previous": previous,
+        "current": current,
+        "next": next_turn,
+    }
+
+
+def _render_upchieve_neighbor_context(neighbor_context: Mapping[str, Mapping[str, str | None]]) -> str:
+    snippets: list[str] = []
+    previous_text = neighbor_context["previous"].get("text")
+    if previous_text:
+        snippets.append(_format_turn(neighbor_context["previous"].get("role"), previous_text))
+
+    current_text = str(neighbor_context["current"].get("text") or "")
+    snippets.append(_format_turn(neighbor_context["current"].get("role"), current_text))
+
+    next_text = neighbor_context["next"].get("text")
+    if next_text:
+        snippets.append(_format_turn(neighbor_context["next"].get("role"), next_text))
     return "\n".join(snippets)
 
 
@@ -494,6 +533,11 @@ def _project_saga_file(path: Path) -> tuple[list[dict[str, Any]], dict[str, Any]
                     "source_file": path.name,
                     "ground_truth_source": payload.get("ground_truth_source"),
                     "raw_text": segment_text,
+                    "current_raw_text": segment_text,
+                    "prev_turn_text": _neighboring_segment_text(segments, segment_index, direction="previous"),
+                    "next_turn_text": _neighboring_segment_text(segments, segment_index, direction="next"),
+                    "prev_speaker_role": None,
+                    "next_speaker_role": None,
                     "segment_index": segment_index,
                     "start_line_index": start_line,
                     "end_line_index": end_line,
@@ -608,21 +652,29 @@ def _neighboring_nonempty_segments(
     index: int,
 ) -> str:
     snippets: list[str] = []
-    previous_index = index - 1
-    while previous_index >= 0:
-        previous_text = segments[previous_index][3]
-        if previous_text.strip():
-            snippets.append(previous_text)
-            break
-        previous_index -= 1
+    previous_text = _neighboring_segment_text(segments, index, direction="previous")
+    if previous_text:
+        snippets.append(previous_text)
 
     snippets.append(segments[index][3])
 
-    next_index = index + 1
-    while next_index < len(segments):
-        next_text = segments[next_index][3]
-        if next_text.strip():
-            snippets.append(next_text)
-            break
-        next_index += 1
+    next_text = _neighboring_segment_text(segments, index, direction="next")
+    if next_text:
+        snippets.append(next_text)
     return "\n".join(snippets)
+
+
+def _neighboring_segment_text(
+    segments: Sequence[tuple[int, int, int, str]],
+    index: int,
+    *,
+    direction: str,
+) -> str | None:
+    step = -1 if direction == "previous" else 1
+    cursor = index + step
+    while 0 <= cursor < len(segments):
+        text = segments[cursor][3]
+        if text.strip():
+            return text
+        cursor += step
+    return None
