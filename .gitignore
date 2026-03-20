@@ -1,0 +1,9 @@
+.DS_Store
+ground-truth/
+
+# Generated local ground-truth candidate benchmark files.
+/projects/contextshift-deid/data/processed/candidate/upchieve_math_ground_truth_train.jsonl
+/projects/contextshift-deid/data/processed/candidate/upchieve_math_ground_truth_dev.jsonl
+/projects/contextshift-deid/data/processed/candidate/upchieve_math_ground_truth_test.jsonl
+/projects/contextshift-deid/data/processed/candidate/saga27_math_ground_truth_test.jsonl
+/projects/contextshift-deid/data/processed/candidate/ground_truth_candidate_benchmark_summary.json
