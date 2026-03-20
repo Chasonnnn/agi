@@ -13,6 +13,14 @@ from datasets import Dataset
 from seqeval.metrics import f1_score, precision_score, recall_score
 from transformers import DataCollatorForTokenClassification, TrainingArguments
 
+from contextshift_deid.candidate_input import (
+    decode_candidate_word_level_predictions,
+    IGNORE_WORD_LABEL,
+    INPUT_FORMATS,
+    build_candidate_model_inputs,
+    resolve_candidate_input_format,
+    tokenize_candidate_batch,
+)
 from contextshift_deid.constants import CANDIDATE_DIR, PREDICTIONS_DIR, RUNS_DIR
 from contextshift_deid.data import validate_candidate_records
 from contextshift_deid.hf import (
@@ -21,21 +29,10 @@ from contextshift_deid.hf import (
     load_tokenizer,
     resolve_model_name_or_path,
 )
-from contextshift_deid.tokenization import tokenize_text
 
 
-def _load_split(path: Path) -> list[dict]:
-    return [
-        {
-            "id": record.id,
-            "tokens": record.tokens,
-            "labels": record.labels,
-            "subject": record.subject,
-            "context_text": record.context_text or "",
-            "context_tokens": tokenize_text(record.context_text or ""),
-        }
-        for record in validate_candidate_records(path)
-    ]
+def _load_split(path: Path, *, input_format: str) -> list[dict]:
+    return build_candidate_model_inputs(validate_candidate_records(path), input_format=input_format)
 
 
 def _build_label_maps(records: list[dict]) -> tuple[list[str], dict[str, int]]:
@@ -45,52 +42,6 @@ def _build_label_maps(records: list[dict]) -> tuple[list[str], dict[str, int]]:
             if label not in labels:
                 labels.append(label)
     return labels, {label: index for index, label in enumerate(labels)}
-
-
-def _tokenize_batch(tokenizer, batch: dict, *, max_length: int, context_mode: str):
-    if context_mode == "pair":
-        return tokenizer(
-            batch["tokens"],
-            batch["context_tokens"],
-            is_split_into_words=True,
-            truncation=True,
-            max_length=max_length,
-        )
-    return tokenizer(
-        batch["tokens"],
-        is_split_into_words=True,
-        truncation=True,
-        max_length=max_length,
-    )
-
-
-def _decode_word_level_predictions(
-    tokenizer,
-    tokens: list[str],
-    predicted_ids,
-    *,
-    max_length: int,
-    id_to_label: dict[int, str],
-    context_tokens: list[str],
-    context_mode: str,
-) -> list[str]:
-    tokenized = _tokenize_batch(
-        tokenizer,
-        {"tokens": tokens, "context_tokens": context_tokens},
-        max_length=max_length,
-        context_mode=context_mode,
-    )
-    word_ids = tokenized.word_ids()
-    sequence_ids = tokenized.sequence_ids()
-    word_predictions = ["O"] * len(tokens)
-    previous_word_idx = None
-    for token_idx, (word_idx, sequence_id) in enumerate(zip(word_ids, sequence_ids)):
-        if sequence_id != 0 or word_idx is None or word_idx == previous_word_idx or word_idx >= len(tokens):
-            previous_word_idx = word_idx
-            continue
-        word_predictions[word_idx] = id_to_label[int(predicted_ids[token_idx])]
-        previous_word_idx = word_idx
-    return word_predictions
 
 
 def main(argv: list[str] | None = None) -> None:
@@ -107,7 +58,12 @@ def main(argv: list[str] | None = None) -> None:
         "--context-mode",
         choices=("none", "pair"),
         default="none",
-        help="Whether to append the turn-window context as a second encoder sequence.",
+        help="Legacy compatibility flag. Maps to turn_only_v1 or pair_context_v1 when --input-format is omitted.",
+    )
+    parser.add_argument(
+        "--input-format",
+        choices=INPUT_FORMATS,
+        help="Candidate input representation. Defaults to a mapping from --context-mode for backward compatibility.",
     )
     parser.add_argument(
         "--selection-metric",
@@ -121,10 +77,16 @@ def main(argv: list[str] | None = None) -> None:
         default=PREDICTIONS_DIR / "candidate_dev_predictions.jsonl",
         help="Where to write dev-set predictions after training.",
     )
+    parser.add_argument("--seed", type=int, default=42)
     args = parser.parse_args(argv)
 
-    train_records = _load_split(args.train_file)
-    dev_records = _load_split(args.dev_file)
+    resolved_input_format = resolve_candidate_input_format(
+        input_format=args.input_format,
+        context_mode=args.context_mode,
+    )
+
+    train_records = _load_split(args.train_file, input_format=resolved_input_format)
+    dev_records = _load_split(args.dev_file, input_format=resolved_input_format)
     label_names, label_to_id = _build_label_maps(train_records + dev_records)
     id_to_label = {index: label for label, index in label_to_id.items()}
 
@@ -143,14 +105,14 @@ def main(argv: list[str] | None = None) -> None:
     dev_columns = dev_dataset.column_names
 
     def tokenize_and_align_labels(examples):
-        tokenized = _tokenize_batch(
+        tokenized = tokenize_candidate_batch(
             tokenizer,
             examples,
             max_length=args.max_length,
-            context_mode=args.context_mode,
+            input_format=resolved_input_format,
         )
-        aligned_labels = []
-        for batch_index, labels in enumerate(examples["labels"]):
+        aligned_labels: list[list[int]] = []
+        for batch_index, word_labels in enumerate(examples["model_word_labels"]):
             word_ids = tokenized.word_ids(batch_index=batch_index)
             sequence_ids = tokenized.sequence_ids(batch_index=batch_index)
             previous_word_idx = None
@@ -159,7 +121,8 @@ def main(argv: list[str] | None = None) -> None:
                 if sequence_id != 0 or word_idx is None:
                     label_ids.append(-100)
                 elif word_idx != previous_word_idx:
-                    label_ids.append(label_to_id[labels[word_idx]])
+                    word_label = str(word_labels[word_idx])
+                    label_ids.append(label_to_id[word_label] if word_label != IGNORE_WORD_LABEL else -100)
                 else:
                     label_ids.append(-100)
                 previous_word_idx = word_idx
@@ -207,6 +170,8 @@ def main(argv: list[str] | None = None) -> None:
         logging_strategy="epoch",
         save_total_limit=2,
         report_to=[],
+        seed=args.seed,
+        data_seed=args.seed,
     )
 
     trainer = OriginalFormatSaveTrainer(
@@ -237,8 +202,10 @@ def main(argv: list[str] | None = None) -> None:
                 "batch_size": args.batch_size,
                 "max_length": args.max_length,
                 "context_mode": args.context_mode,
+                "input_format": resolved_input_format,
                 "selection_metric": args.selection_metric,
                 "prediction_file": str(args.prediction_file),
+                "seed": args.seed,
             },
             indent=2,
         ),
@@ -248,14 +215,22 @@ def main(argv: list[str] | None = None) -> None:
     predicted_token_ids = prediction_output.predictions.argmax(axis=-1)
     with args.prediction_file.open("w", encoding="utf-8") as handle:
         for record, token_prediction_row in zip(dev_records, predicted_token_ids):
-            predicted_labels = _decode_word_level_predictions(
+            tokenized = tokenize_candidate_batch(
                 tokenizer,
-                record["tokens"],
-                token_prediction_row,
+                {
+                    "model_input_tokens": [record["model_input_tokens"]],
+                    "model_input_pair_tokens": [record["model_input_pair_tokens"]],
+                },
                 max_length=args.max_length,
+                input_format=resolved_input_format,
+            )
+            predicted_labels = decode_candidate_word_level_predictions(
+                tokenized,
+                0,
+                original_token_count=len(record["labels"]),
+                predicted_ids=token_prediction_row,
                 id_to_label=id_to_label,
-                context_tokens=record["context_tokens"],
-                context_mode=args.context_mode,
+                decode_map=record["decode_map"],
             )
             if len(predicted_labels) != len(record["labels"]):
                 raise RuntimeError(
@@ -264,11 +239,11 @@ def main(argv: list[str] | None = None) -> None:
                 )
             handle.write(
                 json.dumps(
-                    {
-                        "id": record["id"],
-                        "predicted_labels": predicted_labels,
-                    }
-                )
+                        {
+                            "id": record["id"],
+                            "predicted_labels": predicted_labels,
+                        }
+                    )
                 + "\n"
             )
     print(json.dumps(metrics, indent=2))

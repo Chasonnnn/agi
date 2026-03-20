@@ -12,38 +12,20 @@ SRC_DIR = ROOT / "src"
 if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
+from contextshift_deid.candidate_input import (
+    INPUT_FORMATS,
+    build_candidate_model_inputs,
+    decode_candidate_word_level_predictions,
+    resolve_candidate_input_format,
+    tokenize_candidate_batch,
+)
 from contextshift_deid.constants import CANDIDATE_DIR, PREDICTIONS_DIR
 from contextshift_deid.data import validate_candidate_records
 from contextshift_deid.hf import load_token_classification_model, load_tokenizer, resolve_model_name_or_path
-from contextshift_deid.tokenization import tokenize_text
 
 
-def _load_split(path: Path) -> list[dict]:
-    return [
-        {
-            "id": record.id,
-            "tokens": record.tokens,
-            "labels": record.labels,
-            "subject": record.subject,
-            "context_text": record.context_text or "",
-            "context_tokens": tokenize_text(record.context_text or ""),
-        }
-        for record in validate_candidate_records(path)
-    ]
-
-
-def _decode_word_level_predictions(encoding, batch_index: int, tokens: list[str], predicted_ids, id_to_label: dict[int, str]) -> list[str]:
-    word_ids = encoding.word_ids(batch_index=batch_index)
-    sequence_ids = encoding.sequence_ids(batch_index=batch_index)
-    word_predictions = ["O"] * len(tokens)
-    previous_word_idx = None
-    for token_idx, (word_idx, sequence_id) in enumerate(zip(word_ids, sequence_ids)):
-        if sequence_id != 0 or word_idx is None or word_idx == previous_word_idx or word_idx >= len(tokens):
-            previous_word_idx = word_idx
-            continue
-        word_predictions[word_idx] = id_to_label[int(predicted_ids[token_idx])]
-        previous_word_idx = word_idx
-    return word_predictions
+def _load_split(path: Path, *, input_format: str) -> list[dict]:
+    return build_candidate_model_inputs(validate_candidate_records(path), input_format=input_format)
 
 
 def main(argv: list[str] | None = None) -> None:
@@ -57,11 +39,21 @@ def main(argv: list[str] | None = None) -> None:
         "--context-mode",
         choices=("none", "pair"),
         default="none",
-        help="Whether to append turn-window context as a second encoder sequence.",
+        help="Legacy compatibility flag. Maps to turn_only_v1 or pair_context_v1 when --input-format is omitted.",
+    )
+    parser.add_argument(
+        "--input-format",
+        choices=INPUT_FORMATS,
+        help="Candidate input representation. Defaults to a mapping from --context-mode for backward compatibility.",
     )
     args = parser.parse_args(argv)
 
-    records = _load_split(args.input_file)
+    resolved_input_format = resolve_candidate_input_format(
+        input_format=args.input_format,
+        context_mode=args.context_mode,
+    )
+
+    records = _load_split(args.input_file, input_format=resolved_input_format)
     resolved_model = resolve_model_name_or_path(args.model)
     tokenizer = load_tokenizer(resolved_model)
     model = load_token_classification_model(resolved_model)
@@ -81,38 +73,29 @@ def main(argv: list[str] | None = None) -> None:
     with args.output_file.open("w", encoding="utf-8") as handle:
         for start in range(0, len(records), args.batch_size):
             batch = records[start : start + args.batch_size]
-            batch_tokens = [record["tokens"] for record in batch]
-            if args.context_mode == "pair":
-                batch_context_tokens = [record["context_tokens"] for record in batch]
-                encoding = tokenizer(
-                    batch_tokens,
-                    batch_context_tokens,
-                    is_split_into_words=True,
-                    truncation=True,
-                    max_length=args.max_length,
-                    padding=True,
-                    return_tensors="pt",
-                )
-            else:
-                encoding = tokenizer(
-                    batch_tokens,
-                    is_split_into_words=True,
-                    truncation=True,
-                    max_length=args.max_length,
-                    padding=True,
-                    return_tensors="pt",
-                )
+            encoding = tokenize_candidate_batch(
+                tokenizer,
+                {
+                    "model_input_tokens": [record["model_input_tokens"] for record in batch],
+                    "model_input_pair_tokens": [record["model_input_pair_tokens"] for record in batch],
+                },
+                max_length=args.max_length,
+                input_format=resolved_input_format,
+                padding=True,
+                return_tensors="pt",
+            )
             model_inputs = {key: value.to(device) for key, value in encoding.items()}
             with torch.no_grad():
                 logits = model(**model_inputs).logits
             predicted_token_ids = logits.argmax(dim=-1).detach().cpu().numpy()
             for batch_index, (record, token_prediction_row) in enumerate(zip(batch, predicted_token_ids)):
-                predicted_labels = _decode_word_level_predictions(
+                predicted_labels = decode_candidate_word_level_predictions(
                     encoding,
                     batch_index,
-                    record["tokens"],
-                    token_prediction_row,
-                    id_to_label,
+                    original_token_count=len(record["tokens"]),
+                    predicted_ids=token_prediction_row,
+                    id_to_label=id_to_label,
+                    decode_map=record["decode_map"],
                 )
                 if len(predicted_labels) != len(record["labels"]):
                     raise RuntimeError(
@@ -139,6 +122,7 @@ def main(argv: list[str] | None = None) -> None:
                 "batch_size": args.batch_size,
                 "max_length": args.max_length,
                 "context_mode": args.context_mode,
+                "input_format": resolved_input_format,
                 "device": str(device),
             },
             indent=2,
