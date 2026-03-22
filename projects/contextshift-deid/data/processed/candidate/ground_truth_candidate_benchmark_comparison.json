@@ -1,0 +1,127 @@
+{
+  "notes": "Count-based comparison after normalizing the previous benchmark label inventory into the current math taxonomy.",
+  "sources": {
+    "upchieve": {
+      "positive_counts": {
+        "previous": {
+          "row_count": 115614,
+          "positive_row_count": 1634,
+          "positive_dialogue_count": 609
+        },
+        "current": {
+          "row_count": 115614,
+          "positive_row_count": 1634,
+          "positive_dialogue_count": 609
+        }
+      },
+      "span_counts": {
+        "previous_total": 1744,
+        "current_total": 1744
+      },
+      "canonical_label_counts": {
+        "previous": {
+          "ADDRESS": 62,
+          "AGE": 9,
+          "DATE": 2,
+          "IDENTIFYING_NUMBER": 3,
+          "IP_ADDRESS": 2,
+          "NAME": 1440,
+          "PHONE_NUMBER": 3,
+          "SCHOOL": 71,
+          "TUTOR_PROVIDER": 3,
+          "URL": 149
+        },
+        "current": {
+          "ADDRESS": 62,
+          "AGE": 9,
+          "DATE": 2,
+          "IDENTIFYING_NUMBER": 3,
+          "IP_ADDRESS": 2,
+          "NAME": 1440,
+          "PHONE_NUMBER": 3,
+          "SCHOOL": 71,
+          "TUTOR_PROVIDER": 3,
+          "URL": 149
+        },
+        "delta": {
+          "ADDRESS": 0,
+          "AGE": 0,
+          "DATE": 0,
+          "IDENTIFYING_NUMBER": 0,
+          "IP_ADDRESS": 0,
+          "NAME": 0,
+          "PHONE_NUMBER": 0,
+          "SCHOOL": 0,
+          "TUTOR_PROVIDER": 0,
+          "URL": 0
+        }
+      },
+      "span_delta_after_normalization": {
+        "overlap_count": 1744,
+        "removed_count": 0,
+        "added_count": 0
+      },
+      "renamed_from_previous_labels": {},
+      "removed_labels_after_normalization": {},
+      "new_labels_after_normalization": {}
+    },
+    "saga27": {
+      "positive_counts": {
+        "previous": {
+          "row_count": 13684,
+          "positive_row_count": 575,
+          "positive_dialogue_count": 0
+        },
+        "current": {
+          "row_count": 13684,
+          "positive_row_count": 575,
+          "positive_dialogue_count": 0
+        }
+      },
+      "span_counts": {
+        "previous_total": 732,
+        "current_total": 732
+      },
+      "canonical_label_counts": {
+        "previous": {
+          "ADDRESS": 21,
+          "AGE": 6,
+          "DATE": 1,
+          "IDENTIFYING_NUMBER": 3,
+          "NAME": 690,
+          "SCHOOL": 4,
+          "TUTOR_PROVIDER": 2,
+          "URL": 5
+        },
+        "current": {
+          "ADDRESS": 21,
+          "AGE": 6,
+          "DATE": 1,
+          "IDENTIFYING_NUMBER": 3,
+          "NAME": 690,
+          "SCHOOL": 4,
+          "TUTOR_PROVIDER": 2,
+          "URL": 5
+        },
+        "delta": {
+          "ADDRESS": 0,
+          "AGE": 0,
+          "DATE": 0,
+          "IDENTIFYING_NUMBER": 0,
+          "NAME": 0,
+          "SCHOOL": 0,
+          "TUTOR_PROVIDER": 0,
+          "URL": 0
+        }
+      },
+      "span_delta_after_normalization": {
+        "overlap_count": 732,
+        "removed_count": 0,
+        "added_count": 0
+      },
+      "renamed_from_previous_labels": {},
+      "removed_labels_after_normalization": {},
+      "new_labels_after_normalization": {}
+    }
+  }
+}

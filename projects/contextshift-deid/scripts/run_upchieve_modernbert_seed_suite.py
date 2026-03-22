@@ -23,7 +23,7 @@ if str(SCRIPT_DIR) not in sys.path:
 import evaluate_deferral as deferral_eval
 
 from contextshift_deid.action_features import ACTION_INPUT_FORMAT_CHOICES, DEFAULT_ACTION_INPUT_FORMAT
-from contextshift_deid.constants import RESULTS_HEADER
+from contextshift_deid.constants import LEGACY_EXPERIMENTS_DIR, RESULTS_HEADER
 from contextshift_deid.data import load_jsonl
 from contextshift_deid.direct_id_rules import apply_direct_id_overrides
 from contextshift_deid.experiment_runs import EXPERIMENTS_DIR, ExperimentRunPaths, create_experiment_run, write_run_metadata
@@ -51,44 +51,44 @@ STABILITY_MACRO_F1_DROP_TOLERANCE = 0.005
 HISTORICAL_MODEL_REFERENCES = {
     "ModernBERT-base": {
         "label": "ModernBERT-base v2 (historical, uncontrolled seed)",
-        "path": ROOT / "artifacts/experiments/20260314_224940_upchieve-english-social-mixed-modernbert-v2-b4-l384/summary.json",
+        "path": LEGACY_EXPERIMENTS_DIR / "20260314_224940_upchieve-english-social-mixed-modernbert-v2-b4-l384" / "summary.json",
         "note": "The historical ModernBERT v2 result came from a single earlier run before this seeded suite existed. It is kept as reference context only, because the original training path did not control all randomness before model initialization.",
     },
     "roberta-base": {
         "label": "roberta-base v2 (historical, uncontrolled seed)",
-        "path": ROOT / "artifacts/experiments/20260314_225018_upchieve-english-social-mixed-roberta-base-v2-b4-l384-fresh/summary.json",
+        "path": LEGACY_EXPERIMENTS_DIR / "20260314_225018_upchieve-english-social-mixed-roberta-base-v2-b4-l384-fresh" / "summary.json",
         "note": "The historical roberta-base v2 result came from a single earlier run before this seeded suite existed. It is kept as reference context only, because the original training path did not control all randomness before model initialization.",
     },
     "distilroberta-base": {
         "label": "distilroberta-base v2 (historical, uncontrolled seed)",
-        "path": ROOT / "artifacts/experiments/20260314_225845_upchieve-english-social-mixed-distilroberta-v2-b4-l384-fresh/summary.json",
+        "path": LEGACY_EXPERIMENTS_DIR / "20260314_225845_upchieve-english-social-mixed-distilroberta-v2-b4-l384-fresh" / "summary.json",
         "note": "The historical distilroberta-base v2 result came from a single earlier run before this seeded suite existed. It is kept as reference context only, because the original training path did not control all randomness before model initialization.",
     },
 }
 HISTORICAL_BACKBONE_SUMMARIES = (
     {
         "label": "roberta-base v1 from math",
-        "path": ROOT / "artifacts/experiments/20260314_193820_upchieve-english-social-mixed-roberta-base-v1-from-math-b4-l384/summary.json",
+        "path": LEGACY_EXPERIMENTS_DIR / "20260314_193820_upchieve-english-social-mixed-roberta-base-v1-from-math-b4-l384" / "summary.json",
     },
     {
         "label": "roberta-base v1 fresh",
-        "path": ROOT / "artifacts/experiments/20260314_201224_upchieve-english-social-mixed-roberta-base-v1-b4-l384-fresh/summary.json",
+        "path": LEGACY_EXPERIMENTS_DIR / "20260314_201224_upchieve-english-social-mixed-roberta-base-v1-b4-l384-fresh" / "summary.json",
     },
     {
         "label": "roberta-base v2",
-        "path": ROOT / "artifacts/experiments/20260314_225018_upchieve-english-social-mixed-roberta-base-v2-b4-l384-fresh/summary.json",
+        "path": LEGACY_EXPERIMENTS_DIR / "20260314_225018_upchieve-english-social-mixed-roberta-base-v2-b4-l384-fresh" / "summary.json",
     },
     {
         "label": "distilroberta-base v1 from math",
-        "path": ROOT / "artifacts/experiments/20260314_193849_upchieve-english-social-mixed-distilroberta-v1-from-math-b4-l384/summary.json",
+        "path": LEGACY_EXPERIMENTS_DIR / "20260314_193849_upchieve-english-social-mixed-distilroberta-v1-from-math-b4-l384" / "summary.json",
     },
     {
         "label": "distilroberta-base v1 fresh",
-        "path": ROOT / "artifacts/experiments/20260314_201314_upchieve-english-social-mixed-distilroberta-v1-b4-l384-fresh/summary.json",
+        "path": LEGACY_EXPERIMENTS_DIR / "20260314_201314_upchieve-english-social-mixed-distilroberta-v1-b4-l384-fresh" / "summary.json",
     },
     {
         "label": "distilroberta-base v2",
-        "path": ROOT / "artifacts/experiments/20260314_225845_upchieve-english-social-mixed-distilroberta-v2-b4-l384-fresh/summary.json",
+        "path": LEGACY_EXPERIMENTS_DIR / "20260314_225845_upchieve-english-social-mixed-distilroberta-v2-b4-l384-fresh" / "summary.json",
     },
 )
 

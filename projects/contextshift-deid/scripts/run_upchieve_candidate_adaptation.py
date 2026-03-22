@@ -14,12 +14,19 @@ if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
 from contextshift_deid.candidate_audit import compute_candidate_audit_metrics, merge_candidate_predictions
-from contextshift_deid.constants import ACTION_DIR, CANDIDATE_DIR, RESULTS_HEADER
+from contextshift_deid.constants import (
+    ACTION_DIR,
+    CANDIDATE_DIR,
+    LEGACY_CANDIDATE_DIR,
+    LEGACY_EXPERIMENTS_DIR,
+    LEGACY_RUNS_DIR,
+    RESULTS_HEADER,
+)
 from contextshift_deid.data import load_jsonl
 from contextshift_deid.experiment_runs import EXPERIMENTS_DIR, create_experiment_run, slugify, write_run_metadata
 
 RESULTS_PATH = ROOT / "results.tsv"
-DEFAULT_RUN_ROOT = EXPERIMENTS_DIR / "candidate_adaptation"
+DEFAULT_RUN_ROOT = LEGACY_EXPERIMENTS_DIR / "candidate_adaptation"
 
 
 def _command_env() -> dict[str, str]:
@@ -214,7 +221,7 @@ def main(argv: list[str] | None = None) -> None:
     parser = argparse.ArgumentParser(description="Run the bounded UpChieve candidate recall adaptation sweep.")
     parser.add_argument("--run-root", type=Path, default=DEFAULT_RUN_ROOT)
     parser.add_argument("--run-name", default="upchieve-candidate-recall-adaptation")
-    parser.add_argument("--baseline-model", type=Path, default=ROOT / "runs" / "candidate")
+    parser.add_argument("--baseline-model", type=Path, default=LEGACY_RUNS_DIR / "candidate")
     parser.add_argument("--fallback-model", default="distilroberta-base")
     parser.add_argument("--skip-fallback", action="store_true")
     parser.add_argument(
@@ -261,7 +268,7 @@ def main(argv: list[str] | None = None) -> None:
             "--prefix",
             args.proxy_prefix,
             "--output-dir",
-            str(CANDIDATE_DIR),
+            str(LEGACY_CANDIDATE_DIR),
             "--annotation-dir",
             str(proxy_annotation_dir),
         ]
@@ -272,7 +279,7 @@ def main(argv: list[str] | None = None) -> None:
     upchieve_dev_file = Path(proxy_summary["split_files"]["dev"])
     upchieve_test_file = Path(proxy_summary["split_files"]["test"])
 
-    mixed_train_file = CANDIDATE_DIR / "train_mixed_upchieve_english_social_proxy.jsonl"
+    mixed_train_file = LEGACY_CANDIDATE_DIR / "train_mixed_upchieve_english_social_proxy.jsonl"
     _run(
         [
             sys.executable,

@@ -6,7 +6,7 @@ Date: `2026-03-17`
 
 - Turn the vendored UpChieve English/social action file into a reproducible candidate-stage proxy dataset.
 - Freeze a usable math candidate checkpoint, audit that baseline on the new proxy split plus legacy math holdout, and run a bounded recall-first adaptation sweep.
-- Preserve the full prediction artifacts locally under `/Users/chason/agi/projects/contextshift-deid/artifacts/experiments/candidate_adaptation/20260317_143031_upchieve-candidate-recall-adaptation/`.
+- Preserve the full prediction artifacts locally under `/Users/chason/agi/projects/contextshift-deid/legacy/artifacts/experiments/candidate_adaptation/20260317_143031_upchieve-candidate-recall-adaptation/`.
 
 ## Implemented Changes
 
@@ -23,16 +23,16 @@ Date: `2026-03-17`
 
 - The source action file `/Users/chason/agi/projects/contextshift-deid/data/processed/action/upchieve_english_social_train_v1_v2.jsonl` contains `1000` span-level action rows across `861` unique turns.
 - The proxy candidate builder deduplicated that into full-turn candidate rows and wrote:
-  - `/Users/chason/agi/projects/contextshift-deid/data/processed/candidate/upchieve_english_social_proxy_train.jsonl`
-  - `/Users/chason/agi/projects/contextshift-deid/data/processed/candidate/upchieve_english_social_proxy_dev.jsonl`
-  - `/Users/chason/agi/projects/contextshift-deid/data/processed/candidate/upchieve_english_social_proxy_test.jsonl`
-  - `/Users/chason/agi/projects/contextshift-deid/data/processed/candidate/train_mixed_upchieve_english_social_proxy.jsonl`
+  - `/Users/chason/agi/projects/contextshift-deid/legacy/data/processed/candidate/upchieve_english_social_proxy_train.jsonl`
+  - `/Users/chason/agi/projects/contextshift-deid/legacy/data/processed/candidate/upchieve_english_social_proxy_dev.jsonl`
+  - `/Users/chason/agi/projects/contextshift-deid/legacy/data/processed/candidate/upchieve_english_social_proxy_test.jsonl`
+  - `/Users/chason/agi/projects/contextshift-deid/legacy/data/processed/candidate/train_mixed_upchieve_english_social_proxy.jsonl`
 - Final split sizes were `200 / 80 / 80` with balanced English/social counts.
 - Seed inventory on the proxy test split:
   - `110` action seed spans
   - `36` REDACT seed spans
   - `29` multi-span turns
-- Important correction: the vendored `/Users/chason/agi/projects/contextshift-deid/runs/candidate` checkpoint was a placeholder with near-zero recall and was not a usable frozen baseline. I rebuilt a real math detector at `/Users/chason/agi/projects/contextshift-deid/runs/candidate_math_distilbert_rebuilt` from `distilbert-base-uncased` before running the adaptation sweep.
+- Important correction: the vendored `/Users/chason/agi/projects/contextshift-deid/legacy/runs/candidate` checkpoint was a placeholder with near-zero recall and was not a usable frozen baseline. I rebuilt a real math detector at `/Users/chason/agi/projects/contextshift-deid/runs/candidate_math_distilbert_rebuilt` from `distilbert-base-uncased` before running the adaptation sweep.
 
 ## Baseline Audit
 

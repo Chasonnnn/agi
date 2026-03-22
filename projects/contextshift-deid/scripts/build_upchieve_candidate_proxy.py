@@ -18,7 +18,7 @@ from contextshift_deid.candidate_adaptation import (
     sample_balanced_proxy_splits,
     summarize_proxy_rows,
 )
-from contextshift_deid.constants import ACTION_DIR, ANNOTATION_DIR, CANDIDATE_DIR, RUNS_DIR
+from contextshift_deid.constants import ACTION_DIR, LEGACY_ANNOTATION_DIR, LEGACY_CANDIDATE_DIR, LEGACY_RUNS_DIR
 from contextshift_deid.data import validate_candidate_records
 
 
@@ -71,7 +71,7 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument(
         "--baseline-model",
         type=Path,
-        default=RUNS_DIR / "candidate",
+        default=LEGACY_RUNS_DIR / "candidate",
         help="Frozen math candidate checkpoint used to prioritize missed turns.",
     )
     parser.add_argument("--seed", type=int, default=42)
@@ -83,11 +83,11 @@ def main(argv: list[str] | None = None) -> None:
         default="upchieve_english_social_proxy",
         help="Filename prefix for processed candidate splits.",
     )
-    parser.add_argument("--output-dir", type=Path, default=CANDIDATE_DIR)
+    parser.add_argument("--output-dir", type=Path, default=LEGACY_CANDIDATE_DIR)
     parser.add_argument(
         "--annotation-dir",
         type=Path,
-        default=ANNOTATION_DIR / "upchieve_candidate_adaptation",
+        default=LEGACY_ANNOTATION_DIR / "upchieve_candidate_adaptation",
     )
     parser.add_argument("--baseline-batch-size", type=int, default=16)
     parser.add_argument("--baseline-max-length", type=int, default=256)

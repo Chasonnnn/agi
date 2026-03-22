@@ -17,7 +17,12 @@ if str(SRC_DIR) not in sys.path:
 
 from contextshift_deid.candidate_adaptation import char_span_to_token_span, labels_from_token_spans
 from contextshift_deid.candidate_audit import compute_candidate_audit_metrics, merge_candidate_predictions
-from contextshift_deid.constants import CANDIDATE_DIR, RESULTS_HEADER
+from contextshift_deid.constants import (
+    CANDIDATE_DIR,
+    DEFAULT_SAGA27_MATH_GROUND_TRUTH_DIR,
+    DEFAULT_UPCHIEVE_MATH_GROUND_TRUTH_DIR,
+    RESULTS_HEADER,
+)
 from contextshift_deid.data import load_jsonl
 from contextshift_deid.experiment_runs import (
     EXPERIMENTS_DIR,
@@ -354,7 +359,7 @@ def _run_build_benchmark(
         [
             sys.executable,
             str(ROOT / "scripts" / "build_ground_truth_candidate_benchmark.py"),
-            "--upchieve-raw-file",
+            "--upchieve-raw-dir",
             str(upchieve_raw_file),
             "--saga-raw-dir",
             str(saga_raw_dir),
@@ -656,14 +661,16 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--run-name", default="candidate-model-selection")
     parser.add_argument("--resume-run-dir", type=Path)
     parser.add_argument(
+        "--upchieve-raw-dir",
         "--upchieve-raw-file",
+        dest="upchieve_raw_file",
         type=Path,
-        default=Path("/Users/chason/Downloads/DeID_GT_UPchieve_math_1000transcripts.jsonl"),
+        default=DEFAULT_UPCHIEVE_MATH_GROUND_TRUTH_DIR,
     )
     parser.add_argument(
         "--saga-raw-dir",
         type=Path,
-        default=Path("/Users/chason/Downloads/DeID_GT_Saga_math_27_transcripts"),
+        default=DEFAULT_SAGA27_MATH_GROUND_TRUTH_DIR,
     )
     parser.add_argument("--candidate-output-dir", type=Path, default=CANDIDATE_DIR)
     parser.add_argument("--incumbent-model", type=Path, default=ROOT / "runs" / "candidate_math_distilbert_rebuilt")
@@ -973,6 +980,7 @@ def main(argv: list[str] | None = None) -> None:
     promoted = winning_candidate.get("label") != incumbent_result.get("label") and promotion_delta >= 0.02
 
     compact_benchmark_summary = {
+        "comparison_path": str(args.candidate_output_dir / "ground_truth_candidate_benchmark_comparison.json"),
         "upchieve": {
             "dataset": {
                 "dialogue_count": benchmark_summary["upchieve"]["dataset"]["dialogue_count"],
@@ -1011,8 +1019,9 @@ def main(argv: list[str] | None = None) -> None:
         "",
         "## Benchmark",
         "",
-        f"- UpChieve raw file: `{args.upchieve_raw_file}`",
+        f"- UpChieve raw dir: `{args.upchieve_raw_file}`",
         f"- Saga raw dir: `{args.saga_raw_dir}`",
+        f"- Benchmark comparison: `{args.candidate_output_dir / 'ground_truth_candidate_benchmark_comparison.json'}`",
         f"- Volume cap: `{args.volume_cap:.2f}`",
         f"- Incumbent: `{args.incumbent_model}`",
         "",
@@ -1043,6 +1052,7 @@ def main(argv: list[str] | None = None) -> None:
         experiment.metadata_path,
         {
             "run_name": args.run_name,
+            "upchieve_raw_dir": str(args.upchieve_raw_file),
             "upchieve_raw_file": str(args.upchieve_raw_file),
             "saga_raw_dir": str(args.saga_raw_dir),
             "incumbent_model": str(args.incumbent_model),

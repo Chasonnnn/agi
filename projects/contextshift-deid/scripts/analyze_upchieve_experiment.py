@@ -13,7 +13,7 @@ SRC_DIR = ROOT / "src"
 if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
-from contextshift_deid.constants import ACTION_DIR, PREDICTIONS_DIR
+from contextshift_deid.constants import ACTION_DIR, LEGACY_EXPERIMENTS_DIR, PREDICTIONS_DIR
 from contextshift_deid.data import load_jsonl
 from contextshift_deid.experiment_runs import create_experiment_run, write_run_metadata
 from contextshift_deid.metrics import compute_action_metrics
@@ -21,7 +21,7 @@ from contextshift_deid.metrics import compute_action_metrics
 DEFAULT_GOLD_FILE = ACTION_DIR / "upchieve_english_social_test.jsonl"
 DEFAULT_BASE_PREDICTION_FILE = PREDICTIONS_DIR / "upchieve_english_social_test_predictions_mixed_modernbert_v2_b4_l384.jsonl"
 DEFAULT_SUMMARY_FILE = (
-    ROOT / "artifacts/experiments/20260314_224940_upchieve-english-social-mixed-modernbert-v2-b4-l384/summary.json"
+    LEGACY_EXPERIMENTS_DIR / "20260314_224940_upchieve-english-social-mixed-modernbert-v2-b4-l384" / "summary.json"
 )
 DEFAULT_SELECTED_REVIEW_RATE = 0.10
 DEFAULT_RUN_NAME = "upchieve-modernbert-v2-analysis"

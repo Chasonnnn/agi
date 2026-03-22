@@ -16,7 +16,12 @@ if str(SRC_DIR) not in sys.path:
 
 from contextshift_deid.candidate_input import INPUT_FORMATS, resolve_candidate_input_format
 from contextshift_deid.candidate_audit import compute_candidate_audit_metrics, merge_candidate_predictions
-from contextshift_deid.constants import CANDIDATE_DIR, RESULTS_HEADER
+from contextshift_deid.constants import (
+    CANDIDATE_DIR,
+    DEFAULT_SAGA27_MATH_GROUND_TRUTH_DIR,
+    DEFAULT_UPCHIEVE_MATH_GROUND_TRUTH_DIR,
+    RESULTS_HEADER,
+)
 from contextshift_deid.data import load_jsonl
 from contextshift_deid.experiment_runs import EXPERIMENTS_DIR, create_experiment_run, slugify, write_run_metadata
 
@@ -99,7 +104,7 @@ def _run_build_benchmark(
         [
             sys.executable,
             str(ROOT / "scripts" / "build_ground_truth_candidate_benchmark.py"),
-            "--upchieve-raw-file",
+            "--upchieve-raw-dir",
             str(upchieve_raw_file),
             "--saga-raw-dir",
             str(saga_raw_dir),
@@ -321,14 +326,16 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument("--run-root", type=Path, default=DEFAULT_RUN_ROOT)
     parser.add_argument("--run-name", default="candidate-input-branch-suite")
     parser.add_argument(
+        "--upchieve-raw-dir",
         "--upchieve-raw-file",
+        dest="upchieve_raw_file",
         type=Path,
-        default=Path("/Users/chason/Downloads/DeID_GT_UPchieve_math_1000transcripts.jsonl"),
+        default=DEFAULT_UPCHIEVE_MATH_GROUND_TRUTH_DIR,
     )
     parser.add_argument(
         "--saga-raw-dir",
         type=Path,
-        default=Path("/Users/chason/Downloads/DeID_GT_Saga_math_27_transcripts"),
+        default=DEFAULT_SAGA27_MATH_GROUND_TRUTH_DIR,
     )
     parser.add_argument("--candidate-output-dir", type=Path, default=CANDIDATE_DIR)
     parser.add_argument("--incumbent-model", type=Path, default=ROOT / "runs" / "candidate_math_distilbert_rebuilt")

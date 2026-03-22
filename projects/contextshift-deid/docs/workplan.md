@@ -49,7 +49,7 @@ Tasks:
 - [x] Treat historical single-run numbers as reference context only
 
 Completed artifacts:
-- `artifacts/experiments/20260315_214342_upchieve-modernbert-v2-seed-suite/`
+- `legacy/artifacts/experiments/20260315_214342_upchieve-modernbert-v2-seed-suite/`
 - `artifacts/experiments/20260315_232942_upchieve-roberta-base-v2-seed-suite/`
 - `artifacts/experiments/20260315_234849_upchieve-distilroberta-base-v2-seed-suite/`
 
@@ -197,5 +197,5 @@ not as one apples-to-apples leaderboard.
 - **Primary mainline artifact:** `artifacts/experiments/20260315_234849_upchieve-distilroberta-base-v2-seed-suite/`
 - **Comparison artifacts:**
   - `artifacts/experiments/20260315_232942_upchieve-roberta-base-v2-seed-suite/`
-  - `artifacts/experiments/20260315_214342_upchieve-modernbert-v2-seed-suite/`
+  - `legacy/artifacts/experiments/20260315_214342_upchieve-modernbert-v2-seed-suite/`
 - **Codebook:** `docs/codebook_v3.md`

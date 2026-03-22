@@ -226,7 +226,7 @@ Analyze one frozen UPChieve experiment at the selected review target:
 uv run scripts/analyze_upchieve_experiment.py \
   --gold-file data/processed/action/upchieve_english_social_test.jsonl \
   --base-prediction-file artifacts/predictions/upchieve_english_social_test_predictions_mixed_modernbert_v2_b4_l384.jsonl \
-  --summary-file artifacts/experiments/20260314_224940_upchieve-english-social-mixed-modernbert-v2-b4-l384/summary.json \
+  --summary-file legacy/artifacts/experiments/20260314_224940_upchieve-english-social-mixed-modernbert-v2-b4-l384/summary.json \
   --selected-review-rate 0.10 \
   --run-name upchieve-modernbert-v2-analysis
 ```
@@ -270,7 +270,7 @@ uv run scripts/run_upchieve_modernbert_seed_suite.py \
   --target-review-rates 0.05,0.10 \
   --fit-temperature \
   --recompute-deferral-only \
-  --source-suite-root artifacts/experiments/20260315_214342_upchieve-modernbert-v2-seed-suite
+  --source-suite-root legacy/artifacts/experiments/20260315_214342_upchieve-modernbert-v2-seed-suite
 ```
 
 The reevaluation-only path writes a fresh suite under the selected `--run-root`, points each seed artifact back to the reused training checkpoint, regenerates deferral artifacts, and reports selected-policy stability for the 10% no-rules operating point:

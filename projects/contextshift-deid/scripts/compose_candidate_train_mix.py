@@ -12,7 +12,7 @@ SRC_DIR = ROOT / "src"
 if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
-from contextshift_deid.constants import CANDIDATE_DIR
+from contextshift_deid.constants import CANDIDATE_DIR, LEGACY_CANDIDATE_DIR
 from contextshift_deid.data import load_jsonl, validate_candidate_records
 
 
@@ -40,12 +40,12 @@ def main(argv: list[str] | None = None) -> None:
     parser.add_argument(
         "--upchieve-train-file",
         type=Path,
-        default=CANDIDATE_DIR / "upchieve_english_social_proxy_train.jsonl",
+        default=LEGACY_CANDIDATE_DIR / "upchieve_english_social_proxy_train.jsonl",
     )
     parser.add_argument(
         "--output-file",
         type=Path,
-        default=CANDIDATE_DIR / "train_mixed_upchieve_english_social_proxy.jsonl",
+        default=LEGACY_CANDIDATE_DIR / "train_mixed_upchieve_english_social_proxy.jsonl",
     )
     parser.add_argument("--summary-file", type=Path, help="Defaults to <output>_summary.json")
     args = parser.parse_args(argv)

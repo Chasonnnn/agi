@@ -11,10 +11,11 @@ SRC_DIR = ROOT / "src"
 if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
+from contextshift_deid.constants import LEGACY_EXPERIMENTS_DIR
 from contextshift_deid.experiment_runs import create_experiment_run, write_run_metadata
 
 DEFAULT_BASELINE_SUMMARY_FILE = (
-    ROOT / "artifacts/experiments/20260314_224940_upchieve-english-social-mixed-modernbert-v2-b4-l384/summary.json"
+    LEGACY_EXPERIMENTS_DIR / "20260314_224940_upchieve-english-social-mixed-modernbert-v2-b4-l384" / "summary.json"
 )
 DEFAULT_SELECTED_REVIEW_RATE = 0.10
 DEFAULT_RUN_NAME = "upchieve-llm-compare"

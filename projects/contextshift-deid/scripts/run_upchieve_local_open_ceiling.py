@@ -20,7 +20,7 @@ SRC_DIR = ROOT / "src"
 if str(SRC_DIR) not in sys.path:
     sys.path.insert(0, str(SRC_DIR))
 
-from contextshift_deid.constants import ACTION_DIR, PREDICTIONS_DIR
+from contextshift_deid.constants import ACTION_DIR, LEGACY_EXPERIMENTS_DIR, PREDICTIONS_DIR
 from contextshift_deid.data import load_jsonl
 from contextshift_deid.experiment_runs import create_experiment_run, slugify, write_run_metadata
 from contextshift_deid.metrics import compute_action_metrics
@@ -30,7 +30,7 @@ DEFAULT_MODEL_PATH = ROOT / "models/Qwen3.5-0.8B"
 DEFAULT_RUN_NAME = "upchieve-local-open-ceiling"
 DEFAULT_SELECTED_REVIEW_RATE = 0.10
 DEFAULT_COMPARISON_SUMMARY_FILE = (
-    ROOT / "artifacts/experiments/20260314_224940_upchieve-english-social-mixed-modernbert-v2-b4-l384/summary.json"
+    LEGACY_EXPERIMENTS_DIR / "20260314_224940_upchieve-english-social-mixed-modernbert-v2-b4-l384" / "summary.json"
 )
 DEFAULT_THINKING_MODE = "non-thinking"
 DEFAULT_TORCH_DTYPE = "auto"
