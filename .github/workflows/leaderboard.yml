@@ -10,6 +10,9 @@ permissions:
 
 jobs:
     build-leaderboard:
+      # Forks inherit this workflow, but they should not auto-commit back to
+      # their own default branch every 15 minutes.
+      if: github.repository == 'hyperspaceai/agi'
       runs-on: ubuntu-latest
       steps:
         - uses: actions/checkout@v4
